@@ -38,7 +38,7 @@ public class GrannyGainsHomeController {
     @FXML
     public void initialize() {
         // Load the main image
-        Image logo = new Image(getClass().getResource("img.png").toExternalForm());
+        Image logo = new Image(getClass().getResource("landing.jpg").toExternalForm());
         logoImage.setImage(logo);
     }
 
