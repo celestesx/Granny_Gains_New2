@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.MealsController">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="800" prefWidth="1200" spacing="20.0" style="-fx-background-color: #FFFFFF;">
+            <!-- Title -->
+            <HBox alignment="CENTER" prefHeight="100" spacing="20.0" style="-fx-background-color: #F8F8F8;">
+                <Label style="-fx-font-size: 36px; -fx-font-family: 'Arial Black';" text="Meals" />
+                <Button style="-fx-background-color: transparent; -fx-font-size: 16px;" text="All Recipes" />
+                <Button style="-fx-background-color: transparent; -fx-font-size: 16px;" text="Vegan" />
+                <Button style="-fx-background-color: transparent; -fx-font-size: 16px;" text="Gluten-Free" />
+            </HBox>
+
+            <!-- Subtitle Row -->
+            <Label style="-fx-font-size: 28px; -fx-font-family: 'Arial Black';" text="NEW RECIPES" />
+
+            <!-- Recipes Section -->
+            <HBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #FFFFFF;">
+                <!-- Recipe 1 -->
+                <VBox alignment="CENTER" spacing="10.0">
+                    <ImageView fx:id="meal1Image" fitWidth="300" fitHeight="300" preserveRatio="false" />
+                    <Label style="-fx-font-size: 18px;" text="Mexican Style Bowl" />
+                </VBox>
+
+                <!-- Recipe 2 -->
+                <VBox alignment="CENTER" spacing="10.0">
+                    <ImageView fx:id="meal2Image" fitWidth="300" fitHeight="300" preserveRatio="false" />
+                    <Label style="-fx-font-size: 18px;" text="Shrimp Scampi Spaghetti" />
+                </VBox>
+
+                <!-- Recipe 3 -->
+                <VBox alignment="CENTER" spacing="10.0">
+                    <ImageView fx:id="meal3Image" fitWidth="300" fitHeight="300" preserveRatio="false" />
+                    <Label style="-fx-font-size: 18px;" text="Japanese Poke Bowl" />
+                </VBox>
+            </HBox>
+
+            <!-- Footer with Buttons -->
+            <HBox alignment="CENTER" spacing="20.0">
+                <Button fx:id="backButton" onAction="#handleBackToHome" style="-fx-background-color: transparent; -fx-font-size: 16px; -fx-border-color: black;" text="Go Back" />
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

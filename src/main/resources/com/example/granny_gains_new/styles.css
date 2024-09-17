@@ -1,0 +1,45 @@
+/* styles.css */
+@font-face {
+    font-family: 'Poppins';
+    src: url('Poppins-Regular.ttf');
+}
+
+
+.label-title {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.button {
+    -fx-font-family: 'Poppins';
+    -fx-background-color: #4CAF50;  /* Green background */
+    -fx-text-fill: white;  /* White text */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;  /* Cursor changes to a hand on hover */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.vbox-buttons {
+    -fx-spacing: 15px;
+    -fx-alignment: center;
+   }
+
+ .linear-grad
+ {
+    -fx-background-color: linear-gradient(to bottom left, #00cc66, #3399ff);
+ }
+
+  .linear-grad2
+  {
+     -fx-background-color: linear-gradient(to bottom left, #DAF7A6, #FFC300);
+  }
