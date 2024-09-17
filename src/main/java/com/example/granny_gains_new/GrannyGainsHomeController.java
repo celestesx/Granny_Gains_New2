@@ -29,30 +29,33 @@ public class GrannyGainsHomeController {
     private Button viewServicesButton;
 
     @FXML
+    private Button fitnessButton;
+
+    @FXML
     private Button mealsButton;
 
-    // Initialize method to set up initial states, such as loading the image
+    // Initialize method to set up initial states
     @FXML
     public void initialize() {
         // Load the main image
-        Image logo = new Image(getClass().getResource("HomePage.jpg").toExternalForm());
+        Image logo = new Image(getClass().getResource("img.png").toExternalForm());
         logoImage.setImage(logo);
     }
 
     @FXML
     private void handleViewServices() {
-        // Handle when the user clicks "View Services"
+
         System.out.println("View Services clicked!");
-        // Navigate to another scene or perform any action as per requirement
+
     }
 
     @FXML
     public void handleMeals() {
-        // Retained the original handleMeals function from your old controller
+
         try {
             Stage stage = (Stage) mealsButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Meals_Page.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
+            Scene scene = new Scene(fxmlLoader.load(), 1000, 800);
             stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();

@@ -31,12 +31,12 @@ public class SignInController {
         String password = tfPassword.getText();
 
         // assume the validation is successful
-        if (email.equals("user@example.com") && password.equals("password")) {
+        if (email.equals("user") && password.equals("password")) {
             try {
                 // Load the Granny Gains home page
                 Stage stage = (Stage) ButtonSignin.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("granny_gains_home.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 640, 600);
+                Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
                 stage.setScene(scene);
             } catch (IOException e) {
                 e.printStackTrace();
