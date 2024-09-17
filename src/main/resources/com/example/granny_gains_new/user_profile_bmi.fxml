@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" prefWidth="400" prefHeight="400" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.BMICalculatorController">
+    <Label text="Complete Your Profile" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10">
+        <Label text="Age:"/>
+        <TextField fx:id="tfAge"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Gender:"/>
+        <RadioButton text="Male">
+            <toggleGroup>
+                <ToggleGroup fx:id="gender"/>
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton text="Female" toggleGroup="$gender"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Height (cm):"/>
+        <TextField fx:id="tfHeight"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Weight (kg):"/>
+        <TextField fx:id="tfWeight"/>
+    </HBox>
+
+    <Button fx:id="btnCalculate" text="Calculate BMI"/>
+
+    <Label fx:id="lblBMI"/>
+
+    <Button fx:id="btnSave" text="Save Profile"/>
+</VBox>

@@ -34,7 +34,7 @@ public class SignUpController {
         // After signing up, navigate back to the sign-in page
         try {
             Stage stage = (Stage) Buttonsignup.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sign_in.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("user_profile_bmi.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 640, 600);
             stage.setScene(scene);
         } catch (IOException e) {
