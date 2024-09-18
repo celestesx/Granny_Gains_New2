@@ -9,4 +9,8 @@ module com.example.granny_gains_new {
 
     opens com.example.granny_gains_new to javafx.fxml;
     exports com.example.granny_gains_new;
+    exports com.example.granny_gains_new.controller;
+    opens com.example.granny_gains_new.controller to javafx.fxml;
+    exports com.example.granny_gains_new.database;
+    opens com.example.granny_gains_new.database to javafx.fxml;
 }
