@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.Connection;
 
 public class HelloApplication extends Application {
 
@@ -23,6 +24,10 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+        // Initialize database connection
+        Connection connection = DatabaseConnection.getInstance();
+        //Launch JavaFX application
         launch();
+
     }
 }
