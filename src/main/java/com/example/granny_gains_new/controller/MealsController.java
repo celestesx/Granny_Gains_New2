@@ -35,7 +35,7 @@ public class MealsController {
     @FXML
     protected void handleBackToHome() throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("granny_gains_home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/granny_gains_home.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
         stage.setScene(scene);
     }

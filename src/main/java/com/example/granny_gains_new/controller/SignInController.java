@@ -35,7 +35,7 @@ public class SignInController {
             try {
                 // Load the Granny Gains home page
                 Stage stage = (Stage) ButtonSignin.getScene().getWindow();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("granny_gains_home.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/granny_gains_home.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
                 stage.setScene(scene);
             } catch (IOException e) {
@@ -51,7 +51,7 @@ public class SignInController {
         try {
 
             Stage stage = (Stage) ButtonSignin.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sign_up_page.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_up_page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
             stage.setScene(scene);
         } catch (IOException e) {

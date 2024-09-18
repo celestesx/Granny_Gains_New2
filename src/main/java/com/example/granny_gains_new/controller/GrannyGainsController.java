@@ -56,7 +56,7 @@ public class GrannyGainsController {
     protected void onNextButtonClick() throws IOException {
         Stage stage = (Stage) nextButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("sign_in_page.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
         stage.setScene(scene);
     }
 

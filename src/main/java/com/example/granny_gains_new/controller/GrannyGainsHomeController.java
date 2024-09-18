@@ -57,7 +57,7 @@ public class GrannyGainsHomeController {
 
         try {
             Stage stage = (Stage) mealsButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Meals_Page.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/Meals_Page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
             stage.setScene(scene);
         } catch (IOException e) {
@@ -76,7 +76,7 @@ public class GrannyGainsHomeController {
     private void handleSettings() {
         try {
             Stage stage = (Stage) mealsButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("settings_page.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/settings_page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
             stage.setScene(scene);
         } catch (IOException e) {
