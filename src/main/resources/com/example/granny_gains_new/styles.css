@@ -12,6 +12,13 @@
     -fx-text-fill: #333;
 }
 
+.label-titlewhite {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f7fcf9;
+}
+
 .button {
     -fx-font-family: 'Poppins';
     -fx-background-color: #4CAF50;  /* Green background */

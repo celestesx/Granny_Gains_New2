@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1220.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <VBox prefHeight="200.0" prefWidth="340.0" styleClass="linear-grad" stylesheets="@styles.css" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/settingsprofile.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="120.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label text="User" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="145.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="374.0" prefWidth="340.0">
+               <children>
+                  <HBox prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="51.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8-test-account-50.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="99.0" styleClass="label-titlewhite" stylesheets="@styles.css" text="Profile" textFill="#eeeded">
+                           <opaqueInsets>
+                              <Insets left="30.0" />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="51.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8-clinic-50.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label alignment="BASELINE_LEFT" prefHeight="50.0" prefWidth="247.0" styleClass="label-titlewhite" stylesheets="@styles.css" text="Connect Records" textFill="#eeeded">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="51.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8-text-50.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="176.0" styleClass="label-titlewhite" stylesheets="@styles.css" text="Text Adjuster" textFill="#eeeded">
+                           <opaqueInsets>
+                              <Insets left="30.0" />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="51.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8-help-50.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="133.0" styleClass="label-titlewhite" stylesheets="@styles.css" text="Enquiries" textFill="#eeeded">
+                           <opaqueInsets>
+                              <Insets left="30.0" />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

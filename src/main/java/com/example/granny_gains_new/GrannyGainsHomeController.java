@@ -32,6 +32,9 @@ public class GrannyGainsHomeController {
     private Button fitnessButton;
 
     @FXML
+    private Button SettingsButton;
+
+    @FXML
     private Button mealsButton;
 
     // Initialize method to set up initial states
