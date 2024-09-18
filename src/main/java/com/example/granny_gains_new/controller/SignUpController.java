@@ -66,12 +66,16 @@ public class SignUpController {
         // Insert the user into the database
         insertUserIntoDatabase(user);
 
-        // After signing up, navigate to the user profile page
+        // After signing up, navigate to the user profile page and pass the email
         try {
             Stage stage = (Stage) Buttonsignup.getScene().getWindow();
-            // Make sure the path to user_profile_bmi.fxml is correct
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/user_profile_bmi.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+
+            // Get the controller for the BMI calculator
+            BMICalculatorController bmiController = fxmlLoader.getController();
+            bmiController.setEmail(user.getEmail());  // Pass the email to the BMI controller
+
             stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();

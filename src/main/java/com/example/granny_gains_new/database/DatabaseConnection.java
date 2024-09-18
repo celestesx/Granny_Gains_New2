@@ -31,6 +31,7 @@ public class DatabaseConnection {
             " date_of_birth DATE, " +                   // User's date of birth
             " gender TEXT, " +                          // User's gender
             " height REAL, " +                          // User's height
+            " weight REAL, " +                          // User's weight
             " bmi REAL " +                              // User's body mass index
             "); " +
 

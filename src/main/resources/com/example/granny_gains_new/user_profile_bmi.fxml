@@ -3,37 +3,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER" prefWidth="400" prefHeight="400" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.BMICalculatorController">
-    <Label text="Complete Your Profile" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+<GridPane hgap="20" vgap="10" alignment="CENTER" prefWidth="400" prefHeight="400" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.BMICalculatorController">
 
-    <HBox spacing="10">
-        <Label text="Age:"/>
-        <TextField fx:id="tfAge"/>
-    </HBox>
+    <!-- Title -->
+    <Label text="Complete Your Profile" GridPane.columnSpan="2" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" GridPane.halignment="CENTER"/>
 
-    <HBox spacing="10">
-        <Label text="Gender:"/>
-        <RadioButton text="Male">
+    <!-- Date of Birth -->
+    <Label text="Date of Birth:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+    <DatePicker fx:id="dpDateOfBirth" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-background-color: #ECF0F1; -fx-border-color: #BDC3C7; -fx-padding: 8px;"/>
+
+    <!-- Gender -->
+    <Label text="Gender:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+    <VBox spacing="10" GridPane.rowIndex="2" GridPane.columnIndex="1">
+        <RadioButton text="Male" toggleGroup="$gender" style="-fx-text-fill: #2C3E50;">
             <toggleGroup>
                 <ToggleGroup fx:id="gender"/>
             </toggleGroup>
         </RadioButton>
-        <RadioButton text="Female" toggleGroup="$gender"/>
-    </HBox>
+        <RadioButton text="Female" toggleGroup="$gender" style="-fx-text-fill: #2C3E50;"/>
+        <RadioButton text="Other" toggleGroup="$gender" style="-fx-text-fill: #2C3E50;"/>
+    </VBox>
 
-    <HBox spacing="10">
-        <Label text="Height (cm):"/>
-        <TextField fx:id="tfHeight"/>
-    </HBox>
+    <!-- Height -->
+    <Label text="Height (cm):" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+    <TextField fx:id="tfHeight" GridPane.rowIndex="3" GridPane.columnIndex="1" style="-fx-background-color: #ECF0F1; -fx-border-color: #BDC3C7; -fx-padding: 8px;"/>
 
-    <HBox spacing="10">
-        <Label text="Weight (kg):"/>
-        <TextField fx:id="tfWeight"/>
-    </HBox>
+    <!-- Weight -->
+    <Label text="Weight (kg):" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495E;" />
+    <TextField fx:id="tfWeight" GridPane.rowIndex="4" GridPane.columnIndex="1" style="-fx-background-color: #ECF0F1; -fx-border-color: #BDC3C7; -fx-padding: 8px;"/>
 
-    <Button fx:id="btnCalculate" text="Calculate BMI"/>
+    <!-- Calculate BMI Button -->
+    <Button fx:id="btnCalculate" text="Calculate BMI" GridPane.rowIndex="5" GridPane.columnIndex="0" GridPane.columnSpan="2" style="-fx-background-color: #2ECC71; -fx-text-fill: white; -fx-padding: 10px; -fx-font-size: 14px;" GridPane.halignment="CENTER"/>
 
-    <Label fx:id="lblBMI"/>
+    <!-- BMI Label -->
+    <Label fx:id="lblBMI" GridPane.rowIndex="6" GridPane.columnIndex="0" GridPane.columnSpan="2" style="-fx-font-size: 16px; -fx-text-fill: #E74C3C;" GridPane.halignment="CENTER"/>
 
-    <Button fx:id="btnSave" text="Save Profile"/>
-</VBox>
+    <!-- Save Button -->
+    <Button fx:id="btnSave" text="Save Profile" GridPane.rowIndex="7" GridPane.columnIndex="0" GridPane.columnSpan="2" style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-padding: 10px; -fx-font-size: 14px;" GridPane.halignment="CENTER"/>
+
+</GridPane>
