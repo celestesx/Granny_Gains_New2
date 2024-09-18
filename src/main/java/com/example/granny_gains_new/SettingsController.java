@@ -24,5 +24,16 @@ public class SettingsController {
         Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
         stage.setScene(scene);
     }
+
+    @FXML
+    private Button helpButton;
+
+    @FXML
+    protected void handleToHelp() throws IOException {
+        Stage stage = (Stage) helpButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/help_page.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
+        stage.setScene(scene);
+    }
 }
 

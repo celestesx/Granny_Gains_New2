@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1220.0" style="-fx-background-color: #1d6fc2;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="com.example.granny_gains_new.SettingsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1220.0" style="-fx-background-color: #1d6fc2;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.SettingsController">
    <left>
       <VBox prefHeight="200.0" prefWidth="340.0" style="-fx-background-color: #18528c;" stylesheets="@styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -133,7 +133,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Button fx:id="backButton" onAction="#handleBackToHome" mnemonicParsing="false" prefHeight="49.0" prefWidth="121.0" style="-fx-background-color: #1d6fc2;" stylesheets="@styles.css" text="Back" textFill="WHITE">
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="49.0" prefWidth="121.0" style="-fx-background-color: #1d6fc2;" stylesheets="@styles.css" text="Back" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -263,6 +263,14 @@
                   </TextArea>
                </children>
             </HBox>
+            <Button fx:id="HelpButton" mnemonicParsing="false" onAction="#handleHelpButton" prefHeight="49.0" prefWidth="121.0" style="-fx-background-color: #800000;" stylesheets="@styles.css" text="Help" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="700.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
    </center>
