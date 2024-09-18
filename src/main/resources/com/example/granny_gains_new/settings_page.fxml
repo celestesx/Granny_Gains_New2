@@ -250,7 +250,7 @@
                         <Insets left="80.0" right="50.0" />
                      </padding>
                      <HBox.margin>
-                        <Insets top="35.0" />
+                        <Insets top="40.0" />
                      </HBox.margin>
                   </Label>
                   <TextArea prefHeight="48.0" prefWidth="200.0">
@@ -258,7 +258,7 @@
                         <Insets />
                      </opaqueInsets>
                      <HBox.margin>
-                        <Insets top="35.0" />
+                        <Insets top="40.0" />
                      </HBox.margin>
                   </TextArea>
                </children>

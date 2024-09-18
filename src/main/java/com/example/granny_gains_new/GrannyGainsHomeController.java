@@ -65,29 +65,6 @@ public class GrannyGainsHomeController {
         }
     }
 
-    @FXML
-    private void handleAbout() {
-        // Handle About click if necessary
-        System.out.println("About clicked!");
-    }
-
-    @FXML
-    private void handleServices() {
-        // Handle Services click if necessary
-        System.out.println("Services clicked!");
-    }
-
-    @FXML
-    private void handlePackages() {
-        // Handle Packages click if necessary
-        System.out.println("Packages clicked!");
-    }
-
-    @FXML
-    private void handleContact() {
-        // Handle Contact click if necessary
-        System.out.println("Contact clicked!");
-    }
 
     @FXML
     private void handleFitnessLog() {
@@ -97,7 +74,13 @@ public class GrannyGainsHomeController {
 
     @FXML
     private void handleSettings() {
-        // Handle Settings click if necessary
-        System.out.println("Settings clicked!");
+        try {
+            Stage stage = (Stage) mealsButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("settings_page.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
