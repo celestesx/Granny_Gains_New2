@@ -1,4 +1,4 @@
-package com.example.granny_gains_new;
+package com.example.granny_gains_new.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

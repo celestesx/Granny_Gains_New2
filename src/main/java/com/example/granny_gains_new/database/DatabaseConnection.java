@@ -1,4 +1,4 @@
-package com.example.granny_gains_new;
+package com.example.granny_gains_new.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
