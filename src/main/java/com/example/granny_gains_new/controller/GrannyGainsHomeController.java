@@ -68,7 +68,7 @@ public class GrannyGainsHomeController {
 
     @FXML
     private void handleFitnessLog() {
-        // Handle Fitness Log click if necessary
+
         System.out.println("Fitness Log clicked!");
     }
 

@@ -63,7 +63,7 @@ public class GrannyGainsController {
     @FXML
     private void handleNextButton(ActionEvent event) {
         try {
-            // Load the home FXML file directly
+
             Parent homeRoot = FXMLLoader.load(getClass().getResource("sign_in_page.fxml"));
 
             // Get the current stage
