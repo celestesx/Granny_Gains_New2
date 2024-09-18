@@ -1,4 +1,5 @@
-package com.example.granny_gains_new;
+package com.example.granny_gains_new.controller;
+import com.example.granny_gains_new.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
