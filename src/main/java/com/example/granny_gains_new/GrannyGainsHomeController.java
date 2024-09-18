@@ -38,7 +38,7 @@ public class GrannyGainsHomeController {
     @FXML
     public void initialize() {
         // Load the main image
-        Image logo = new Image(getClass().getResource("landing.jpg").toExternalForm());
+        Image logo = new Image(getClass().getResource("/com/example/granny_gains_new/images/landing.jpg").toExternalForm());
         logoImage.setImage(logo);
     }
 
@@ -55,7 +55,7 @@ public class GrannyGainsHomeController {
         try {
             Stage stage = (Stage) mealsButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Meals_Page.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1000, 800);
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
             stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();

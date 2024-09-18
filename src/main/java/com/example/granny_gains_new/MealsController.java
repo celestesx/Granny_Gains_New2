@@ -27,9 +27,9 @@ public class MealsController {
     @FXML
     public void initialize() {
         // Load the images for the meals
-        meal1Image.setImage(new Image(getClass().getResourceAsStream("meal1.jpg")));
-        meal2Image.setImage(new Image(getClass().getResourceAsStream("meal2.jpg")));
-        meal3Image.setImage(new Image(getClass().getResourceAsStream("meal3.jpg")));
+        meal1Image.setImage(new Image(getClass().getResourceAsStream("/com/example/granny_gains_new/images/meal1.jpg")));
+        meal2Image.setImage(new Image(getClass().getResourceAsStream("/com/example/granny_gains_new/images/meal2.jpg")));
+        meal3Image.setImage(new Image(getClass().getResourceAsStream("/com/example/granny_gains_new/images/meal3.jpg")));
     }
 
     @FXML
