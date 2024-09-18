@@ -25,6 +25,8 @@ public class DatabaseConnection {
             "CREATE TABLE IF NOT EXISTS User (" +
             " email TEXT PRIMARY KEY, " +               // Primary key (unique identifier) for the user (email)
             " password TEXT NOT NULL, " +               // User's password
+            " first_name TEXT, " +                      // User's first name
+            " last_name TEXT, " +                       // User's last name
             " secret_answer TEXT, " +                   // Secret answer for security questions (missing comma fixed)
             " date_of_birth DATE, " +                   // User's date of birth
             " gender TEXT, " +                          // User's gender
