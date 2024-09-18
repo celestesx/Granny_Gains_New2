@@ -26,6 +26,25 @@ public class SignUpController {
     @FXML
     private Button Buttonsignup;
 
+
+    @FXML
+    private Button BackToSignIn;
+
+
+    @FXML
+    protected void handleBackToSignIn() {
+
+
+        try {
+            Stage stage = (Stage) Buttonsignup.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sign_in_page.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     protected void handleSignUp() {
 
@@ -34,8 +53,8 @@ public class SignUpController {
         // After signing up, navigate back to the sign-in page
         try {
             Stage stage = (Stage) Buttonsignup.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("user_profile_bmi.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 640, 600);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sign_in_page.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 800, 600);
             stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
