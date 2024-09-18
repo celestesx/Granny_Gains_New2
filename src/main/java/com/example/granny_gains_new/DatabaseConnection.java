@@ -1,24 +1,29 @@
 package com.example.granny_gains_new;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
+
+    // Singleton instance
     private static Connection instance = null;
 
-    private DatabaseConnection() {
-        String url = "jdbc:sqlite:database.db";
-        try {
-            instance = DriverManager.getConnection(url);
-        } catch (SQLException sqlEx) {
-            System.err.println(sqlEx);
-        }
-    }
+    // Private constructor to prevent instantiation
+    private DatabaseConnection() { }
 
-    public static Connection getInstance() {
+    // Thread-safe method to get the singleton instance of the connection
+    public static synchronized Connection getInstance() {
         if (instance == null) {
-            new DatabaseConnection();
+            try {
+                String url = "jdbc:sqlite:database.db";
+                instance = DriverManager.getConnection(url);
+                System.out.println("Database connected successfully!");
+            } catch (SQLException sqlEx) {
+                System.err.println("Failed to connect to the database: " + sqlEx.getMessage());
+            }
         }
         return instance;
     }
 }
+
