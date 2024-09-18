@@ -52,20 +52,25 @@ public class SignInController {
     }
 
     // Method to validate credentials with the database
+// Check if the connection is open during sign-in validation
     private boolean validateCredentials(String email, String password) {
-        String sql = "SELECT password FROM User WHERE email = ?";
-        try (Connection conn = DatabaseConnection.getInstance();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getInstance()) {
+            if (conn == null || conn.isClosed()) {
+                System.err.println("Database connection is closed.");
+                return false;
+            }
 
-            pstmt.setString(1, email);
-            ResultSet rs = pstmt.executeQuery();
+            String sql = "SELECT password FROM User WHERE email = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, email);
+                ResultSet rs = pstmt.executeQuery();
 
-            // If a result is found, validate the password
-            if (rs.next()) {
-                String storedPassword = rs.getString("password");
-                return storedPassword.equals(password);  // Compare passwords (you may want to hash passwords in production)
-            } else {
-                return false;  // No user found with the provided email
+                if (rs.next()) {
+                    String storedPassword = rs.getString("password");
+                    return storedPassword.equals(password);
+                } else {
+                    return false;  // No user found
+                }
             }
         } catch (SQLException e) {
             System.err.println("Error validating user credentials: " + e.getMessage());
