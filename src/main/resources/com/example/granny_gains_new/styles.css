@@ -43,3 +43,8 @@
   {
      -fx-background-color: linear-gradient(to bottom left, #DAF7A6, #FFC300);
   }
+
+    .linear-gradmain
+    {
+       -fx-background-color: linear-gradient(to bottom left, #F5F5DC, #DAF7A6);
+    }
