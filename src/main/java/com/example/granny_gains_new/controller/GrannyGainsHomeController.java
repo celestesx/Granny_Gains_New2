@@ -67,9 +67,16 @@ public class GrannyGainsHomeController {
 
 
     @FXML
-    private void handleFitnessLog() {
+    private void handleFitness() {
+        try {
+            Stage stage = (Stage) mealsButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/Fitness_page.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        System.out.println("Fitness Log clicked!");
     }
 
     @FXML
