@@ -24,7 +24,7 @@
             <Font name="Bell MT Bold" size="14.0" />
          </font></Button>
         <Button fx:id="fitnessButton" onAction="#handleFitnessLog" style="-fx-text-fill: black; -fx-background-color: F5F5DC;" styleClass="button" text="Fitness" />
-        <Button fx:id="SettingsButton" onAction="#handleFitnessLog" style="-fx-text-fill: black; -fx-background-color: F5F5DC;" styleClass="button" text="Settings" />
+        <Button fx:id="SettingsButton" onAction="#handleSettings" style="-fx-text-fill: black; -fx-background-color: F5F5DC;" styleClass="button" text="Settings" />
     </HBox>
 
     <!-- Main Title and Image -->
