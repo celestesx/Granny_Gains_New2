@@ -18,19 +18,19 @@ public class BMICalculatorController {
     private String email; // Email passed from the sign-up page
 
     @FXML
-    private DatePicker dpDateOfBirth;
+    DatePicker dpDateOfBirth;
 
     @FXML
-    private ToggleGroup gender;  // ToggleGroup for gender (Male, Female, Other)
+    ToggleGroup gender;  // ToggleGroup for gender (Male, Female, Other)
 
     @FXML
-    private TextField tfHeight;
+    TextField tfHeight;
 
     @FXML
-    private TextField tfWeight;
+    TextField tfWeight;
 
     @FXML
-    private Label lblBMI;
+    Label lblBMI;
 
     @FXML
     private Button btnCalculate;
@@ -50,7 +50,7 @@ public class BMICalculatorController {
     }
 
     // Method to calculate BMI and display it in the lblBMI label
-    private void calculateBMI() {
+    void calculateBMI() {
         try {
             double height = Double.parseDouble(tfHeight.getText()) / 100; // Convert height from cm to meters
             double weight = Double.parseDouble(tfWeight.getText());
@@ -65,7 +65,7 @@ public class BMICalculatorController {
     }
 
     // Method to save the user profile to the database and navigate to the home page
-    private void saveProfile() {
+    void saveProfile() {
         try {
             // Get the date of birth from DatePicker
             LocalDate dateOfBirth = dpDateOfBirth.getValue();
