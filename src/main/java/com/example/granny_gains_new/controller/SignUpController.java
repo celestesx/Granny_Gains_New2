@@ -17,22 +17,22 @@ import java.sql.SQLException;
 public class SignUpController {
 
     @FXML
-    private TextField tfFirstName;
+    TextField tfFirstName;
 
     @FXML
-    private TextField tfLastName;
+    TextField tfLastName;
 
     @FXML
-    private TextField tfEmail;
+    TextField tfEmail;
 
     @FXML
-    private TextField tfPassword;
+    TextField tfPassword;
 
     @FXML
-    private Button Buttonsignup;
+    Button Buttonsignup;
 
     @FXML
-    private Button BackToSignIn;
+    Button BackToSignIn;
 
     @FXML
     protected void handleBackToSignIn() {
@@ -83,7 +83,7 @@ public class SignUpController {
     }
 
     // Method to insert the user information into the database
-    private void insertUserIntoDatabase(User user) {
+    public void insertUserIntoDatabase(User user) {
         Connection conn = DatabaseConnection.getInstance(); // Get the database connection
         String sql = "INSERT INTO User (email, password, first_name, last_name) VALUES (?, ?, ?, ?)"; // SQL insert statement
 
