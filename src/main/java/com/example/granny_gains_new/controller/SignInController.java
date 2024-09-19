@@ -29,7 +29,7 @@ public class SignInController {
     private Button ButtonSignin;
 
     @FXML
-    private Label lblforgotPassword;
+    private Label lblwrongPassword;
 
     @FXML
     protected void handleSignIn() {
@@ -53,13 +53,13 @@ public class SignInController {
                 e.printStackTrace();
             }
         } else {
-            lblforgotPassword.setText("Invalid credentials. Please try again.");
+            lblwrongPassword.setText("Invalid credentials. Please try again.");
         }
     }
 
     // Method to validate credentials with the database
     // Check if the connection is open during sign-in validation
-    private boolean validateCredentials(String email, String password) {
+    public boolean validateCredentials(String email, String password) {
         try (Connection conn = DatabaseConnection.getInstance()) {
             if (conn == null || conn.isClosed()) {
                 System.err.println("Database connection is closed.");
@@ -102,6 +102,18 @@ public class SignInController {
         try {
             Stage stage = (Stage) ButtonSignin.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_up_page.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void handleForgotPassword() {
+        try {
+            Stage stage = (Stage) ButtonSignin.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/forgot_password_page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
             stage.setScene(scene);
         } catch (IOException e) {

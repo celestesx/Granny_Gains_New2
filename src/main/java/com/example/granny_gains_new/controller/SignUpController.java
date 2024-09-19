@@ -4,6 +4,7 @@ import com.example.granny_gains_new.model.User;
 import com.example.granny_gains_new.database.DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +36,9 @@ public class SignUpController {
     Button BackToSignIn;
 
     @FXML
+    private Label lblincorrectdetails;
+
+    @FXML
     protected void handleBackToSignIn() {
         try {
             Stage stage = (Stage) Buttonsignup.getScene().getWindow();
@@ -60,6 +64,7 @@ public class SignUpController {
         // Validate input data
         if (user.getEmail().isEmpty() || user.getPassword().isEmpty()) {
             System.out.println("Please fill in all required fields.");
+            lblincorrectdetails.setText("Please fill out all required fields.");
             return; // Stop if validation fails
         }
 

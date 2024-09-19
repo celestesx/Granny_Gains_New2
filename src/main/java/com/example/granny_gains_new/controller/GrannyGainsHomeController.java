@@ -28,7 +28,13 @@ public class GrannyGainsHomeController {
     @FXML
     private Button mealsButton, fitnessButton, settingsButton;
 
+
     // Initialize method to set up the page
+    @FXML
+    private Button logOutButton;
+
+    // Initialize method to set up initial states
+
     @FXML
     public void initialize() {
         loadLogoImage();
@@ -100,6 +106,18 @@ public class GrannyGainsHomeController {
             System.out.println("Navigated to " + pageName);
         } catch (IOException e) {
             System.err.println("Error loading " + pageName + ": " + e.getMessage());
+        }
+    }
+
+    @FXML
+    protected void handleBackToSignIn() {
+        try {
+            Stage stage = (Stage) logOutButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_in_page.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
