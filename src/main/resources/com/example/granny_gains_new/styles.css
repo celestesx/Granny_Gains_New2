@@ -33,7 +33,10 @@
 }
 
 .button:hover {
-    -fx-background-color: #45a049;
+    -fx-background-color: #3399ff;
+    -fx-text-fill: white;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
 }
 
 .vbox-buttons {
