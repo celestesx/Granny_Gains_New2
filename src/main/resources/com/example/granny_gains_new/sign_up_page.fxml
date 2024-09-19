@@ -41,6 +41,11 @@
                                 <Font size="17.0" />
                             </font>
                         </PasswordField>
+                        <Label fx:id="lblincorrectdetails" layoutX="106.0" layoutY="480.0" text=" " style="-fx-text-fill: red;">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
                         <Button fx:id="Buttonsignup" layoutX="112.0" layoutY="566.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="53.0" prefWidth="337.0" style="-fx-background-color: #80dfff; -fx-text-fill: #003366; -fx-background-radius: 5; -fx-border-color: #66ccff;" stylesheets="@styles.css" text="Sign up">
                             <font>
                                 <Font size="18.0" />
