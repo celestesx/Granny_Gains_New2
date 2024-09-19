@@ -49,5 +49,6 @@
          <String fx:value="linear-gradmain" />
       </styleClass>
     </VBox>
+   <Button fx:id="FriendsButton" onAction="#handleFriends" prefHeight="43.0" prefWidth="159.0" style="-fx-text-fill: black; -fx-background-color: B3EBF2;" styleClass="button" text="Friends" />
 
 </VBox>

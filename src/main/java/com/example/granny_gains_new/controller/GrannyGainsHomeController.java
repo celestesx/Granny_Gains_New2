@@ -26,7 +26,7 @@ public class GrannyGainsHomeController {
     private Label welcomeLabel;
 
     @FXML
-    private Button mealsButton, fitnessButton, settingsButton;
+    private Button mealsButton, fitnessButton, settingsButton, FriendsButton;
 
 
     // Initialize method to set up the page
@@ -94,6 +94,11 @@ public class GrannyGainsHomeController {
     @FXML
     public void handleSettings() {
         navigateToPage("/com/example/granny_gains_new/settings_page.fxml", "Settings Page");
+    }
+
+    @FXML
+    public void handleFriends() {
+        navigateToPage("/com/example/granny_gains_new/Friends_page.fxml", "Friends Page");
     }
 
     // Generic method to navigate between pages
