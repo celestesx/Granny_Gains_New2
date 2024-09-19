@@ -2,10 +2,7 @@ package com.example.granny_gains_new.controller;
 
 import com.example.granny_gains_new.database.DatabaseConnection;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.CollationElementIterator;
 import java.util.UUID;
+import java.util.prefs.Preferences;
+
 
 public class SignInController {
     @FXML
@@ -32,19 +31,41 @@ public class SignInController {
     private Label lblwrongPassword;
 
     @FXML
-    protected void handleSignIn() {
+    private CheckBox rememberMeCheckBox;
+    private Preferences preferences;
 
+    public SignInController() {
+        preferences = Preferences.userNodeForPackage(SignInController.class);
+    }
+
+    @FXML
+    protected void initialize() {
+        String storedEmail = preferences.get("email", "");
+        String storedPassword = preferences.get("password", "");
+        tfEmail.setText(storedEmail);
+        tfPassword.setText(storedPassword);
+        rememberMeCheckBox.setSelected(!storedEmail.isEmpty());
+    }
+
+    @FXML
+    protected void handleSignIn() {
         String email = tfEmail.getText();
         String password = tfPassword.getText();
 
-        // Validate the credentials with the database
         if (validateCredentials(email, password)) {
-            try {
-                // Generate session ID
-                String sessionId = UUID.randomUUID().toString();
-                createSession(email, sessionId);
+            // Save email and password if "Remember Me" is checked
+            if (rememberMeCheckBox.isSelected()) {
+                preferences.put("email", email);
+                preferences.put("password", password);
+            } else {
+                preferences.remove("email");
+                preferences.remove("password");
+            }
 
-                // Load the Granny Gains home page
+            // Generate session ID and load the home page
+            String sessionId = UUID.randomUUID().toString();
+            createSession(email, sessionId);
+            try {
                 Stage stage = (Stage) ButtonSignin.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/granny_gains_home.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);

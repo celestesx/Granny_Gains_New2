@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.CheckBox?>
 
 <AnchorPane prefHeight="669.0" prefWidth="1098.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.SignInController">
     <children>
@@ -29,6 +30,7 @@
                                 <Font size="17.0" />
                             </font>
                         </PasswordField>
+                        <CheckBox fx:id="rememberMeCheckBox" text="Remember Me" layoutX="111.0" layoutY="360.0" />
                         <Button fx:id="ButtonSignin" layoutX="112.0" layoutY="450.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="135.0" style="-fx-background-color: #66ccff; -fx-text-fill: #003366;" stylesheets="@styles.css" text="Sign In" onAction="#handleSignIn">
                             <font>
                                 <Font size="18.0" />
@@ -44,7 +46,7 @@
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Label layoutX="112.0" layoutY="414.0" text="Forgot Password" >
+                        <Label layoutX="112.0" layoutY="414.0" text="Forgot Password">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -59,7 +61,8 @@
                                 <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
-                    </children></Pane>
+                    </children>
+                </Pane>
             </center>
         </BorderPane>
     </children>
