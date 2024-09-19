@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.UUID;
+
 public class SignInController {
     @FXML
     private TextField tfEmail;
@@ -38,6 +40,10 @@ public class SignInController {
         // Validate the credentials with the database
         if (validateCredentials(email, password)) {
             try {
+                // Generate session ID
+                String sessionId = UUID.randomUUID().toString();
+                createSession(email, sessionId);
+
                 // Load the Granny Gains home page
                 Stage stage = (Stage) ButtonSignin.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/granny_gains_home.fxml"));
@@ -52,7 +58,7 @@ public class SignInController {
     }
 
     // Method to validate credentials with the database
-// Check if the connection is open during sign-in validation
+    // Check if the connection is open during sign-in validation
     public boolean validateCredentials(String email, String password) {
         try (Connection conn = DatabaseConnection.getInstance()) {
             if (conn == null || conn.isClosed()) {
@@ -75,6 +81,19 @@ public class SignInController {
         } catch (SQLException e) {
             System.err.println("Error validating user credentials: " + e.getMessage());
             return false;
+        }
+    }
+
+    // Method to create a session and store it in the database
+    private void createSession(String email, String sessionId) {
+        try (Connection conn = DatabaseConnection.getInstance()) {
+            String query = "INSERT INTO sessions (session_id, user_id) VALUES (?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, sessionId);
+            stmt.setString(2, email);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
