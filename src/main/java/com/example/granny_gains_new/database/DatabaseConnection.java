@@ -90,7 +90,14 @@ public class DatabaseConnection {
                     " recipe_id INTEGER, " +
                     " FOREIGN KEY (meal_plan_id) REFERENCES Meal_plan(meal_plan_id), " +
                     " FOREIGN KEY (recipe_id) REFERENCES Recipe(recipe_id) " +
-                    ");";
+                    ");" +
+                    // Session Table
+                    "CREATE TABLE IF NOT EXISTS sessions (" +
+                    " session_id TEXT PRIMARY KEY, " +
+                    " user_id INTEGER, " +
+                    " login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    " FOREIGN KEY (user_id) REFERENCES User(email) " +
+                    "); ";
 
     // Private constructor to prevent instantiation
     private DatabaseConnection() {}
