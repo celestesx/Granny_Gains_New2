@@ -27,7 +27,7 @@ public class SignInController {
     private Button ButtonSignin;
 
     @FXML
-    private Label lblforgotPassword;
+    private Label lblwrongPassword;
 
     @FXML
     protected void handleSignIn() {
@@ -47,7 +47,7 @@ public class SignInController {
                 e.printStackTrace();
             }
         } else {
-            lblforgotPassword.setText("Invalid credentials. Please try again.");
+            lblwrongPassword.setText("Invalid credentials. Please try again.");
         }
     }
 
@@ -83,6 +83,18 @@ public class SignInController {
         try {
             Stage stage = (Stage) ButtonSignin.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_up_page.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void handleForgotPassword() {
+        try {
+            Stage stage = (Stage) ButtonSignin.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/forgot_password_page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
             stage.setScene(scene);
         } catch (IOException e) {
