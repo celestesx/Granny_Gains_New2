@@ -184,7 +184,14 @@
                               <Insets left="80.0" right="50.0" />
                            </padding>
                         </Label>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" />
+                        <Label fx:id="FetchNameLabel" prefHeight="32.0" prefWidth="369.0" text="Welcome!" textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                           <padding>
+                              <Insets left="80.0" right="50.0" />
+                           </padding>
+                        </Label>
                      </children>
                      <padding>
                         <Insets bottom="40.0" />
@@ -203,7 +210,14 @@
                               <Insets left="80.0" right="50.0" />
                            </padding>
                         </Label>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" />
+                        <Label fx:id="FetchDOBLabel" prefHeight="32.0" prefWidth="369.0" text="  " textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                           <padding>
+                              <Insets left="80.0" right="50.0" />
+                           </padding>
+                        </Label>
                      </children>
                   </HBox>
                   <Line endX="779.2929077148438" endY="0.2928932309150696" startX="-100.0" stroke="WHITE">
@@ -242,7 +256,7 @@
             </HBox>
             <HBox prefHeight="30.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="32.0" prefWidth="369.0" text="Phone:" textFill="WHITE">
+                  <Label prefHeight="32.0" prefWidth="369.0" text="Email:" textFill="WHITE">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -253,14 +267,17 @@
                         <Insets top="40.0" />
                      </HBox.margin>
                   </Label>
-                  <TextArea prefHeight="48.0" prefWidth="200.0">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
+                  <Label fx:id="FetchEmailLabel" prefHeight="32.0" prefWidth="369.0" text="  " textFill="WHITE">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <padding>
+                        <Insets left="80.0" right="50.0" />
+                     </padding>
                      <HBox.margin>
                         <Insets top="40.0" />
                      </HBox.margin>
-                  </TextArea>
+                  </Label>
                </children>
             </HBox>
             <Button fx:id="HelpButton" mnemonicParsing="false" onAction="#handleToHelp" prefHeight="49.0" prefWidth="121.0" style="-fx-background-color: #800000;" stylesheets="@styles.css" text="Help" textAlignment="CENTER" textFill="WHITE">
