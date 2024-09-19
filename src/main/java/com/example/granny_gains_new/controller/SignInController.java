@@ -53,7 +53,7 @@ public class SignInController {
 
     // Method to validate credentials with the database
 // Check if the connection is open during sign-in validation
-    private boolean validateCredentials(String email, String password) {
+    public boolean validateCredentials(String email, String password) {
         try (Connection conn = DatabaseConnection.getInstance()) {
             if (conn == null || conn.isClosed()) {
                 System.err.println("Database connection is closed.");
