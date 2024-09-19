@@ -21,3 +21,4 @@ public class FriendsController {
         stage.setScene(scene);
     }
 }
+
