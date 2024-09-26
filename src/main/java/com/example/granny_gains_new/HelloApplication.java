@@ -26,8 +26,9 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        // Initialize database connection
+        // Database connection
         Connection connection = DatabaseConnection.getInstance();
+
         // Initialize the database handler
         RecipeDBHandler dbHandler = new RecipeDBHandler();
 
@@ -40,6 +41,7 @@ public class HelloApplication extends Application {
         // Load recipes from CSV (without duplicates) when the app starts
         loader.loadRecipesFromCSV(csvFilePath, dbHandler);
         //Launch JavaFX application
+
         launch();
 
     }
