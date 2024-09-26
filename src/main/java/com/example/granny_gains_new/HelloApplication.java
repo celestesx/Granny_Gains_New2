@@ -24,9 +24,8 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        // Initialize database connection
+        // Database connection
         Connection connection = DatabaseConnection.getInstance();
-        //Launch JavaFX application
         launch();
 
     }

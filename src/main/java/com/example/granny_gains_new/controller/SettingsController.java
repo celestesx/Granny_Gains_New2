@@ -1,11 +1,10 @@
-package com.example.granny_gains_new;
+package com.example.granny_gains_new.controller;
 
 import com.example.granny_gains_new.database.DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.io.IOException;

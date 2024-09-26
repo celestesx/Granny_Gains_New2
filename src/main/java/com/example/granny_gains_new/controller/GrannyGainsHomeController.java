@@ -88,7 +88,7 @@ public class GrannyGainsHomeController {
 
     @FXML
     public void handleFitness() {
-        navigateToPage("/com/example/granny_gains_new/Fitness_page.fxml", "Fitness Page");
+        navigateToPage("/com/example/granny_gains_new/fitnessNew.fxml", "Fitness Page");
     }
 
     @FXML
@@ -106,7 +106,7 @@ public class GrannyGainsHomeController {
         try {
             Stage stage = (Stage) mealsButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFilePath));
-            Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
             stage.setScene(scene);
             System.out.println("Navigated to " + pageName);
         } catch (IOException e) {
