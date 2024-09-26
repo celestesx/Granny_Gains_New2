@@ -1,23 +1,21 @@
 package com.example.granny_gains_new.model;
 
-public class Recipe {
+import java.util.List;
 
+public class Recipe {
     private int recipeId;            // Primary key (auto-increment)
     private String recipeType;       // e.g., Breakfast, Lunch, Dinner, Snack
     private String recipeName;       // Name of the recipe
     private int servings;            // Number of servings
     private int calories;            // Calories per serving
     private String description;      // Description of the recipe
-    private String ingredients;      // Ingredients list
-    private String recipeMethod;     // Method or steps to prepare the recipe
+    private List<String> ingredients;  // Ingredients list
+    private List<String> recipeMethod; // Cooking/preparation method
     private String pictureUrl;       // URL to the recipe image
 
-    // Default constructor
-    public Recipe() {}
-
-    // Parameterized constructor
+    // Constructor
     public Recipe(int recipeId, String recipeType, String recipeName, int servings, int calories,
-                  String description, String ingredients, String recipeMethod, String pictureUrl) {
+                  String description, List<String> ingredients, List<String> recipeMethod, String pictureUrl) {
         this.recipeId = recipeId;
         this.recipeType = recipeType;
         this.recipeName = recipeName;
@@ -78,19 +76,19 @@ public class Recipe {
         this.description = description;
     }
 
-    public String getIngredients() {
+    public List<String> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(String ingredients) {
+    public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public String getRecipeMethod() {
+    public List<String> getRecipeMethod() {
         return recipeMethod;
     }
 
-    public void setRecipeMethod(String recipeMethod) {
+    public void setRecipeMethod(List<String> recipeMethod) {
         this.recipeMethod = recipeMethod;
     }
 
@@ -102,7 +100,6 @@ public class Recipe {
         this.pictureUrl = pictureUrl;
     }
 
-    // Override toString method for easy representation
     @Override
     public String toString() {
         return "Recipe{" +
@@ -112,8 +109,8 @@ public class Recipe {
                 ", servings=" + servings +
                 ", calories=" + calories +
                 ", description='" + description + '\'' +
-                ", ingredients='" + ingredients + '\'' +
-                ", recipeMethod='" + recipeMethod + '\'' +
+                ", ingredients=" + ingredients +
+                ", recipeMethod=" + recipeMethod +
                 ", pictureUrl='" + pictureUrl + '\'' +
                 '}';
     }
