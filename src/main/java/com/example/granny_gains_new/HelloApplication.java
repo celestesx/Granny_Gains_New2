@@ -1,6 +1,8 @@
 package com.example.granny_gains_new;
 
 import com.example.granny_gains_new.database.DatabaseConnection;
+import com.example.granny_gains_new.database.RecipeDBHandler;
+import com.example.granny_gains_new.database.RecipeLoader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,6 +28,20 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         // Database connection
         Connection connection = DatabaseConnection.getInstance();
+
+        // Initialize the database handler
+        RecipeDBHandler dbHandler = new RecipeDBHandler();
+
+        // Initialize the recipe loader
+        RecipeLoader loader = new RecipeLoader();
+
+        // Path to your CSV file (update with your actual file path)
+        String csvFilePath = "src/main/resources/com/example/granny_gains_new/database/meals.csv";
+
+        // Load recipes from CSV (without duplicates) when the app starts
+        loader.loadRecipesFromCSV(csvFilePath, dbHandler);
+        //Launch JavaFX application
+
         launch();
 
     }
