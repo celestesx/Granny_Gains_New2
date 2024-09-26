@@ -84,7 +84,7 @@ public class DatabaseConnection {
                     " description TEXT, " +
                     " ingredients TEXT, " +
                     " recipe_method TEXT, " +
-                    " picture_url TEXT, " +
+                    " picture_url TEXT " +
                     "); " +
                     // Meal Plan Recipe Table
                     "CREATE TABLE IF NOT EXISTS Meal_plan_recipe (" +
