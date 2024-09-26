@@ -77,12 +77,14 @@ public class DatabaseConnection {
                     // Recipe Table
                     "CREATE TABLE IF NOT EXISTS Recipe (" +
                     " recipe_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    " name TEXT, " +
-                    " recipe_image_url TEXT, " +
-                    " ingredients TEXT, " +
-                    " instructions TEXT, " +
+                    " recipe_type TEXT, " +
+                    " recipe_name TEXT, " +
+                    " servings INTEGER, " +
                     " calories INTEGER, " +
-                    " recipe_type TEXT " +
+                    " description TEXT, " +
+                    " ingredients TEXT, " +
+                    " recipe_method TEXT, " +
+                    " picture_url TEXT " +
                     "); " +
                     // Meal Plan Recipe Table
                     "CREATE TABLE IF NOT EXISTS Meal_plan_recipe (" +
