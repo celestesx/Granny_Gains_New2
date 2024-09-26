@@ -7,6 +7,7 @@ module com.example.granny_gains_new {
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
     requires java.prefs;
+    requires javafx.web;
 
     opens com.example.granny_gains_new to javafx.fxml;
     exports com.example.granny_gains_new;

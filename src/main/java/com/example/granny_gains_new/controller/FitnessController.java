@@ -13,6 +13,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javafx.scene.Parent;
+
+
 
 
 public class FitnessController {
@@ -82,32 +85,32 @@ public class FitnessController {
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             int counter = 1;
             while ((line = br.readLine()) != null) {
-                // Skip header row
+                // Skip the header row
                 if (counter == 1) {
                     counter++;
                     continue;
                 }
 
-                // Split lines into columns
+                // Split the line into columns
                 String[] workoutData = line.split(csvSplitBy);
 
                 String title = workoutData[0].replace("\"", "").trim();
                 String thumbnailPath = workoutData[1].replace("\"", "").trim();
                 String videoLink = workoutData[2].replace("\"", "").trim();
 
-                // Assign the title and thumbnail using counter
+                // Assign the title, thumbnail, and video link to the correct ImageView and Label based on the counter
                 switch (counter) {
                     case 2:
-                        updateWorkoutTile(Cardio1, Cardio1Title, title, thumbnailPath);
+                        updateWorkoutTile(Cardio1, Cardio1Title, title, thumbnailPath, videoLink);
                         break;
                     case 3:
-                        updateWorkoutTile(Cardio2, Cardio2Title, title, thumbnailPath);
+                        updateWorkoutTile(Cardio2, Cardio2Title, title, thumbnailPath, videoLink);
                         break;
                     case 4:
-                        updateWorkoutTile(Cardio3, Cardio3Title, title, thumbnailPath);
+                        updateWorkoutTile(Cardio3, Cardio3Title, title, thumbnailPath, videoLink);
                         break;
                     case 5:
-                        updateWorkoutTile(Cardio4, Cardio4Title, title, thumbnailPath);
+                        updateWorkoutTile(Cardio4, Cardio4Title, title, thumbnailPath, videoLink);
                         break;
                 }
 
@@ -119,8 +122,8 @@ public class FitnessController {
     }
 
     // Method to update the ImageView and Label for a workout tile in FitnessCardio.fxml
-    private void updateWorkoutTile(ImageView imageView, Label titleLabel, String title, String imagePath) {
-        // Set the image
+    private void updateWorkoutTile(ImageView imageView, Label titleLabel, String title, String imagePath, String videoLink) {
+        // Load and set the image in the ImageView
         try {
             Image thumbnail = new Image(getClass().getResource(imagePath).toExternalForm());
             imageView.setImage(thumbnail);
@@ -128,16 +131,33 @@ public class FitnessController {
             System.err.println("Error loading image: " + e.getMessage());
         }
 
-        // Set the title in the Labels
+        // Set the title in the Label
         titleLabel.setText(title);
 
-        // Add event handler to play video on click (Optional)
-        imageView.setOnMouseClicked(event -> {
-            // Open the video player with the given link TODO
-            System.out.println("Video clicked: " + title);
-        });
+        // Add event handler to open video on click
+        imageView.setOnMouseClicked(event -> openVideoPlayer(videoLink));
+        titleLabel.setOnMouseClicked(event -> openVideoPlayer(videoLink));  // You can also click the title
     }
 
+    // Method to open a new scene with the video player
+    private void openVideoPlayer(String videoUrl) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/fitness_player.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller for the new scene
+            FitnessVideoPlayerController controller = loader.getController();
+            controller.setVideoUrl(videoUrl);
+
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Video Player");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 /**
