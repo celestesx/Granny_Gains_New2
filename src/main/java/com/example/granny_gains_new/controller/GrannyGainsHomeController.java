@@ -88,7 +88,7 @@ public class GrannyGainsHomeController {
 
     @FXML
     public void handleFitness() {
-        navigateToPage("/com/example/granny_gains_new/fitnessNew.fxml", "Fitness Page");
+        navigateToPage("/com/example/granny_gains_new/FitnessCardio.fxml", "Fitness Page");
     }
 
     @FXML
