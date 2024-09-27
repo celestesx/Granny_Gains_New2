@@ -1,5 +1,4 @@
 package com.example.granny_gains_new.controller;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,10 +15,7 @@ import java.io.IOException;
 import javafx.scene.Parent;
 
 
-
-
-public class FitnessController {
-
+public class HIITController {
     @FXML
     private Button HomeButton;
 
@@ -42,6 +38,7 @@ public class FitnessController {
         Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
         stage.setScene(scene);
     }
+
 
     @FXML
     protected void NavCardio() throws IOException {
@@ -74,21 +71,23 @@ public class FitnessController {
         Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
         stage.setScene(scene);
     }
-    @FXML
-    private ImageView Cardio1, Cardio2, Cardio3, Cardio4;
+
 
     @FXML
-    private Label Cardio1Title, Cardio2Title, Cardio3Title, Cardio4Title;
+    private ImageView HIIT1, HIIT2, HIIT3, HIIT4;
+
+    @FXML
+    private Label HIIT1Title, HIIT2Title, HIIT3Title, HIIT4Title;
 
     // Method to initialize the controller
     @FXML
     public void initialize() {
-        loadCardioWorkouts();
+        loadHIITWorkouts();
     }
 
     // Method to load cardio workouts from CSV and update the UI
-    private void loadCardioWorkouts() {
-        String csvFile = "src/main/java/com/example/granny_gains_new/database/fitness.csv";
+    private void loadHIITWorkouts() {
+        String csvFile = "src/main/java/com/example/granny_gains_new/database/HIIT.csv";
         String line;
         String csvSplitBy = ",";
 
@@ -111,16 +110,16 @@ public class FitnessController {
                 // Assign the title, thumbnail, and video link to the correct ImageView and Label based on the counter
                 switch (counter) {
                     case 2:
-                        updateWorkoutTile(Cardio1, Cardio1Title, title, thumbnailPath, videoLink);
+                        updateWorkoutTile(HIIT1, HIIT1Title, title, thumbnailPath, videoLink);
                         break;
                     case 3:
-                        updateWorkoutTile(Cardio2, Cardio2Title, title, thumbnailPath, videoLink);
+                        updateWorkoutTile(HIIT2, HIIT2Title, title, thumbnailPath, videoLink);
                         break;
                     case 4:
-                        updateWorkoutTile(Cardio3, Cardio3Title, title, thumbnailPath, videoLink);
+                        updateWorkoutTile(HIIT3, HIIT3Title, title, thumbnailPath, videoLink);
                         break;
                     case 5:
-                        updateWorkoutTile(Cardio4, Cardio4Title, title, thumbnailPath, videoLink);
+                        updateWorkoutTile(HIIT4, HIIT4Title, title, thumbnailPath, videoLink);
                         break;
                 }
 
@@ -168,20 +167,4 @@ public class FitnessController {
             e.printStackTrace();
         }
     }
-
-
-/**
- REPLACING DYNAMIC ADJUSTMENTS
-    FXIDS in "src/main/resources/com/example/granny_gains_new/FitnessCardio.fxml"
-
- <--Labels-->
-    Cardio1Title, Cardio2Title, Cardio3Title, Cardio4Title
- </--Labels-->
-
- <--Images (Thumbnail) -->
-    Cardio1, Cardio2, Cardio3, Cardio4
- </--Labels-->
- */
 }
-
-
