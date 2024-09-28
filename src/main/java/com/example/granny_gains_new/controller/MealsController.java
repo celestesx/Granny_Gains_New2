@@ -8,13 +8,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MealsController {
 
@@ -22,20 +22,31 @@ public class MealsController {
     private ListView<Recipe> recipeListView;  // ListView to display recipes
 
     @FXML
-    private Button backButton;
+    private Button backButton, AllRecipesButton, VeganButton, GlutenFreeButton;
 
     @FXML
     public void initialize() {
-        // Load recipes from the database and display them in the ListView
-        loadRecipes();
+        // Load and display all recipes on initialization
+        loadRecipes(null);
+
+        // Verify UI components
+        assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'Meals.fxml'.";
     }
 
-    private void loadRecipes() {
-        // Load recipes from the database using the RecipeDBHandler
+    // Method to load and display recipes based on a filter
+    private void loadRecipes(String filter) {
+        // Load recipes from the database using RecipeDBHandler
         RecipeDBHandler dbHandler = new RecipeDBHandler();
         List<Recipe> recipeList = dbHandler.getAllRecipes();
 
-        // Convert the list of recipes to an ObservableList
+        // If a filter is provided (e.g., "Vegan"), filter the recipes
+        if (filter != null) {
+            recipeList = recipeList.stream()
+                    .filter(recipe -> recipe.getRecipeType().equalsIgnoreCase(filter))
+                    .collect(Collectors.toList());
+        }
+
+        // Convert the list to an ObservableList
         ObservableList<Recipe> observableRecipeList = FXCollections.observableArrayList(recipeList);
 
         // Set the ListView's items
@@ -49,11 +60,25 @@ public class MealsController {
                 if (empty || recipe == null) {
                     setText(null);
                 } else {
-                    // Display recipe name, type, and description
                     setText(recipe.getRecipeName() + " (" + recipe.getRecipeType() + ")\n" + recipe.getDescription());
                 }
             }
         });
+    }
+
+    @FXML
+    protected void showAllRecipes() {
+        loadRecipes(null);  // Show all recipes
+    }
+
+    @FXML
+    protected void showVeganRecipes() {
+        loadRecipes("Vegan");  // Show only Vegan recipes
+    }
+
+    @FXML
+    protected void showGlutenFreeRecipes() {
+        loadRecipes("Gluten-Free");  // Show only Gluten-Free recipes
     }
 
     @FXML
