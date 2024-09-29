@@ -52,6 +52,11 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
+                  <Button fx:id="HelpButton" layoutX="684.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="49.0" prefWidth="139.0" style="-fx-background-color: FF0000;" stylesheets="@styles.css" text="HELP">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
                     </children>
                 </Pane>
             </center>
