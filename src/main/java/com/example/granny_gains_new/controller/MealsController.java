@@ -22,7 +22,7 @@ public class MealsController {
     private ListView<Recipe> recipeListView;
 
     @FXML
-    private Button HomeButton, AllRecipesButton, VeganButton, GlutenFreeButton;
+    private Button HomeButton, AllRecipesButton, BreakfastButton, LunchButton, DinnerButton;
 
     @FXML
     public void initialize() {
@@ -62,13 +62,18 @@ public class MealsController {
     }
 
     @FXML
-    protected void showVeganRecipes() {
-        loadRecipes("Vegan");
+    protected void showBreakfastRecipes() {
+        loadRecipes("breakfast");
     }
 
     @FXML
-    protected void showGlutenFreeRecipes() {
-        loadRecipes("Gluten-Free");
+    protected void showLunchRecipes() {
+        loadRecipes("lunch");
+    }
+
+    @FXML
+    protected void showDinnerRecipes() {
+        loadRecipes("dinner");
     }
 
     @FXML

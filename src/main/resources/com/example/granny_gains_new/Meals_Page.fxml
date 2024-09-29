@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="669.0" prefWidth="1098.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.MealsController">
+<AnchorPane prefHeight="669.0" prefWidth="1098.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.MealsController">
     <children>
         <BorderPane prefHeight="669.0" prefWidth="1098.0" style="-fx-background-color: #FFF;">
             <left>
                 <Pane prefHeight="669.0" prefWidth="248.0" styleClass="linear-grad" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="HomeButton" layoutX="65.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="49.0" prefWidth="118.0" style="-fx-background-color: #1e81b0; -fx-text-fill: white;" text="Home">
+                        <Button fx:id="HomeButton" layoutX="65.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="49.0" prefWidth="118.0" style="-fx-background-color: #1e81b0; -fx-text-fill: white;" text="HOME">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Button>
-                        <Button fx:id="AllRecipesButton" layoutX="65.0" layoutY="150.0" mnemonicParsing="false" onAction="#showAllRecipes" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: lightblue; -fx-text-fill: white; -fx-font-size: 14px;" text="Show All Recipes"/>
-                        <Button fx:id="VeganButton" layoutX="65.0" layoutY="250.0" mnemonicParsing="false" onAction="#showVeganRecipes" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: lightblue; -fx-text-fill: white; -fx-font-size: 14px;" text="Show Vegan Recipes"/>
-                        <Button fx:id="GlutenFreeButton" layoutX="65.0" layoutY="350.0" mnemonicParsing="false" onAction="#showGlutenFreeRecipes" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: lightblue; -fx-text-fill: white; -fx-font-size: 14px;" text="Show Gluten-Free Recipes"/>
+                        <Button fx:id="AllRecipesButton" layoutX="65.0" layoutY="150.0" mnemonicParsing="false" onAction="#showAllRecipes" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: lightblue; -fx-text-fill: white; -fx-font-size: 14px;" text="All Recipes" />
+                        <Button fx:id="BreakfastButton" layoutX="65.0" layoutY="250.0" mnemonicParsing="false" onAction="#showBreakfastRecipes" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: lightblue; -fx-text-fill: white; -fx-font-size: 14px;" text="Breakfast" />
+                        <Button fx:id="LunchButton" layoutX="65.0" layoutY="350.0" mnemonicParsing="false" onAction="#showLunchRecipes" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: lightblue; -fx-text-fill: white; -fx-font-size: 14px;" text="Lunch" />
+                        <Button fx:id="DinnerButton" layoutX="65.0" layoutY="450.0" mnemonicParsing="false" onAction="#showDinnerRecipes" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: lightblue; -fx-text-fill: white; -fx-font-size: 14px;" text="Dinner" />
                     </children>
                 </Pane>
             </left>
             <center>
                 <Pane prefHeight="669.0" prefWidth="632.0" style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
                     <children>
-                        <ListView fx:id="recipeListView" layoutX="50.0" layoutY="50.0" prefHeight="550.0" prefWidth="532.0" style="-fx-background-color: #f0f0f0; -fx-padding: 10px; -fx-font-size: 16px;"></ListView>
+                        <ListView fx:id="recipeListView" layoutX="50.0" layoutY="50.0" prefHeight="550.0" prefWidth="532.0" style="-fx-background-color: #f0f0f0; -fx-padding: 10px; -fx-font-size: 16px;" />
                     </children>
                 </Pane>
             </center>
