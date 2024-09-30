@@ -4,23 +4,23 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="com.example.granny_gains_new.controller.RecipeDetailController">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.RecipeDetailController">
     <children>
         <!-- ScrollPane to allow scrolling for all content -->
-        <ScrollPane fitToWidth="true" prefHeight="700" prefWidth="600" style="-fx-background-color: transparent; -fx-border-color: transparent;">
-            <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-padding: 20;">
+        <ScrollPane fitToWidth="true" prefHeight="700" prefWidth="1000.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+            <VBox alignment="TOP_CENTER" prefHeight="700.0" prefWidth="1000.0" spacing="20.0" style="-fx-padding: 20;">
                 <!-- Recipe Name -->
                 <Label fx:id="recipeNameLabel" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Recipe Name" />
 
                 <!-- Recipe Image -->
                 <ImageView fx:id="recipeImageView" fitHeight="250" fitWidth="350" preserveRatio="true" />
 
-                 <!-- Calories -->
-                 <Label style="-fx-font-weight: bold;" text="Calories:" />
-                 <Label fx:id="servingsLabel" text="Servings" />
-
                  <!-- Servings -->
                  <Label style="-fx-font-weight: bold;" text="Servings:" />
+                 <Label fx:id="servingsLabel" text="Servings" />
+
+                 <!-- Calories -->
+                 <Label style="-fx-font-weight: bold;" text="Calories:" />
                  <Label fx:id="caloriesLabel" text="Calories" />
 
                 <!-- Recipe Information -->
@@ -32,7 +32,7 @@
 
                     <!-- Description -->
                     <Label style="-fx-font-weight: bold;" text="Description:" GridPane.rowIndex="3" />
-                    <TextArea fx:id="recipeDescription" editable="false" prefHeight="80.0" style="-fx-background-color: transparent;" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <TextArea fx:id="recipeDescription" editable="false" prefHeight="95.0" prefWidth="770.0" style="-fx-background-color: transparent;" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                <rowConstraints>
                   <RowConstraints />
                   <RowConstraints />
