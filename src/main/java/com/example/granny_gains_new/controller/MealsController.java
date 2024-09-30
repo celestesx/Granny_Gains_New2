@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,8 +29,6 @@ public class MealsController {
     @FXML
     public void initialize() {
         loadRecipes(null);
-
-        assert HomeButton != null : "fx:id=\"HomeButton\" was not injected: check your FXML file 'Meals.fxml'.";
     }
 
     private void loadRecipes(String filter) {
@@ -43,17 +43,56 @@ public class MealsController {
 
         ObservableList<Recipe> observableRecipeList = FXCollections.observableArrayList(recipeList);
         recipeListView.setItems(observableRecipeList);
+
         recipeListView.setCellFactory(listView -> new ListCell<>() {
             @Override
             protected void updateItem(Recipe recipe, boolean empty) {
                 super.updateItem(recipe, empty);
                 if (empty || recipe == null) {
                     setText(null);
+                    setGraphic(null);
                 } else {
                     setText(recipe.getRecipeName() + " (" + recipe.getRecipeType() + ")\n" + recipe.getDescription());
+
+                    // Load the image using the pictureUrl field from the Recipe model
+                    Image recipeImage;
+                    try {
+                        recipeImage = new Image(getClass().getResourceAsStream("/com/example/granny_gains_new/meals_images/" + recipe.getPictureUrl() + ".png"));
+                    } catch (NullPointerException e) {
+                        // If the image is missing, use a default image
+                        recipeImage = new Image(getClass().getResourceAsStream("/com/example/granny_gains_new/meals_images/default.png"));
+                    }
+
+                    ImageView imageView = new ImageView(recipeImage);
+                    imageView.setFitWidth(100);
+                    imageView.setPreserveRatio(true);
+
+                    setGraphic(imageView);
                 }
             }
         });
+
+        recipeListView.setOnMouseClicked(event -> {
+            Recipe selectedRecipe = recipeListView.getSelectionModel().getSelectedItem();
+            if (selectedRecipe != null) {
+                try {
+                    showRecipeDetailPage(selectedRecipe);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void showRecipeDetailPage(Recipe recipe) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/RecipeDetail.fxml"));
+        Stage stage = (Stage) recipeListView.getScene().getWindow();
+        Scene scene = new Scene(loader.load(), 1000, 800);
+
+        RecipeDetailController controller = loader.getController();
+        controller.setRecipeData(recipe);
+
+        stage.setScene(scene);
     }
 
     @FXML
