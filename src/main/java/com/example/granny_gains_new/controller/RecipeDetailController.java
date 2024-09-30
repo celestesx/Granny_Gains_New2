@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
 import java.io.IOException;
+import java.util.List;
 
 public class RecipeDetailController {
 
@@ -19,6 +20,18 @@ public class RecipeDetailController {
 
     @FXML
     private ImageView recipeImageView;
+
+    @FXML
+    private Label servingsLabel;
+
+    @FXML
+    private Label caloriesLabel;
+
+    @FXML
+    private TextArea ingredientsTextArea;
+
+    @FXML
+    private TextArea methodTextArea;
 
     @FXML
     private TextArea recipeDescription;
@@ -31,6 +44,20 @@ public class RecipeDetailController {
         recipeImageView.setImage(recipeImage);
 
         recipeDescription.setText(recipe.getDescription());
+
+        // Set servings and calories
+        servingsLabel.setText("Servings: " + recipe.getServings());
+        caloriesLabel.setText("Calories: " + recipe.getCalories() + " kcal");
+
+        // Set ingredients (join them with line breaks)
+        List<String> ingredients = recipe.getIngredients();
+        String ingredientsText = String.join("\n", ingredients);
+        ingredientsTextArea.setText(ingredientsText);
+
+        // Set method (join steps with line breaks)
+        List<String> recipeMethod = recipe.getRecipeMethod();
+        String methodText = String.join("\n", recipeMethod);
+        methodTextArea.setText(methodText);
     }
 
     @FXML
@@ -41,4 +68,3 @@ public class RecipeDetailController {
         stage.setScene(scene);
     }
 }
-
