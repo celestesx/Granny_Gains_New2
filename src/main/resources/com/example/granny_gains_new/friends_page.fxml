@@ -65,7 +65,7 @@
                             <children>
                                 <TextFlow>
                                     <Text text="Phone: " style="-fx-font-weight: bold;" />
-                                    <Text text="0492 750 598" />
+                                    <Text text="0492 750 597" />
                                 </TextFlow>
                                 <TextFlow>
                                     <Text text="Age: " style="-fx-font-weight: bold;" />
