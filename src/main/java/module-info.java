@@ -11,6 +11,7 @@ module com.example.granny_gains_new {
     requires javafx.web;
 
     requires com.opencsv;
+    requires javafx.graphics;
 
 
     opens com.example.granny_gains_new to javafx.fxml;
