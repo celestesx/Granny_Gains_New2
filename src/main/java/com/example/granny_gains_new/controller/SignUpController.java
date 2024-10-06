@@ -62,10 +62,32 @@ public class SignUpController {
         );
 
         // Validate input data
-        if (user.getEmail().isEmpty() || user.getPassword().isEmpty()) {
+        if (user.getEmail().isEmpty() || user.getPassword().isEmpty() || user.getFirstName().isEmpty() || user.getLastName().isEmpty()) {
             System.out.println("Please fill in all required fields.");
             lblincorrectdetails.setText("Please fill out all required fields.");
             return; // Stop if validation fails
+        }
+        else if (user.getEmail().length() < 10 || !user.getEmail().contains("@")) {
+            System.out.println("Invalid Email.");
+            lblincorrectdetails.setText("Invalid Email.");
+            return; // Stop if validation fails
+        }
+        boolean digit = false;
+        for (char c : user.getPassword().toCharArray()) {
+            if (Character.isDigit(c)) {
+                digit = true;
+                break;
+            }
+        }
+        if (user.getPassword().length() < 8 || !digit) {
+            System.out.println("Invalid Password. Password must have at least 8 characters and contain at least 1 number.");
+            lblincorrectdetails.setText("Invalid Password. Password must have at least 8 characters\nand contain at least 1 number.");
+            return; // Stop if validation fails
+        }
+        else if (user.getFirstName().length() < 2 || user.getFirstName().matches("[a-zA-Z-]+") || user.getLastName().length() < 2 || user.getLastName().matches("[a-zA-Z-]+")){
+            System.out.println("Invalid Name.");
+            lblincorrectdetails.setText("Invalid Name.");
+            return;
         }
 
         // Insert the user into the database
