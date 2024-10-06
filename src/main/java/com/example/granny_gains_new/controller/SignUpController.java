@@ -84,7 +84,20 @@ public class SignUpController {
             lblincorrectdetails.setText("Invalid Password. Password must have at least 8 characters\nand contain at least 1 number.");
             return; // Stop if validation fails
         }
-        else if (user.getFirstName().length() < 2 || user.getFirstName().matches("[a-zA-Z-]+") || user.getLastName().length() < 2 || user.getLastName().matches("[a-zA-Z-]+")){
+        boolean letters = true;
+        for (char c : user.getFirstName().toCharArray()) {
+            if (!Character.isLetter(c) && c != '-') {
+                letters = false;
+                break;
+            }
+        }
+        for (char c : user.getLastName().toCharArray()) {
+            if (!Character.isLetter(c) && c != '-') {
+                letters = false;
+                break;
+            }
+        }
+        if (user.getFirstName().length() < 2 || user.getLastName().length() < 2 || !letters){
             System.out.println("Invalid Name.");
             lblincorrectdetails.setText("Invalid Name.");
             return;
