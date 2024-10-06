@@ -35,9 +35,8 @@ public class DatabaseConnection {
                     " height REAL, " +
                     " weight REAL, " +
                     " bmi REAL, " +
-                    " secret_1 TEXT, " +
-                    " secret_2 TEXT, " +
-                    " secret_3 TEXT " +
+                    " secret_question TEXT, " +
+                    " secret_answer TEXT " +
                     "); " +
                     // Workout Table
                     "CREATE TABLE IF NOT EXISTS Workout (" +
