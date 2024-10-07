@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SignUpController {
@@ -72,6 +73,26 @@ public class SignUpController {
             lblincorrectdetails.setText("Invalid Email.");
             return; // Stop if validation fails
         }
+        try (Connection conn = DatabaseConnection.getInstance()) {
+            if (conn == null || conn.isClosed()) {
+                System.err.println("Database connection is closed.");
+                return;
+            }
+
+            String sql = "SELECT * FROM User WHERE email = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, user.getEmail());
+                ResultSet rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    System.out.println("Email already in use.");
+                    lblincorrectdetails.setText("Email already in use.");
+                    return;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error validating user credentials: " + e.getMessage());
+        }
         boolean digit = false;
         for (char c : user.getPassword().toCharArray()) {
             if (Character.isDigit(c)) {
@@ -109,12 +130,12 @@ public class SignUpController {
         // After signing up, navigate to the user profile page and pass the email
         try {
             Stage stage = (Stage) Buttonsignup.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/user_profile_bmi.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/security_question_page.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
 
             // Get the controller for the BMI calculator
-            BMICalculatorController bmiController = fxmlLoader.getController();
-            bmiController.setEmail(user.getEmail());  // Pass the email to the BMI controller
+            SecurityQuestionController securityController = fxmlLoader.getController();
+            securityController.setEmail(user.getEmail());
 
             stage.setScene(scene);
         } catch (IOException e) {
