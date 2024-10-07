@@ -5,13 +5,15 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
+    private String phone;
 
     // Constructor
-    public User(String email, String password, String firstName, String lastName) {
+    public User(String email, String password, String firstName, String lastName, String phone) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phone = phone;
     }
 
     // Getters and Setters
@@ -45,6 +47,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
 
