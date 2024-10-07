@@ -12,23 +12,37 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class PasswordQuestionController {
 
     private String email;
+    private StringProperty securityQuestion = new SimpleStringProperty();
 
     @FXML
-    private DatePicker dpDateOfBirth;
+    private TextField tfAnswer;
 
     @FXML
-    private Button SubmitDate;
+    private Button SubmitAnswer;
 
     @FXML
     private Button BackToEmail;
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public StringProperty securityQuestionProperty() {
+        return securityQuestion;
+    }
+
+    public String getSecurityQuestion() {
+        return securityQuestion.get();
+    }
+
+    public void setSecurityQuestion(String securityQuestion) {
+        this.securityQuestion.set(securityQuestion);
     }
 
 
@@ -45,12 +59,12 @@ public class PasswordQuestionController {
     }
 
     @FXML
-    protected void handleEnterDate() {
+    protected void handleSubmitAnswer() {
         try {
-            LocalDate dateOfBirth = dpDateOfBirth.getValue();
+            String answer = tfAnswer.getText();
 
-            if (validateDOB(email, dateOfBirth)) {
-                Stage stage = (Stage) SubmitDate.getScene().getWindow();
+            if (validateAnswer(email, answer)) {
+                Stage stage = (Stage) SubmitAnswer.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/redo_password_page.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
                 RedoPasswordController controller = fxmlLoader.getController();
@@ -69,21 +83,21 @@ public class PasswordQuestionController {
         }
     }
 
-    public boolean validateDOB(String email, LocalDate dateOfBirth) {
+    public boolean validateAnswer(String email, String answer) {
         try (Connection conn = DatabaseConnection.getInstance()) {
             if (conn == null || conn.isClosed()) {
                 System.err.println("Database connection is closed.");
                 return false;
             }
 
-            String sql = "SELECT date_of_birth FROM User WHERE email = ?";
+            String sql = "SELECT secret_answer FROM User WHERE email = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, email);
                 ResultSet rs = pstmt.executeQuery();
 
                 if (rs.next()) {
-                    LocalDate storedDate = rs.getDate("date_of_birth").toLocalDate();
-                    return storedDate.equals(dateOfBirth);
+                    String trueAnswer = rs.getString("secret_answer");
+                    return trueAnswer.equals(answer);
                 } else {
                     return false;  // No user found
                 }
