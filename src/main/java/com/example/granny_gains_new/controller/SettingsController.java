@@ -22,6 +22,7 @@ public class SettingsController {
         loadNameFromSession();
         loadEmailFromSession();
         loadDOBFromSession();
+        loadPhoneFromSession();
     }
     @FXML
     private Button backButton;
@@ -55,6 +56,40 @@ public class SettingsController {
 
     @FXML
     private Label FetchDOBLabel;
+
+    @FXML
+    private Label FetchPhone;
+
+
+    @FXML
+    private void loadPhoneFromSession() {
+        String phone = fetchUserPhoneFromSession();
+        if (phone != null && !phone.isEmpty()) {
+            FetchPhone.setText( phone );
+        } else {
+            FetchPhone.setText("");
+        }
+    }
+    private String fetchUserPhoneFromSession() {
+        String phone = "";
+        String query = "SELECT u.phone FROM User u "
+                + "JOIN sessions s ON u.email = s.user_id "
+                + "ORDER BY s.login_time DESC LIMIT 1"; // Fetch the latest session
+
+        try (Connection conn = DatabaseConnection.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                phone = rs.getString("phone");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching phone from session: " + e.getMessage());
+        }
+        return phone;
+    }
+
+
 
 
     @FXML

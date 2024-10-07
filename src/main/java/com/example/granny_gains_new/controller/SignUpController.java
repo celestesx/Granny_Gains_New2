@@ -27,6 +27,9 @@ public class SignUpController {
     TextField tfEmail;
 
     @FXML
+    TextField tfPhone;
+
+    @FXML
     TextField tfPassword;
 
     @FXML
@@ -58,7 +61,8 @@ public class SignUpController {
                 tfEmail.getText(),
                 tfPassword.getText(),
                 tfFirstName.getText(),
-                tfLastName.getText()
+                tfLastName.getText(),
+                tfPhone.getText()
         );
 
         // Validate input data
@@ -90,13 +94,14 @@ public class SignUpController {
     // Method to insert the user information into the database
     public void insertUserIntoDatabase(User user) {
         Connection conn = DatabaseConnection.getInstance(); // Get the database connection
-        String sql = "INSERT INTO User (email, password, first_name, last_name) VALUES (?, ?, ?, ?)"; // SQL insert statement
+        String sql = "INSERT INTO User (email, password, first_name, last_name, phone) VALUES (?, ?, ?, ?, ?)"; // SQL insert statement
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, user.getEmail());
             pstmt.setString(2, user.getPassword());
             pstmt.setString(3, user.getFirstName());
             pstmt.setString(4, user.getLastName());
+            pstmt.setString(5, user.getPhone());
 
             // Execute the insert
             pstmt.executeUpdate();
