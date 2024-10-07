@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SignUpController {
@@ -66,10 +67,65 @@ public class SignUpController {
         );
 
         // Validate input data
-        if (user.getEmail().isEmpty() || user.getPassword().isEmpty()) {
+        if (user.getEmail().isEmpty() || user.getPassword().isEmpty() || user.getFirstName().isEmpty() || user.getLastName().isEmpty()) {
             System.out.println("Please fill in all required fields.");
             lblincorrectdetails.setText("Please fill out all required fields.");
             return; // Stop if validation fails
+        }
+        else if (user.getEmail().length() < 10 || !user.getEmail().contains("@")) {
+            System.out.println("Invalid Email.");
+            lblincorrectdetails.setText("Invalid Email.");
+            return; // Stop if validation fails
+        }
+        try (Connection conn = DatabaseConnection.getInstance()) {
+            if (conn == null || conn.isClosed()) {
+                System.err.println("Database connection is closed.");
+                return;
+            }
+
+            String sql = "SELECT * FROM User WHERE email = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, user.getEmail());
+                ResultSet rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    System.out.println("Email already in use.");
+                    lblincorrectdetails.setText("Email already in use.");
+                    return;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error validating user credentials: " + e.getMessage());
+        }
+        boolean digit = false;
+        for (char c : user.getPassword().toCharArray()) {
+            if (Character.isDigit(c)) {
+                digit = true;
+                break;
+            }
+        }
+        if (user.getPassword().length() < 8 || !digit) {
+            System.out.println("Invalid Password. Password must have at least 8 characters and contain at least 1 number.");
+            lblincorrectdetails.setText("Invalid Password. Password must have at least 8 characters\nand contain at least 1 number.");
+            return; // Stop if validation fails
+        }
+        boolean letters = true;
+        for (char c : user.getFirstName().toCharArray()) {
+            if (!Character.isLetter(c) && c != '-') {
+                letters = false;
+                break;
+            }
+        }
+        for (char c : user.getLastName().toCharArray()) {
+            if (!Character.isLetter(c) && c != '-') {
+                letters = false;
+                break;
+            }
+        }
+        if (user.getFirstName().length() < 2 || user.getLastName().length() < 2 || !letters){
+            System.out.println("Invalid Name.");
+            lblincorrectdetails.setText("Invalid Name.");
+            return;
         }
 
         // Insert the user into the database
@@ -78,12 +134,12 @@ public class SignUpController {
         // After signing up, navigate to the user profile page and pass the email
         try {
             Stage stage = (Stage) Buttonsignup.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/user_profile_bmi.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/security_question_page.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
 
             // Get the controller for the BMI calculator
-            BMICalculatorController bmiController = fxmlLoader.getController();
-            bmiController.setEmail(user.getEmail());  // Pass the email to the BMI controller
+            SecurityQuestionController securityController = fxmlLoader.getController();
+            securityController.setEmail(user.getEmail());
 
             stage.setScene(scene);
         } catch (IOException e) {

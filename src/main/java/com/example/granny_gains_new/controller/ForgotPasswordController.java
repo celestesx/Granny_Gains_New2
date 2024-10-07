@@ -62,7 +62,7 @@ public class ForgotPasswordController {
                 return;
             }
 
-            String sql = "SELECT * FROM User WHERE email = ?";
+            String sql = "SELECT secret_question FROM User WHERE email = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, email);
                 ResultSet rs = pstmt.executeQuery();
@@ -74,6 +74,8 @@ public class ForgotPasswordController {
                         Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
                         PasswordQuestionController controller = fxmlLoader.getController();
                         controller.setEmail(email);
+                        String question = rs.getString("secret_question");
+                        controller.setSecurityQuestion(question);
                         stage.setScene(scene);
                     } catch (IOException e) {
                         e.printStackTrace();

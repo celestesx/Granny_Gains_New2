@@ -29,13 +29,13 @@ public class DatabaseConnection {
                     " password TEXT NOT NULL, " +
                     " first_name TEXT, " +
                     " last_name TEXT, " +
-                    " phone TEXT, " +
-                    " secret_answer TEXT, " +
                     " date_of_birth DATE, " +
                     " gender TEXT, " +
                     " height REAL, " +
                     " weight REAL, " +
-                    " bmi REAL " +
+                    " bmi REAL, " +
+                    " secret_question TEXT, " +
+                    " secret_answer TEXT " +
                     "); " +
                     // Workout Table
                     "CREATE TABLE IF NOT EXISTS Workout (" +
