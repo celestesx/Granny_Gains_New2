@@ -44,12 +44,8 @@ public class FitnessController {
     private Button LogButton;
 
     @FXML
-    protected void handleHelp() throws IOException {
-        Stage stage = (Stage) HelpButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/fitness_help.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
-        stage.setScene(scene);
-    }
+    private Button logCardio1, logCardio2, logCardio3, logCardio4;
+
 
     @FXML
     private void handleLog() {
@@ -63,6 +59,15 @@ public class FitnessController {
             e.printStackTrace();
             System.err.println("Error loading the favourites page.");
         }
+    }
+
+
+    @FXML
+    protected void handleHelp() throws IOException {
+        Stage stage = (Stage) HelpButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/fitness_help.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
+        stage.setScene(scene);
     }
 
 
@@ -103,8 +108,6 @@ public class FitnessController {
     @FXML
     private Label Cardio1Title, Cardio2Title, Cardio3Title, Cardio4Title;
 
-    @FXML
-    private Button logCardio1, logCardio2, logCardio3, logCardio4;
 
     // Method to initialize the controller
     @FXML
