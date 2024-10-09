@@ -49,6 +49,7 @@ public class SignUpController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_in_page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
             stage.setScene(scene);
+            stage.setMaximized(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,6 +152,7 @@ public class SignUpController {
             securityController.setUser(user);
 
             stage.setScene(scene);
+            stage.setMaximized(true);
         } catch (IOException e) {
             e.printStackTrace();
         }

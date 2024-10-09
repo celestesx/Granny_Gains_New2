@@ -108,6 +108,7 @@ public class GrannyGainsHomeController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFilePath));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
             stage.setScene(scene);
+            stage.setMaximized(true);
             System.out.println("Navigated to " + pageName);
         } catch (IOException e) {
             System.err.println("Error loading " + pageName + ": " + e.getMessage());

@@ -1,8 +1,10 @@
 package com.example.granny_gains_new.controller;
 
+import com.example.granny_gains_new.HelloApplication;
 import com.example.granny_gains_new.database.DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -70,6 +72,11 @@ public class SignInController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/granny_gains_home.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
                 stage.setScene(scene);
+                stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+                stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+                stage.setMaximized(true);
+                stage.show();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -118,16 +125,30 @@ public class SignInController {
         }
     }
 
+//    @FXML
+//    protected void buttonSignup() {
+//        try {
+//            Stage stage = (Stage) ButtonSignin.getScene().getWindow();
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_up_page.fxml"));
+//            Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
+//            stage.setMaximized(true);
+//            stage.setScene(scene);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     @FXML
-    protected void buttonSignup() {
-        try {
-            Stage stage = (Stage) ButtonSignin.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_up_page.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    protected void buttonSignup() throws IOException {
+        Stage stage = (Stage) ButtonSignin.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("sign_up_page.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
+        stage.setScene(scene);
+        stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+        stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+
+        stage.setMaximized(true);
+        stage.show();
     }
 
     @FXML
@@ -137,6 +158,7 @@ public class SignInController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/forgot_password_page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
             stage.setScene(scene);
+            stage.setMaximized(true);
         } catch (IOException e) {
             e.printStackTrace();
         }

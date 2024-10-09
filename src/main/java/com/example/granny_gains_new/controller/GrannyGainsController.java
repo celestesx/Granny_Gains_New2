@@ -57,8 +57,11 @@ public class GrannyGainsController {
         Stage stage = (Stage) nextButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("sign_in_page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
+
         stage.setScene(scene);
+        stage.setMaximized(true);
     }
+
 
     @FXML
     private void handleNextButton(ActionEvent event) {
@@ -71,9 +74,11 @@ public class GrannyGainsController {
 
             // Set the new scene to the stage
             stage.setScene(new Scene(homeRoot));
+            stage.setMaximized(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
