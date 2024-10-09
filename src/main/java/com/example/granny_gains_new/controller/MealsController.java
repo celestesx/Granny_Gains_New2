@@ -115,8 +115,10 @@ public class MealsController {
         });
     }
 
-    private void showRecipeDetailPage(Recipe recipe) throws IOException {
+      private void showRecipeDetailPage(Recipe recipe) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/recipiesview.fxml"));
+
         Stage stage = (Stage) recipeListView.getScene().getWindow();
         Scene scene = new Scene(loader.load(), 1500, 1000);
 

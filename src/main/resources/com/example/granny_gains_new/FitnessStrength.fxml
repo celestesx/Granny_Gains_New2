@@ -22,6 +22,11 @@
                         </Button>
                         <Button fx:id="StrengthButton" layoutX="56.0" layoutY="350.0" mnemonicParsing="false" onAction="#NavStrength" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="Strength" />
                         <Button fx:id="CardioButton" layoutX="56.0" layoutY="197.0" mnemonicParsing="false" onAction="#NavCardio" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="Cardio" />
+                  <Button fx:id="LogButton" layoutX="-1.0" layoutY="620.0" mnemonicParsing="false" onAction="#handleLog" prefHeight="49.0" prefWidth="252.0" style="-fx-background-color: #1e81b0;" stylesheets="@styles.css" text="Fitness Log">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
                     </children></Pane>
             </left>
             <center>
@@ -36,19 +41,19 @@
                                 <Font size="34.0" />
                             </font>
                         </Label>
-                        <Label fx:id="Strength1Title" layoutX="58.0" layoutY="335.0" text="Lorem Ipsum">
+                        <Label fx:id="Strength1Title" layoutX="58.0" layoutY="313.0" text="Lorem Ipsum">
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                        <Label fx:id="Strength3Title" layoutX="58.0" layoutY="593.0" text="Lorem Ipsum">
+                        <Label fx:id="Strength3Title" layoutX="58.0" layoutY="574.0" text="Lorem Ipsum">
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                        <Label fx:id="Strength4Title" layoutX="507.0" layoutY="593.0" text="Lorem Ipsum">
+                        <Label fx:id="Strength4Title" layoutX="485.0" layoutY="574.0" text="Lorem Ipsum">
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                        <Label fx:id="Strength2Title" layoutX="507.0" layoutY="344.0" text="Lorem Ipsum">
+                        <Label fx:id="Strength2Title" layoutX="485.0" layoutY="313.0" text="Lorem Ipsum">
                      <font>
                         <Font size="15.0" />
                      </font></Label>
@@ -57,6 +62,10 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
+                  <Button fx:id="logStrength1" layoutX="168.0" layoutY="107.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
+                  <Button fx:id="logStrength2" layoutX="595.0" layoutY="107.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
+                  <Button fx:id="logStrength3" layoutX="168.0" layoutY="369.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
+                  <Button fx:id="logStrength4" layoutX="591.0" layoutY="369.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
                     </children>
                 </Pane>
             </center>

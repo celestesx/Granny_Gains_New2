@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.FitnesslogController">
+    <children>
+        <!-- Main Layout -->
+        <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" spacing="20.0" style="-fx-padding: 20;">
+
+            <!-- Title Label -->
+            <Label text="Fitness Diary" style="-fx-font-size: 28px; -fx-font-weight: bold;" />
+
+            <!-- TableView to Display Completed Workouts -->
+            <TableView fx:id="diaryTableView" prefHeight="400.0" prefWidth="750.0">
+                <columns>
+                    <!-- Workout Name Column -->
+                    <TableColumn fx:id="workoutNameColumn" text="Workout Name" prefWidth="375.0" />
+
+                    <!-- Date Completed Column -->
+                    <TableColumn fx:id="dateCompletedColumn" text="Date Completed" prefWidth="375.0" />
+                </columns>
+            </TableView>
+
+            <!-- Back Button -->
+            <Button text="Back to Fitness Page" onAction="#handleBack" />
+        </VBox>
+    </children>
+</AnchorPane>
