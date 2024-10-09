@@ -14,12 +14,11 @@ import javafx.scene.control.ComboBox;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SecurityQuestionController {
 
-    private String email; // Email passed from the sign-up page
+    private User user;
 
     @FXML
     ComboBox<String> dropdownMenu;
@@ -37,8 +36,8 @@ public class SecurityQuestionController {
     private Label lblincorrectdetails;
 
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @FXML
@@ -62,14 +61,18 @@ public class SecurityQuestionController {
             return;
         }
 
-        String sql = "UPDATE User SET secret_question = ?, secret_answer = ? WHERE email = ?";
+        String sql = "INSERT INTO User (email, password, first_name, last_name, phone, secret_question, secret_answer) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getInstance();  // Get the database connection
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // Set values for the prepared statement
-            pstmt.setString(1, dropdownMenu.getSelectionModel().getSelectedItem());
-            pstmt.setString(2, tfAnswer.getText());
-            pstmt.setString(3, email);  // Use the email to update the profile data
+            pstmt.setString(1, user.getEmail());
+            pstmt.setString(2, user.getPassword());
+            pstmt.setString(3, user.getFirstName());
+            pstmt.setString(4, user.getLastName());
+            pstmt.setString(5, user.getPhone());
+            pstmt.setString(6, dropdownMenu.getSelectionModel().getSelectedItem());
+            pstmt.setString(7, tfAnswer.getText());
 
             // Execute the insert operation
             pstmt.executeUpdate();
@@ -87,7 +90,7 @@ public class SecurityQuestionController {
 
             // Get the controller for the BMI calculator
             BMICalculatorController bmiController = fxmlLoader.getController();
-            bmiController.setEmail(email);  // Pass the email to the BMI controller
+            bmiController.setEmail(user.getEmail());  // Pass the email to the BMI controller
 
             stage.setScene(scene);
         } catch (IOException e) {

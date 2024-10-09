@@ -67,7 +67,7 @@ public class SignUpController {
         );
 
         // Validate input data
-        if (user.getEmail().isEmpty() || user.getPassword().isEmpty() || user.getFirstName().isEmpty() || user.getLastName().isEmpty()) {
+        if (user.getEmail().isEmpty() || user.getPassword().isEmpty() || user.getFirstName().isEmpty() || user.getLastName().isEmpty() || user.getPhone().isEmpty()) {
             System.out.println("Please fill in all required fields.");
             lblincorrectdetails.setText("Please fill out all required fields.");
             return; // Stop if validation fails
@@ -109,6 +109,18 @@ public class SignUpController {
             lblincorrectdetails.setText("Invalid Password. Password must have at least 8 characters\nand contain at least 1 number.");
             return; // Stop if validation fails
         }
+        boolean digit2 = true;
+        for (char c : user.getPhone().toCharArray()) {
+            if (!Character.isDigit(c)) {
+                digit2 = false;
+                break;
+            }
+        }
+        if (user.getPhone().length() < 8 || user.getPhone().length() > 12 || !digit2) {
+            System.out.println("Invalid Phone Number.");
+            lblincorrectdetails.setText("Invalid Phone Number.");
+            return; // Stop if validation fails
+        }
         boolean letters = true;
         for (char c : user.getFirstName().toCharArray()) {
             if (!Character.isLetter(c) && c != '-') {
@@ -128,9 +140,6 @@ public class SignUpController {
             return;
         }
 
-        // Insert the user into the database
-        insertUserIntoDatabase(user);
-
         // After signing up, navigate to the user profile page and pass the email
         try {
             Stage stage = (Stage) Buttonsignup.getScene().getWindow();
@@ -139,31 +148,11 @@ public class SignUpController {
 
             // Get the controller for the BMI calculator
             SecurityQuestionController securityController = fxmlLoader.getController();
-            securityController.setEmail(user.getEmail());
+            securityController.setUser(user);
 
             stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    // Method to insert the user information into the database
-    public void insertUserIntoDatabase(User user) {
-        Connection conn = DatabaseConnection.getInstance(); // Get the database connection
-        String sql = "INSERT INTO User (email, password, first_name, last_name, phone) VALUES (?, ?, ?, ?, ?)"; // SQL insert statement
-
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, user.getEmail());
-            pstmt.setString(2, user.getPassword());
-            pstmt.setString(3, user.getFirstName());
-            pstmt.setString(4, user.getLastName());
-            pstmt.setString(5, user.getPhone());
-
-            // Execute the insert
-            pstmt.executeUpdate();
-            System.out.println("User signed up and inserted into database successfully!");
-        } catch (SQLException e) {
-            System.err.println("Error inserting user into database: " + e.getMessage());
         }
     }
 }
