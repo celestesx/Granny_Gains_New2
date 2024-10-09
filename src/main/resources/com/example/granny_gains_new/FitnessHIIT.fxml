@@ -22,6 +22,11 @@
                         </Button>
                         <Button fx:id="StrengthButton" layoutX="56.0" layoutY="350.0" mnemonicParsing="false" onAction="#NavStrength" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="Strength" />
                         <Button fx:id="CardioButton" layoutX="56.0" layoutY="197.0" mnemonicParsing="false" onAction="#NavCardio" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="Cardio" />
+                  <Button fx:id="LogButton" layoutX="-2.0" layoutY="620.0" mnemonicParsing="false" onAction="#handleLog" prefHeight="49.0" prefWidth="252.0" style="-fx-background-color: #1e81b0;" stylesheets="@styles.css" text="Fitness Log">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
                     </children></Pane>
             </left>
             <center>
@@ -57,6 +62,10 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
+                  <Button fx:id="logHiit1" layoutX="168.0" layoutY="117.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
+                  <Button fx:id="logHiit2" layoutX="595.0" layoutY="117.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
+                  <Button fx:id="logHiit4" layoutX="595.0" layoutY="378.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
+                  <Button fx:id="logHiit3" layoutX="168.0" layoutY="378.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
                     </children>
                 </Pane>
             </center>

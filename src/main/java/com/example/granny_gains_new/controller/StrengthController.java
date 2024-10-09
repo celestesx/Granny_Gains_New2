@@ -1,5 +1,7 @@
 package com.example.granny_gains_new.controller;
 
+import com.example.granny_gains_new.database.DatabaseConnection;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +14,9 @@ import javafx.scene.image.ImageView;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javafx.scene.Parent;
 
@@ -30,6 +35,65 @@ public class StrengthController {
 
     @FXML
     private Button HelpButton;
+
+    @FXML
+    private Button LogButton;
+
+    @FXML
+    private Button logStrength1, logStrength2, logStrength3, logStrength4;
+
+
+    @FXML
+    private void handleLog() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/fitnesslog.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error loading the favourites page.");
+        }
+    }
+
+    @FXML
+    private void markAsComplete(ActionEvent event) {
+        Button clickedButton = (Button) event.getSource();
+        String workoutName = ""; // This will hold the name of the workout to save to the database
+
+        if (clickedButton == logStrength1) {
+            workoutName = Strength1Title.getText();
+        } else if (clickedButton == logStrength2) {
+            workoutName = logStrength2.getText();
+        } else if (clickedButton == logStrength3) {
+            workoutName = Strength3Title.getText();
+        } else if (clickedButton == logStrength4) {
+            workoutName = Strength4Title.getText();
+        }
+
+        // Update button text
+        clickedButton.setText("Completed");
+
+        // Call method to update the database
+        addWorkoutToDiary(workoutName);
+    }
+
+    // Method to add workout to diary database
+    private void addWorkoutToDiary(String workoutName) {
+        String query = "INSERT INTO WorkoutDiary (workout_name, date_completed) VALUES (?, CURRENT_TIMESTAMP)";
+
+        try (Connection conn = DatabaseConnection.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, workoutName);
+            stmt.executeUpdate();
+
+            System.out.println("Workout " + workoutName + " marked as completed and saved to the diary.");
+        } catch (SQLException e) {
+            System.err.println("Error saving workout to diary: " + e.getMessage());
+        }
+    }
 
     @FXML
     protected void handleHelp() throws IOException {

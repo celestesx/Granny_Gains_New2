@@ -26,19 +26,19 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        // Database connection
+
         Connection connection = DatabaseConnection.getInstance();
 
-        // Initialize the database handler
+
         RecipeDBHandler dbHandler = new RecipeDBHandler();
 
         // Initialize the recipe loader
         RecipeLoader loader = new RecipeLoader();
 
-        // Path to your CSV file (update with your actual file path)
+
         String csvFilePath = "src/main/resources/com/example/granny_gains_new/database/meals.csv";
 
-        // Load recipes from CSV (without duplicates) when the app starts
+
         loader.loadRecipesFromCSV(csvFilePath, dbHandler);
         //Launch JavaFX application
 

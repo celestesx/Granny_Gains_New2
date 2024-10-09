@@ -58,6 +58,12 @@ public class DatabaseConnection {
                     " program_type TEXT, " +
                     " instructions TEXT " +
                     "); " +
+                    //Workout Log
+                    "CREATE TABLE IF NOT EXISTS WorkoutDiary (" +
+                    "workout_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "workout_name TEXT NOT NULL," +
+                    "date_completed TIMESTAMP" +
+                    ");" +
                     // User Program Session Table
                     "CREATE TABLE IF NOT EXISTS User_program_session (" +
                     " user_program_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
