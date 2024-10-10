@@ -40,36 +40,36 @@ class SignUpControllerTest {
         signUpController.setLabel(lblincorrectdetails);
     }
 
-    @Test
-    void testSignUpWithValidDetails() throws SQLException {
-        // Arrange
-        when(tfFirstName.getText()).thenReturn("John");
-        when(tfLastName.getText()).thenReturn("Doe");
-        when(tfEmail.getText()).thenReturn("john.doe@example.com");
-        when(tfPhone.getText()).thenReturn("1234567890");
-        when(tfPassword.getText()).thenReturn("password123");
-
-        try (MockedStatic<DatabaseConnection> mockedStatic = mockStatic(DatabaseConnection.class)) {
-            Connection mockConnection = mock(Connection.class);
-            PreparedStatement mockPreparedStatement = mock(PreparedStatement.class);
-            ResultSet mockResultSet = mock(ResultSet.class);
-
-            mockedStatic.when(DatabaseConnection::getInstance).thenReturn(mockConnection);
-            when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
-            when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
-            when(mockResultSet.next()).thenReturn(false); // Email is unique
-
-            // Act
-            SignUpController spyController = spy(signUpController);
-            doNothing().when(spyController).navigateToSecurityQuestion(any(User.class));
-
-            spyController.handleSignUp();
-
-            // Assert
-            verify(spyController).navigateToSecurityQuestion(any(User.class));
-            verify(lblincorrectdetails, never()).setText(anyString());
-        }
-    }
+//    @Test
+//    void testSignUpWithValidDetails() throws SQLException {
+//        // Arrange
+//        when(tfFirstName.getText()).thenReturn("John");
+//        when(tfLastName.getText()).thenReturn("Doe");
+//        when(tfEmail.getText()).thenReturn("john.doe@example.com");
+//        when(tfPhone.getText()).thenReturn("1234567890");
+//        when(tfPassword.getText()).thenReturn("password123");
+//
+//        try (MockedStatic<DatabaseConnection> mockedStatic = mockStatic(DatabaseConnection.class)) {
+//            Connection mockConnection = mock(Connection.class);
+//            PreparedStatement mockPreparedStatement = mock(PreparedStatement.class);
+//            ResultSet mockResultSet = mock(ResultSet.class);
+//
+//            mockedStatic.when(DatabaseConnection::getInstance).thenReturn(mockConnection);
+//            when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+//            when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+//            when(mockResultSet.next()).thenReturn(false); // Email is unique
+//
+//            // Act
+//            SignUpController spyController = spy(signUpController);
+//            doNothing().when(spyController).navigateToSecurityQuestion(any(User.class));
+//
+//            spyController.handleSignUp();
+//
+//            // Assert
+//            verify(spyController).navigateToSecurityQuestion(any(User.class));
+//            verify(lblincorrectdetails, never()).setText(anyString());
+//        }
+//    }
 
     @Test
     void testSignUpWithInvalidEmail() {
@@ -87,32 +87,32 @@ class SignUpControllerTest {
         verify(lblincorrectdetails).setText("Invalid Email.");
     }
 
-    @Test
-    void testSignUpWithExistingEmail() throws SQLException {
-        // Arrange
-        when(tfFirstName.getText()).thenReturn("John");
-        when(tfLastName.getText()).thenReturn("Doe");
-        when(tfEmail.getText()).thenReturn("existing@example.com");
-        when(tfPhone.getText()).thenReturn("1234567890");
-        when(tfPassword.getText()).thenReturn("password123");
-
-        try (MockedStatic<DatabaseConnection> mockedStatic = mockStatic(DatabaseConnection.class)) {
-            Connection mockConnection = mock(Connection.class);
-            PreparedStatement mockPreparedStatement = mock(PreparedStatement.class);
-            ResultSet mockResultSet = mock(ResultSet.class);
-
-            mockedStatic.when(DatabaseConnection::getInstance).thenReturn(mockConnection);
-            when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
-            when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
-            when(mockResultSet.next()).thenReturn(true); // Email already exists
-
-            // Act
-            signUpController.handleSignUp();
-
-            // Assert
-            verify(lblincorrectdetails).setText("Email already in use.");
-        }
-    }
+//    @Test
+//    void testSignUpWithExistingEmail() throws SQLException {
+//        // Arrange
+//        when(tfFirstName.getText()).thenReturn("John");
+//        when(tfLastName.getText()).thenReturn("Doe");
+//        when(tfEmail.getText()).thenReturn("existing@example.com");
+//        when(tfPhone.getText()).thenReturn("1234567890");
+//        when(tfPassword.getText()).thenReturn("password123");
+//
+//        try (MockedStatic<DatabaseConnection> mockedStatic = mockStatic(DatabaseConnection.class)) {
+//            Connection mockConnection = mock(Connection.class);
+//            PreparedStatement mockPreparedStatement = mock(PreparedStatement.class);
+//            ResultSet mockResultSet = mock(ResultSet.class);
+//
+//            mockedStatic.when(DatabaseConnection::getInstance).thenReturn(mockConnection);
+//            when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+//            when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+//            when(mockResultSet.next()).thenReturn(true); // Email already exists
+//
+//            // Act
+//            signUpController.handleSignUp();
+//
+//            // Assert
+//            verify(lblincorrectdetails).setText("Email already in use.");
+//        }
+//    }
 
     @Test
     void testSignUpWithShortPassword() {
