@@ -9,13 +9,13 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="669.0" prefWidth="1098.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.FitnessHelpController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.FitnessHelpController">
     <children>
-        <BorderPane prefHeight="669.0" prefWidth="1098.0" style="-fx-background-color: #FFF;">
+        <BorderPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #FFF;">
             <left>
                 <Pane prefHeight="669.0" prefWidth="185.0" styleClass="linear-grad" stylesheets="@styles.css" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="HomeButton" layoutX="24.0" layoutY="580.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="59.0" prefWidth="138.0" style="-fx-background-color: #1e81b0;" stylesheets="@styles.css" text="Back">
+                        <Button fx:id="HomeButton" layoutX="24.0" layoutY="875.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="59.0" prefWidth="138.0" style="-fx-background-color: #1e81b0;" stylesheets="@styles.css" text="Back">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
@@ -25,34 +25,34 @@
             <center>
                 <Pane prefHeight="669.0" prefWidth="632.0" style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
                     <children>
-                  <Label layoutX="17.0" layoutY="14.0" text="Cardio">
+                  <Label layoutX="131.0" layoutY="74.0" text="Cardio">
                      <font>
                         <Font size="29.0" />
                      </font>
                   </Label>
-                  <TextArea layoutX="14.0" layoutY="57.0" prefHeight="149.0" prefWidth="867.0" text="Cardiovascular or aerobic exercise, involves activities that raise the heart rate and improve endurance. &#10;For seniors, it includes walking, swimming, or cycling, helping to enhance heart and lung function. &#10;Regular cardio exercise promotes better circulation, lowers blood pressure, and improves overall &#10;cardiovascular health. It can also boost energy levels, support weight management, and improve mood by&#10; releasing endorphins. ">
+                  <TextArea layoutX="128.0" layoutY="117.0" prefHeight="149.0" prefWidth="867.0" text="Cardiovascular or aerobic exercise, involves activities that raise the heart rate and improve endurance. &#10;For seniors, it includes walking, swimming, or cycling, helping to enhance heart and lung function. &#10;Regular cardio exercise promotes better circulation, lowers blood pressure, and improves overall &#10;cardiovascular health. It can also boost energy levels, support weight management, and improve mood by&#10; releasing endorphins. ">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextArea>
-                  <Line endX="716.0" layoutX="139.0" layoutY="226.0" startX="-100.0" />
-                  <Label layoutX="27.0" layoutY="245.0" text="Strength">
+                  <Line endX="716.0" layoutX="253.0" layoutY="355.0" startX="-100.0" />
+                  <Label layoutX="141.0" layoutY="374.0" text="Strength">
                      <font>
                         <Font size="29.0" />
                      </font>
                   </Label>
-                  <TextArea layoutX="23.0" layoutY="288.0" prefHeight="123.0" prefWidth="867.0" text="Strength training involves exercises that use resistance, like weights or body weight, to build muscle&#10;strength and endurance. For seniors, it improves muscle mass, bone density, balance, and joint flexibility, &#10;reducing the risk of falls and injuries. Regular strength training enhances overall mobility and supports &#10;daily activities.">
+                  <TextArea layoutX="137.0" layoutY="417.0" prefHeight="123.0" prefWidth="867.0" text="Strength training involves exercises that use resistance, like weights or body weight, to build muscle&#10;strength and endurance. For seniors, it improves muscle mass, bone density, balance, and joint flexibility, &#10;reducing the risk of falls and injuries. Regular strength training enhances overall mobility and supports &#10;daily activities.">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextArea>
-                  <Line endX="716.0" layoutX="148.0" layoutY="437.0" startX="-100.0" />
-                  <Label layoutX="35.0" layoutY="456.0" text="HIIT">
+                  <Line endX="716.0" layoutX="262.0" layoutY="656.0" startX="-100.0" />
+                  <Label layoutX="149.0" layoutY="675.0" text="HIIT">
                      <font>
                         <Font size="29.0" />
                      </font>
                   </Label>
-                  <TextArea layoutX="23.0" layoutY="499.0" prefHeight="123.0" prefWidth="867.0" text="High-Intensity Interval Training (HIIT) alternates short bursts of intense exercise with periods of rest or &#10;low-intensity activity. It boosts cardiovascular fitness, burns fat efficiently, and improves endurance. &#10;For seniors, modified HIIT can enhance heart health, muscle strength, and metabolism, offering effective &#10;workouts in less time.">
+                  <TextArea layoutX="137.0" layoutY="718.0" prefHeight="123.0" prefWidth="867.0" text="High-Intensity Interval Training (HIIT) alternates short bursts of intense exercise with periods of rest or &#10;low-intensity activity. It boosts cardiovascular fitness, burns fat efficiently, and improves endurance. &#10;For seniors, modified HIIT can enhance heart health, muscle strength, and metabolism, offering effective &#10;workouts in less time.">
                      <font>
                         <Font size="18.0" />
                      </font>
