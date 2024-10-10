@@ -14,7 +14,7 @@
     <children>
         <BorderPane prefHeight="1080.0" prefWidth="1920.0">
             <left>
-                <Pane prefHeight="1080.0" prefWidth="377.0" styleClass="linear-grad" stylesheets="@styles.css" BorderPane.alignment="CENTER">
+                <Pane prefHeight="1080.0" prefWidth="377.0" style="-fx-background-color: #205072;" stylesheets="@styles.css" BorderPane.alignment="CENTER">
                     <children>
                         <Button fx:id="HIITButton" layoutX="121.0" layoutY="586.0" mnemonicParsing="false" onAction="#NavHIIT" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="HIIT" />
                         <Button fx:id="HomeButton" layoutX="123.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="64.0" prefWidth="135.0" style="-fx-background-color: #1e81b0;" stylesheets="@styles.css" text="HOME">
@@ -57,7 +57,7 @@
                     </children></Pane>
             </left>
             <center>
-                <Pane prefHeight="669.0" prefWidth="632.0" BorderPane.alignment="CENTER">
+                <Pane prefHeight="669.0" prefWidth="632.0" style="-fx-background-color: F5F5DC;" BorderPane.alignment="CENTER">
                     <children>
                         <ImageView fx:id="Strength1" fitHeight="171.0" fitWidth="310.0" layoutX="296.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="Strength2" fitHeight="171.0" fitWidth="310.0" layoutX="718.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true" />
@@ -88,11 +88,11 @@
                                 <Font size="48.0" />
                             </font>
                         </Text>
-                        <Button fx:id="HelpButton" layoutX="537.0" layoutY="948.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="49.0" prefWidth="139.0" style="-fx-background-color: FF0000;" stylesheets="@styles.css" text="HELP">
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
-                        </Button>
+                  <ImageView fx:id="HelpImageView" fitHeight="47.0" fitWidth="61.0" layoutX="772.0" layoutY="41.0" onMouseClicked="#handleHelp" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8-info-50.png" />
+                     </image>
+                  </ImageView>
                     </children>
                 </Pane>
             </center>
