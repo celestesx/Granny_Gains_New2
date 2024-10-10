@@ -93,8 +93,11 @@ public class HIITController {
     }
 
     @FXML
+    private ImageView HelpImageView;
+
+    @FXML
     protected void handleHelp() throws IOException {
-        Stage stage = (Stage) HelpButton.getScene().getWindow();
+        Stage stage = (Stage) HelpImageView.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/fitness_help.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
         stage.setScene(scene);
