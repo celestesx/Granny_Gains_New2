@@ -112,7 +112,7 @@ public class HIITController {
     @FXML
     protected void NavStrength() throws IOException {
         Stage stage = (Stage) StrengthButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/FitnessStrength.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/FitnessStrengthNew.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
         stage.setScene(scene);
     }
@@ -120,7 +120,7 @@ public class HIITController {
     @FXML
     protected void NavHIIT() throws IOException {
         Stage stage = (Stage) HIITButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/FitnessHIIT.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/FitnessHIITNew.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
         stage.setScene(scene);
     }

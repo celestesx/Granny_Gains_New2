@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1220.0" style="-fx-background-color: #4f5b66;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.SettingsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #4f5b66;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.SettingsController">
    <left>
       <VBox prefHeight="200.0" prefWidth="340.0" style="-fx-background-color: #343d46;" stylesheets="@styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -51,7 +51,7 @@
                               <Insets left="40.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="99.0" styleClass="label-titlewhite" stylesheets="@styles.css" text="Profile" textFill="#eeeded">
+                        <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="158.0" styleClass="label-titlewhite" stylesheets="@styles.css" text="Edit Profile" textFill="#eeeded">
                            <opaqueInsets>
                               <Insets left="30.0" />
                            </opaqueInsets>
@@ -63,53 +63,7 @@
                   </HBox>
                   <HBox prefHeight="45.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="51.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/icons8-clinic-50.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label alignment="BASELINE_LEFT" prefHeight="50.0" prefWidth="247.0" styleClass="label-titlewhite" stylesheets="@styles.css" text="Connect Records" textFill="#eeeded">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets top="30.0" />
-                     </padding>
-                  </HBox>
-                  <HBox prefHeight="45.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="51.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/icons8-text-50.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="176.0" styleClass="label-titlewhite" stylesheets="@styles.css" text="Text Adjuster" textFill="#eeeded">
-                           <opaqueInsets>
-                              <Insets left="30.0" />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets top="30.0" />
-                     </padding>
-                  </HBox>
-                  <HBox prefHeight="45.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="51.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="51.0" fitWidth="52.0" onMouseClicked="#handleToHelp" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/icons8-help-50.png" />
                            </image>
@@ -117,7 +71,7 @@
                               <Insets left="40.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="133.0" styleClass="label-titlewhite" stylesheets="@styles.css" text="Enquiries" textFill="#eeeded">
+                        <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="89.0" styleClass="label-titlewhite" stylesheets="@styles.css" text="Help" textFill="#eeeded">
                            <opaqueInsets>
                               <Insets left="30.0" />
                            </opaqueInsets>
@@ -137,7 +91,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
                <VBox.margin>
-                  <Insets left="20.0" />
+                  <Insets left="20.0" top="100.0" />
                </VBox.margin>
             </Button>
          </children>
@@ -170,7 +124,7 @@
                         <Font name="Arial Bold" size="27.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="10.0" top="40.0" />
+                        <Insets left="90.0" top="100.0" />
                      </VBox.margin>
                   </Label>
                   <HBox prefHeight="118.0" prefWidth="880.0">
@@ -182,6 +136,9 @@
                            <padding>
                               <Insets left="80.0" right="50.0" />
                            </padding>
+                           <HBox.margin>
+                              <Insets left="100.0" top="50.0" />
+                           </HBox.margin>
                         </Label>
                         <Label fx:id="FetchNameLabel" prefHeight="32.0" prefWidth="369.0" text="Welcome!" textFill="WHITE">
                            <font>
@@ -190,6 +147,9 @@
                            <padding>
                               <Insets left="80.0" right="50.0" />
                            </padding>
+                           <HBox.margin>
+                              <Insets top="50.0" />
+                           </HBox.margin>
                         </Label>
                      </children>
                      <padding>
@@ -208,6 +168,9 @@
                            <padding>
                               <Insets left="80.0" right="50.0" />
                            </padding>
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
                         </Label>
                         <Label fx:id="FetchDOBLabel" prefHeight="32.0" prefWidth="369.0" text="  " textFill="WHITE">
                            <font>
@@ -221,7 +184,7 @@
                   </HBox>
                   <Line endX="779.2929077148438" endY="0.2928932309150696" startX="-100.0" stroke="WHITE">
                      <VBox.margin>
-                        <Insets top="60.0" />
+                        <Insets left="100.0" top="60.0" />
                      </VBox.margin>
                      <effect>
                         <Blend />
@@ -237,6 +200,9 @@
                      <font>
                         <Font name="Arial Bold" size="27.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="100.0" top="50.0" />
+                     </VBox.margin>
                   </Label>
                </children>
             </VBox>
@@ -247,15 +213,18 @@
                         <Font size="22.0" />
                      </font>
                      <padding>
-                        <Insets left="80.0" right="50.0" />
+                        <Insets left="80.0" right="50.0" top="25.0" />
                      </padding>
+                     <HBox.margin>
+                        <Insets left="100.0" />
+                     </HBox.margin>
                   </Label>
                   <Label fx:id="FetchPhone" prefHeight="32.0" prefWidth="369.0" text="  " textFill="WHITE">
                      <font>
                         <Font size="22.0" />
                      </font>
                      <padding>
-                        <Insets left="80.0" right="50.0" />
+                        <Insets left="80.0" right="50.0" top="25.0" />
                      </padding>
                   </Label>
                </children>
@@ -270,7 +239,7 @@
                         <Insets left="80.0" right="50.0" />
                      </padding>
                      <HBox.margin>
-                        <Insets top="40.0" />
+                        <Insets left="100.0" top="40.0" />
                      </HBox.margin>
                   </Label>
                   <Label fx:id="FetchEmailLabel" prefHeight="32.0" prefWidth="369.0" text="  " textFill="WHITE">
@@ -286,14 +255,6 @@
                   </Label>
                </children>
             </HBox>
-            <Button fx:id="HelpButton" mnemonicParsing="false" onAction="#handleToHelp" prefHeight="49.0" prefWidth="121.0" style="-fx-background-color: #800000;" stylesheets="@styles.css" text="Help" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="700.0" />
-               </VBox.margin>
-            </Button>
          </children>
       </VBox>
    </center>
