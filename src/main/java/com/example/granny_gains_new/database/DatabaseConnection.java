@@ -12,11 +12,11 @@ import java.sql.Statement;
  */
 public class DatabaseConnection {
 
-    // Singleton instance of the Connection object.
-    private static Connection instance;
+    // Volatile keyword ensures visibility across threads
+    private static volatile Connection instance;
 
     // SQLite database URL
-    private static final String DATABASE_URL = "jdbc:sqlite:database.db"; // Update with the correct path if needed
+    private static final String DATABASE_URL = "jdbc:sqlite:database.db";
 
     /**
      * SQL schema for creating the necessary tables in the database.
@@ -58,7 +58,7 @@ public class DatabaseConnection {
                     " program_type TEXT, " +
                     " instructions TEXT " +
                     "); " +
-                    //Workout Log
+                    // Workout Log
                     "CREATE TABLE IF NOT EXISTS WorkoutDiary (" +
                     "workout_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "workout_name TEXT NOT NULL," +
@@ -117,16 +117,22 @@ public class DatabaseConnection {
      * It establishes a new connection if one does not already exist or if it is closed.
      *
      * @return Connection instance - the singleton database connection.
+     * @throws RuntimeException if a database access error occurs
      */
-    public static synchronized Connection getInstance() {
-        try {
-            if (instance == null || instance.isClosed()) {
-                instance = DriverManager.getConnection(DATABASE_URL);
-                createTables(instance);
-                System.out.println("Database connected successfully!");
+    public static Connection getInstance() {
+        if (instance == null) {
+            synchronized (DatabaseConnection.class) {
+                if (instance == null) {
+                    try {
+                        instance = DriverManager.getConnection(DATABASE_URL);
+                        createTables();
+                        System.out.println("Database connected successfully!");
+                    } catch (SQLException e) {
+                        System.err.println("Failed to connect to the database: " + e.getMessage());
+                        throw new RuntimeException("Database connection failed", e);
+                    }
+                }
             }
-        } catch (SQLException e) {
-            System.err.println("Failed to connect to the database: " + e.getMessage());
         }
         return instance;
     }
@@ -135,14 +141,15 @@ public class DatabaseConnection {
      * This method executes the SQL schema to create the necessary tables in the database.
      * It is called after the connection to the database is established.
      *
-     * @param connection The connection to the SQLite database.
+     * @throws RuntimeException if a database access error occurs
      */
-    private static void createTables(Connection connection) {
-        try (Statement statement = connection.createStatement()) {
+    private static void createTables() {
+        try (Statement statement = instance.createStatement()) {
             statement.executeUpdate(CREATE_TABLES_SQL);
             System.out.println("Database schema executed, tables created.");
         } catch (SQLException e) {
             System.err.println("Failed to create tables: " + e.getMessage());
+            throw new RuntimeException("Failed to create tables", e);
         }
     }
 
@@ -154,10 +161,11 @@ public class DatabaseConnection {
         if (instance != null) {
             try {
                 instance.close();
-                instance = null;
                 System.out.println("Database connection closed.");
             } catch (SQLException e) {
                 System.err.println("Error closing the database connection: " + e.getMessage());
+            } finally {
+                instance = null;
             }
         }
     }
