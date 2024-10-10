@@ -13,7 +13,7 @@ import java.sql.Statement;
 public class DatabaseConnection {
 
     // Singleton instance of the Connection object.
-    private static Connection instance = null;
+    private static Connection instance;
 
     // SQLite database URL
     private static final String DATABASE_URL = "jdbc:sqlite:database.db"; // Update with the correct path if needed
@@ -121,15 +121,12 @@ public class DatabaseConnection {
     public static synchronized Connection getInstance() {
         try {
             if (instance == null || instance.isClosed()) {
-                // Establish connection to SQLite database
                 instance = DriverManager.getConnection(DATABASE_URL);
-                System.out.println("Database connected successfully!");
-
-                // Create tables if they do not exist
                 createTables(instance);
+                System.out.println("Database connected successfully!");
             }
-        } catch (SQLException sqlEx) {
-            System.err.println("Failed to connect to the database: " + sqlEx.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Failed to connect to the database: " + e.getMessage());
         }
         return instance;
     }
@@ -153,13 +150,12 @@ public class DatabaseConnection {
      * This method closes the database connection.
      * It should be called when the application is shutting down to release the database resources.
      */
-    public static synchronized void closeConnection() {
+    public static void closeConnection() {
         if (instance != null) {
             try {
-                if (!instance.isClosed()) {
-                    instance.close();
-                    System.out.println("Database connection closed.");
-                }
+                instance.close();
+                instance = null;
+                System.out.println("Database connection closed.");
             } catch (SQLException e) {
                 System.err.println("Error closing the database connection: " + e.getMessage());
             }
