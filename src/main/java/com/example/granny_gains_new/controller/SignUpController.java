@@ -2,10 +2,15 @@ package com.example.granny_gains_new.controller;
 
 import com.example.granny_gains_new.model.User;
 import com.example.granny_gains_new.database.DatabaseConnection;
+import com.example.granny_gains_new.util.UITextField;
+import com.example.granny_gains_new.util.UITextLabel;
+import com.example.granny_gains_new.util.JavaFXTextField;
+import com.example.granny_gains_new.util.JavaFXTextLabel;
+import com.example.granny_gains_new.util.ButtonHandler;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,33 +24,33 @@ import java.sql.SQLException;
 public class SignUpController {
 
     @FXML
-    TextField tfFirstName;
+    private TextField fxFirstName, fxLastName, fxEmail, fxPhone, fxPassword;
+    @FXML
+    private Label fxlblincorrectdetails;
+
+    private UITextField tfFirstName, tfLastName, tfEmail, tfPhone, tfPassword;
+    private UITextLabel lblincorrectdetails;
+    private ButtonHandler buttonHandler;
+
+    public SignUpController(ButtonHandler buttonHandler) {
+        this.buttonHandler = buttonHandler;
+    }
 
     @FXML
-    TextField tfLastName;
-
-    @FXML
-    TextField tfEmail;
-
-    @FXML
-    TextField tfPhone;
-
-    @FXML
-    TextField tfPassword;
-
-    @FXML
-    Button Buttonsignup;
-
-    @FXML
-    Button BackToSignIn;
-
-    @FXML
-    private Label lblincorrectdetails;
+    public void initialize() {
+        if (fxFirstName != null) tfFirstName = new JavaFXTextField(fxFirstName);
+        if (fxLastName != null) tfLastName = new JavaFXTextField(fxLastName);
+        if (fxEmail != null) tfEmail = new JavaFXTextField(fxEmail);
+        if (fxPhone != null) tfPhone = new JavaFXTextField(fxPhone);
+        if (fxPassword != null) tfPassword = new JavaFXTextField(fxPassword);
+        if (fxlblincorrectdetails != null) lblincorrectdetails = new JavaFXTextLabel(fxlblincorrectdetails);
+    }
 
     @FXML
     protected void handleBackToSignIn() {
+        buttonHandler.handleButtonClick();
         try {
-            Stage stage = (Stage) Buttonsignup.getScene().getWindow();
+            Stage stage = (Stage) fxFirstName.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_in_page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
             stage.setScene(scene);
@@ -55,99 +60,55 @@ public class SignUpController {
         }
     }
 
-    // Method to handle the sign-up action
     @FXML
     protected void handleSignUp() {
-        // Create a new User object using the input data
-        User user = new User(
-                tfEmail.getText(),
-                tfPassword.getText(),
-                tfFirstName.getText(),
-                tfLastName.getText(),
-                tfPhone.getText()
-        );
+        String email = tfEmail.getText();
+        String password = tfPassword.getText();
+        String firstName = tfFirstName.getText();
+        String lastName = tfLastName.getText();
+        String phone = tfPhone.getText();
 
-        // Validate input data
-        if (user.getEmail().isEmpty() || user.getPassword().isEmpty() || user.getFirstName().isEmpty() || user.getLastName().isEmpty() || user.getPhone().isEmpty()) {
-            System.out.println("Please fill in all required fields.");
+        if (email.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || phone.isEmpty()) {
             lblincorrectdetails.setText("Please fill out all required fields.");
-            return; // Stop if validation fails
+            return;
         }
-        else if (user.getEmail().length() < 10 || !user.getEmail().contains("@")) {
-            System.out.println("Invalid Email.");
+
+        User user = new User(email, password, firstName, lastName, phone);
+
+        if (user.getEmail().length() < 10 || !user.getEmail().contains("@")) {
             lblincorrectdetails.setText("Invalid Email.");
-            return; // Stop if validation fails
+            return;
         }
-        try (Connection conn = DatabaseConnection.getInstance()) {
-            if (conn == null || conn.isClosed()) {
-                System.err.println("Database connection is closed.");
-                return;
-            }
 
-            String sql = "SELECT * FROM User WHERE email = ?";
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, user.getEmail());
-                ResultSet rs = pstmt.executeQuery();
+        if (!isEmailUnique(user.getEmail())) {
+            lblincorrectdetails.setText("Email already in use.");
+            return;
+        }
 
-                if (rs.next()) {
-                    System.out.println("Email already in use.");
-                    lblincorrectdetails.setText("Email already in use.");
-                    return;
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Error validating user credentials: " + e.getMessage());
-        }
-        boolean digit = false;
-        for (char c : user.getPassword().toCharArray()) {
-            if (Character.isDigit(c)) {
-                digit = true;
-                break;
-            }
-        }
-        if (user.getPassword().length() < 8 || !digit) {
-            System.out.println("Invalid Password. Password must have at least 8 characters and contain at least 1 number.");
+        if (user.getPassword().length() < 8 || !user.getPassword().matches(".*\\d.*")) {
             lblincorrectdetails.setText("Invalid Password. Password must have at least 8 characters\nand contain at least 1 number.");
-            return; // Stop if validation fails
+            return;
         }
-        boolean digit2 = true;
-        for (char c : user.getPhone().toCharArray()) {
-            if (!Character.isDigit(c)) {
-                digit2 = false;
-                break;
-            }
-        }
-        if (user.getPhone().length() < 8 || user.getPhone().length() > 12 || !digit2) {
-            System.out.println("Invalid Phone Number.");
+
+        if (!user.getPhone().matches("\\d{8,12}")) {
             lblincorrectdetails.setText("Invalid Phone Number.");
-            return; // Stop if validation fails
+            return;
         }
-        boolean letters = true;
-        for (char c : user.getFirstName().toCharArray()) {
-            if (!Character.isLetter(c) && c != '-') {
-                letters = false;
-                break;
-            }
-        }
-        for (char c : user.getLastName().toCharArray()) {
-            if (!Character.isLetter(c) && c != '-') {
-                letters = false;
-                break;
-            }
-        }
-        if (user.getFirstName().length() < 2 || user.getLastName().length() < 2 || !letters){
-            System.out.println("Invalid Name.");
+
+        if (!user.getFirstName().matches("[a-zA-Z-]{2,}") || !user.getLastName().matches("[a-zA-Z-]{2,}")) {
             lblincorrectdetails.setText("Invalid Name.");
             return;
         }
 
-        // After signing up, navigate to the user profile page and pass the email
+        navigateToSecurityQuestion(user);
+    }
+
+    protected void navigateToSecurityQuestion(User user) {
         try {
-            Stage stage = (Stage) Buttonsignup.getScene().getWindow();
+            Stage stage = (Stage) fxFirstName.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/security_question_page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
 
-            // Get the controller for the BMI calculator
             SecurityQuestionController securityController = fxmlLoader.getController();
             securityController.setUser(user);
 
@@ -156,5 +117,36 @@ public class SignUpController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean isEmailUnique(String email) {
+        try (Connection conn = DatabaseConnection.getInstance()) {
+            if (conn == null || conn.isClosed()) {
+                System.err.println("Database connection is closed.");
+                return false;
+            }
+
+            String sql = "SELECT * FROM User WHERE email = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, email);
+                ResultSet rs = pstmt.executeQuery();
+                return !rs.next(); // If there's no next, the email is unique
+            }
+        } catch (SQLException e) {
+            System.err.println("Error checking email uniqueness: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public void setTextFields(UITextField tfFirstName, UITextField tfLastName, UITextField tfEmail, UITextField tfPhone, UITextField tfPassword) {
+        this.tfFirstName = tfFirstName;
+        this.tfLastName = tfLastName;
+        this.tfEmail = tfEmail;
+        this.tfPhone = tfPhone;
+        this.tfPassword = tfPassword;
+    }
+
+    public void setLabel(UITextLabel lblincorrectdetails) {
+        this.lblincorrectdetails = lblincorrectdetails;
     }
 }
