@@ -16,13 +16,14 @@ public class DatabaseConnectionTest {
     private Connection connection;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws SQLException {
         connection = DatabaseConnection.getInstance();
     }
 
     @AfterEach
-    public void tearDown() {
+    public void tearDown() throws SQLException {
         DatabaseConnection.closeConnection();
+        connection = null;
     }
 
     @Test
