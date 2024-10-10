@@ -38,6 +38,9 @@ public class RecipeDetailController {
     private TextArea methodTextArea;
 
     @FXML
+    private TextArea recipeDescriptionTextArea;
+
+    @FXML
     private ImageView unfavourited;
 
     private boolean isFavourited = false; // Track if the meal is favorited
@@ -159,6 +162,7 @@ public class RecipeDetailController {
         List<String> recipeMethod = recipe.getRecipeMethod();
         String methodText = String.join("\n", recipeMethod);
         methodTextArea.setText(methodText);
+        recipeDescriptionTextArea.setText(recipe.getDescription());
 
         // Update the heart image based on the favorited status
         updateHeartImage(isFavourited);
