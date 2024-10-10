@@ -38,12 +38,12 @@ public class SignUpController {
 
     @FXML
     public void initialize() {
-        tfFirstName = new JavaFXTextField(fxFirstName);
-        tfLastName = new JavaFXTextField(fxLastName);
-        tfEmail = new JavaFXTextField(fxEmail);
-        tfPhone = new JavaFXTextField(fxPhone);
-        tfPassword = new JavaFXTextField(fxPassword);
-        lblincorrectdetails = new JavaFXTextLabel(fxlblincorrectdetails);
+        if (fxFirstName != null) tfFirstName = new JavaFXTextField(fxFirstName);
+        if (fxLastName != null) tfLastName = new JavaFXTextField(fxLastName);
+        if (fxEmail != null) tfEmail = new JavaFXTextField(fxEmail);
+        if (fxPhone != null) tfPhone = new JavaFXTextField(fxPhone);
+        if (fxPassword != null) tfPassword = new JavaFXTextField(fxPassword);
+        if (fxlblincorrectdetails != null) lblincorrectdetails = new JavaFXTextLabel(fxlblincorrectdetails);
     }
 
     @FXML

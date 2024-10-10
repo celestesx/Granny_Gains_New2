@@ -9,14 +9,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="669.0" prefWidth="1098.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.SignUpController">
+<AnchorPane prefHeight="669.0" prefWidth="1098.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <BorderPane prefHeight="669.0" prefWidth="1098.0" style="-fx-background-color: #FFF;">
             <left>
                 <Pane prefHeight="669.0" prefWidth="549.0" styleClass="linear-grad" stylesheets="@styles.css" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="BackToSignIn" layoutX="56.0" layoutY="574.0" mnemonicParsing="false" onAction="#handleBackToSignIn" prefHeight="61.0" prefWidth="114.0" text="Back" />
-               </children></Pane>
+                    <children>
+                        <Button fx:id="BackToSignIn" layoutX="56.0" layoutY="574.0" mnemonicParsing="false" onAction="#handleBackToSignIn" prefHeight="61.0" prefWidth="114.0" text="Back" />
+                    </children>
+                </Pane>
             </left>
             <center>
                 <Pane prefHeight="669.0" prefWidth="632.0" style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
@@ -41,7 +42,7 @@
                                 <Font size="17.0" />
                             </font>
                         </PasswordField>
-                        <Label fx:id="lblincorrectdetails" layoutX="106.0" layoutY="520.0" style="-fx-text-fill: red;" text=" ">
+                        <Label fx:id="fxlblincorrectdetails" layoutX="106.0" layoutY="520.0" style="-fx-text-fill: red;" text=" ">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -56,11 +57,11 @@
                                 <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
-                  <TextField fx:id="fxPhone" layoutX="106.0" layoutY="450.0" prefHeight="62.0" prefWidth="337.0" promptText="Phone">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </TextField>
+                        <TextField fx:id="fxPhone" layoutX="106.0" layoutY="450.0" prefHeight="62.0" prefWidth="337.0" promptText="Phone">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </TextField>
                     </children>
                 </Pane>
             </center>
