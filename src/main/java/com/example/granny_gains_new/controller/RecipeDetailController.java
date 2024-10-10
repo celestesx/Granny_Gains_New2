@@ -36,6 +36,18 @@ public class RecipeDetailController {
     @FXML
     private TextArea recipeDescription;
 
+    @FXML
+    private ImageView unfavourited;
+
+    @FXML
+    protected void FavouriteMeal() {
+
+        Image heartImage = new Image(getClass().getResourceAsStream("/com/example/granny_gains_new/images/icons8-favorite-50 (1).png"));
+        unfavourited.setImage(heartImage);
+
+        System.out.println("Meal Favourited");
+    }
+
     public void setRecipeData(Recipe recipe) {
         recipeNameLabel.setText(recipe.getRecipeName());
 
