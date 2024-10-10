@@ -1,34 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="669.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.MealsController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.MealsController">
     <children>
-        <BorderPane prefHeight="669.0" prefWidth="1200.0" style="-fx-background-color: #FFF;">
+        <BorderPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: F5F5DC;">
             <top>
-                <Label fx:id="categoryHeader" alignment="CENTER" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Category Header" BorderPane.alignment="CENTER" />
+                <!-- Header with the category label -->
+                <Label fx:id="categoryHeader" alignment="CENTER" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #205072; -fx-padding: 20;" text="Category Header" BorderPane.alignment="CENTER" />
             </top>
             <left>
-                <Pane prefHeight="669.0" prefWidth="248.0" styleClass="linear-grad" BorderPane.alignment="CENTER">
+                <!-- Sidebar with navigation buttons -->
+                <Pane prefHeight="1080.0" prefWidth="300.0" style="-fx-background-color: #205072;" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="HomeButton" layoutX="65.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="49.0" prefWidth="118.0" style="-fx-background-color: #1e81b0; -fx-text-fill: white;" text="HOME">
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="100.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8-home-80.png" />
+                            </image>
+                        </ImageView>
+                        <Button fx:id="HomeButton" layoutX="40.0" layoutY="150.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: #56C596; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px; -fx-background-radius: 20;">
+                            HOME
                         </Button>
-                        <Button fx:id="AllRecipesButton" layoutX="65.0" layoutY="150.0" mnemonicParsing="false" onAction="#showAllRecipes" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: lightblue; -fx-text-fill: white; -fx-font-size: 14px;" text="All Recipes" />
-                        <Button fx:id="BreakfastButton" layoutX="65.0" layoutY="250.0" mnemonicParsing="false" onAction="#showBreakfastRecipes" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: lightblue; -fx-text-fill: white; -fx-font-size: 14px;" text="Breakfast" />
-                        <Button fx:id="LunchButton" layoutX="65.0" layoutY="350.0" mnemonicParsing="false" onAction="#showLunchRecipes" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: lightblue; -fx-text-fill: white; -fx-font-size: 14px;" text="Lunch" />
-                        <Button fx:id="DinnerButton" layoutX="65.0" layoutY="450.0" mnemonicParsing="false" onAction="#showDinnerRecipes" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: lightblue; -fx-text-fill: white; -fx-font-size: 14px;" text="Dinner" />
+                        <Button fx:id="AllRecipesButton" layoutX="40.0" layoutY="250.0" mnemonicParsing="false" onAction="#showAllRecipes" prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: #56C596; -fx-text-fill: #FFF; -fx-font-weight: bold; -fx-font-size: 18px; -fx-background-radius: 20;">
+                            All Recipes
+                        </Button>
+                        <Button fx:id="BreakfastButton" layoutX="40.0" layoutY="350.0" mnemonicParsing="false" onAction="#showBreakfastRecipes" prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: #56C596; -fx-text-fill: #FFF; -fx-font-weight: bold; -fx-font-size: 18px; -fx-background-radius: 20;">
+                            Breakfast
+                        </Button>
+                        <Button fx:id="LunchButton" layoutX="40.0" layoutY="450.0" mnemonicParsing="false" onAction="#showLunchRecipes" prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: #56C596; -fx-text-fill: #FFF; -fx-font-weight: bold; -fx-font-size: 18px; -fx-background-radius: 20;">
+                            Lunch
+                        </Button>
+                        <Button fx:id="DinnerButton" layoutX="40.0" layoutY="550.0" mnemonicParsing="false" onAction="#showDinnerRecipes" prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: #56C596; -fx-text-fill: #FFF; -fx-font-weight: bold; -fx-font-size: 18px; -fx-background-radius: 20;">
+                            Dinner
+                        </Button>
                     </children>
                 </Pane>
             </left>
             <center>
-                <Pane prefHeight="669.0" prefWidth="800.0" style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
+                <!-- Center Pane with ListView for displaying recipes -->
+                <Pane prefHeight="1080.0" prefWidth="1600.0" style="-fx-background-color: F5F5DC; -fx-padding: 20;" BorderPane.alignment="CENTER">
                     <children>
-                        <ListView fx:id="recipeListView" layoutX="50.0" layoutY="50.0" prefHeight="550.0" prefWidth="850.0" style="-fx-background-color: #f0f0f0; -fx-padding: 10px; -fx-font-size: 16px;" />
+                        <ListView fx:id="recipeListView" layoutX="25.0" layoutY="25.0" prefHeight="981.0" prefWidth="1500.0" style="-fx-background-color: F5F5DC; -fx-padding: 20; -fx-border-radius: 15; -fx-font-size: 18px; -fx-border-color: #205072;">
+                            <BorderPane.margin>
+                                <Insets bottom="15" left="15" right="15" top="15" />
+                            </BorderPane.margin>
+                        </ListView>
                     </children>
                 </Pane>
             </center>

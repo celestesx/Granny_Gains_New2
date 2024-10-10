@@ -96,8 +96,11 @@ public class StrengthController {
     }
 
     @FXML
+    private ImageView HelpImageView;
+
+    @FXML
     protected void handleHelp() throws IOException {
-        Stage stage = (Stage) HelpButton.getScene().getWindow();
+        Stage stage = (Stage) HelpImageView.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/fitness_help.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
         stage.setScene(scene);
@@ -115,7 +118,7 @@ public class StrengthController {
     @FXML
     protected void NavStrength() throws IOException {
         Stage stage = (Stage) StrengthButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/FitnessStrength.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/FitnessStrengthNew.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
         stage.setScene(scene);
     }
@@ -123,7 +126,7 @@ public class StrengthController {
     @FXML
     protected void NavHIIT() throws IOException {
         Stage stage = (Stage) HIITButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/FitnessHIIT.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/FitnessHIITNew.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
         stage.setScene(scene);
     }

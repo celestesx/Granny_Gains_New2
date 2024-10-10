@@ -48,7 +48,10 @@
  {
     -fx-background-color: linear-gradient(to bottom left, #00cc66, #3399ff);
  }
-
+ .linear-gradnew
+ {
+    -fx-background-color: linear-gradient(to bottom left, #F5F5DC, #B9D10D);
+ }
   .linear-grad2
   {
      -fx-background-color: linear-gradient(to bottom left, #DAF7A6, #FFC300);
