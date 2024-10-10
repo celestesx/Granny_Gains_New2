@@ -12,11 +12,11 @@ import java.sql.Statement;
  */
 public class DatabaseConnection {
 
-    // Volatile keyword ensures visibility across threads
-    private static volatile Connection instance;
+    // Singleton instance of the Connection object.
+    private static Connection instance = null;
 
     // SQLite database URL
-    private static final String DATABASE_URL = "jdbc:sqlite:database.db";
+    private static final String DATABASE_URL = "jdbc:sqlite:database.db"; // Update with the correct path if needed
 
     /**
      * SQL schema for creating the necessary tables in the database.
@@ -58,7 +58,7 @@ public class DatabaseConnection {
                     " program_type TEXT, " +
                     " instructions TEXT " +
                     "); " +
-                    // Workout Log
+                    //Workout Log
                     "CREATE TABLE IF NOT EXISTS WorkoutDiary (" +
                     "workout_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "workout_name TEXT NOT NULL," +
@@ -117,22 +117,19 @@ public class DatabaseConnection {
      * It establishes a new connection if one does not already exist or if it is closed.
      *
      * @return Connection instance - the singleton database connection.
-     * @throws RuntimeException if a database access error occurs
      */
-    public static Connection getInstance() {
-        if (instance == null) {
-            synchronized (DatabaseConnection.class) {
-                if (instance == null) {
-                    try {
-                        instance = DriverManager.getConnection(DATABASE_URL);
-                        createTables();
-                        System.out.println("Database connected successfully!");
-                    } catch (SQLException e) {
-                        System.err.println("Failed to connect to the database: " + e.getMessage());
-                        throw new RuntimeException("Database connection failed", e);
-                    }
-                }
+    public static synchronized Connection getInstance() {
+        try {
+            if (instance == null || instance.isClosed()) {
+                // Establish connection to SQLite database
+                instance = DriverManager.getConnection(DATABASE_URL);
+                System.out.println("Database connected successfully!");
+
+                // Create tables if they do not exist
+                createTables(instance);
             }
+        } catch (SQLException sqlEx) {
+            System.err.println("Failed to connect to the database: " + sqlEx.getMessage());
         }
         return instance;
     }
@@ -141,15 +138,14 @@ public class DatabaseConnection {
      * This method executes the SQL schema to create the necessary tables in the database.
      * It is called after the connection to the database is established.
      *
-     * @throws RuntimeException if a database access error occurs
+     * @param connection The connection to the SQLite database.
      */
-    private static void createTables() {
-        try (Statement statement = instance.createStatement()) {
+    private static void createTables(Connection connection) {
+        try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(CREATE_TABLES_SQL);
             System.out.println("Database schema executed, tables created.");
         } catch (SQLException e) {
             System.err.println("Failed to create tables: " + e.getMessage());
-            throw new RuntimeException("Failed to create tables", e);
         }
     }
 
@@ -157,15 +153,15 @@ public class DatabaseConnection {
      * This method closes the database connection.
      * It should be called when the application is shutting down to release the database resources.
      */
-    public static void closeConnection() {
+    public static synchronized void closeConnection() {
         if (instance != null) {
             try {
-                instance.close();
-                System.out.println("Database connection closed.");
+                if (!instance.isClosed()) {
+                    instance.close();
+                    System.out.println("Database connection closed.");
+                }
             } catch (SQLException e) {
                 System.err.println("Error closing the database connection: " + e.getMessage());
-            } finally {
-                instance = null;
             }
         }
     }

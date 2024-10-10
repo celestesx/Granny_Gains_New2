@@ -1,85 +1,74 @@
 package com.example.granny_gains_new.database;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class DatabaseConnectionTest {
+public class DatabaseConnectionTest {
 
     private Connection connection;
 
-    @BeforeAll
-    void setUpClass() {
-        // Ensure we start with a fresh connection for all tests
-        DatabaseConnection.closeConnection();
-    }
-
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         connection = DatabaseConnection.getInstance();
     }
 
     @AfterEach
-    void tearDown() {
+    public void tearDown() {
         DatabaseConnection.closeConnection();
     }
 
     @Test
-    void testConnectionEstablished() {
+    public void testConnectionEstablished() throws SQLException {
         assertNotNull(connection, "Connection should not be null");
-        try {
-            assertFalse(connection.isClosed(), "Connection should be open");
-        } catch (SQLException e) {
-            fail("SQLException occurred: " + e.getMessage());
-        }
+        assertFalse(connection.isClosed(), "Connection should be open");
     }
 
     @Test
-    void testTablesCreated() {
+    public void testTablesCreated() throws SQLException {
         String checkTableSql = "SELECT name FROM sqlite_master WHERE type='table' AND name='User';";
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(checkTableSql)) {
+
             assertTrue(rs.next(), "User table should exist in the database");
-        } catch (SQLException e) {
-            fail("SQLException occurred: " + e.getMessage());
         }
     }
 
     @Test
-    void testSingletonConnection() {
+    public void testReopenConnection() throws SQLException {
+        DatabaseConnection.closeConnection();
+        assertTrue(connection.isClosed(), "Connection should be closed");
+
+        connection = DatabaseConnection.getInstance();
+        assertFalse(connection.isClosed(), "Connection should be reopened");
+    }
+
+    @Test
+    public void testSingletonConnection() throws SQLException {
         Connection secondConnection = DatabaseConnection.getInstance();
         assertSame(connection, secondConnection, "The connection instance should be the same (singleton)");
     }
 
     @Test
-    void testConnectionClose() {
+    public void testConnectionClose() throws SQLException {
         DatabaseConnection.closeConnection();
-        try {
-            assertTrue(connection.isClosed(), "Connection should be closed");
-        } catch (SQLException e) {
-            fail("SQLException occurred: " + e.getMessage());
-        }
+        assertTrue(connection.isClosed(), "Connection should be closed");
     }
 
     @Test
-    void testConnectionReopensAfterClose() {
+    public void testConnectionReopensAfterClose() throws SQLException {
         DatabaseConnection.closeConnection();
-        try {
-            assertTrue(connection.isClosed(), "Connection should be closed");
-        } catch (SQLException e) {
-            fail("SQLException occurred: " + e.getMessage());
-        }
+        assertTrue(connection.isClosed(), "Connection should be closed");
 
         Connection newConnection = DatabaseConnection.getInstance();
         assertNotNull(newConnection, "New connection should be opened");
-        try {
-            assertFalse(newConnection.isClosed(), "New connection should be open");
-        } catch (SQLException e) {
-            fail("SQLException occurred: " + e.getMessage());
-        }
+        assertFalse(newConnection.isClosed(), "New connection should be open");
     }
 }
