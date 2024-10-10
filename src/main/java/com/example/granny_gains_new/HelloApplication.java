@@ -13,7 +13,7 @@ import java.sql.Connection;
 public class HelloApplication extends Application {
 
     public static final String TITLE = "Granny Gains";
-    public static final int WIDTH = 640;
+    public static final int WIDTH = 680;
     public static final int HEIGHT = 360;
 
     @Override

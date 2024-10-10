@@ -146,7 +146,6 @@ public class SignInController {
         stage.setScene(scene);
         stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
         stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
-
         stage.setMaximized(true);
         stage.show();
     }
@@ -158,7 +157,10 @@ public class SignInController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/forgot_password_page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
             stage.setScene(scene);
+            stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+            stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
             stage.setMaximized(true);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

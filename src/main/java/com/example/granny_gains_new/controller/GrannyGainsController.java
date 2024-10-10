@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.event.ActionEvent;
@@ -32,8 +33,8 @@ public class GrannyGainsController {
             We collect and store the following information:
                             
             Personal Information: Your email address and password are required for account creation and login. 
-            We use this information to authenticate your account and communicate with you regarding App updates 
-            or relevant information.
+            We use this information to authenticate your account and communicate with you regarding App 
+            updates or relevant information.
 
             Health Metrics: The App tracks health-related data such as fitness activities, dietary habits, 
             and other metrics. This data is used to provide personalized insights and recommendations aimed 
@@ -59,26 +60,9 @@ public class GrannyGainsController {
         Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
 
         stage.setScene(scene);
+        stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+        stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
         stage.setMaximized(true);
+        stage.show();
     }
-
-
-    @FXML
-    private void handleNextButton(ActionEvent event) {
-        try {
-
-            Parent homeRoot = FXMLLoader.load(getClass().getResource("sign_in_page.fxml"));
-
-            // Get the current stage
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
-            // Set the new scene to the stage
-            stage.setScene(new Scene(homeRoot));
-            stage.setMaximized(true);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
