@@ -2,7 +2,6 @@ package com.example.granny_gains_new.controller;
 
 import com.example.granny_gains_new.HelloApplication;
 import com.example.granny_gains_new.database.DatabaseConnection;
-import com.example.granny_gains_new.util.ButtonHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Screen;
@@ -15,21 +14,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.CollationElementIterator;
 import java.util.UUID;
 import java.util.prefs.Preferences;
+
 
 public class SignInController {
     @FXML
     private TextField tfEmail;
+
     @FXML
     private PasswordField tfPassword;
+
     @FXML
     private Button ButtonSignin;
+
     @FXML
     private Label lblwrongPassword;
+
     @FXML
     private CheckBox rememberMeCheckBox;
-
     private Preferences preferences;
 
     public SignInController() {
@@ -51,6 +55,7 @@ public class SignInController {
         String password = tfPassword.getText();
 
         if (validateCredentials(email, password)) {
+            // Save email and password if "Remember Me" is checked
             if (rememberMeCheckBox.isSelected()) {
                 preferences.put("email", email);
                 preferences.put("password", password);
@@ -59,6 +64,7 @@ public class SignInController {
                 preferences.remove("password");
             }
 
+            // Generate session ID and load the home page
             String sessionId = UUID.randomUUID().toString();
             createSession(email, sessionId);
             try {
@@ -70,6 +76,7 @@ public class SignInController {
                 stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
                 stage.setMaximized(true);
                 stage.show();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -78,6 +85,8 @@ public class SignInController {
         }
     }
 
+    // Method to validate credentials with the database
+    // Check if the connection is open during sign-in validation
     public boolean validateCredentials(String email, String password) {
         try (Connection conn = DatabaseConnection.getInstance()) {
             if (conn == null || conn.isClosed()) {
@@ -94,7 +103,7 @@ public class SignInController {
                     String storedPassword = rs.getString("password");
                     return storedPassword.equals(password);
                 } else {
-                    return false;
+                    return false;  // No user found
                 }
             }
         } catch (SQLException e) {
@@ -103,6 +112,7 @@ public class SignInController {
         }
     }
 
+    // Method to create a session and store it in the database
     private void createSession(String email, String sessionId) {
         try (Connection conn = DatabaseConnection.getInstance()) {
             String query = "INSERT INTO sessions (session_id, user_id) VALUES (?, ?)";
@@ -115,23 +125,28 @@ public class SignInController {
         }
     }
 
+//    @FXML
+//    protected void buttonSignup() {
+//        try {
+//            Stage stage = (Stage) ButtonSignin.getScene().getWindow();
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_up_page.fxml"));
+//            Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
+//            stage.setMaximized(true);
+//            stage.setScene(scene);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     @FXML
     protected void buttonSignup() throws IOException {
         Stage stage = (Stage) ButtonSignin.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("sign_up_page.fxml"));
-
-        SignUpController signUpController = new SignUpController(new ButtonHandler() {
-            @Override
-            public void handleButtonClick() {
-                // Implement button click handling if needed
-            }
-        });
-        fxmlLoader.setController(signUpController);
-
         Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
         stage.setScene(scene);
         stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
         stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+
         stage.setMaximized(true);
         stage.show();
     }

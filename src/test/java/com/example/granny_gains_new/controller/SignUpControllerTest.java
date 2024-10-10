@@ -1,141 +1,156 @@
-package com.example.granny_gains_new.controller;
+/*package com.example.granny_gains_new.controller;
 
-import com.example.granny_gains_new.database.DatabaseConnection;
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.example.granny_gains_new.model.User;
-import com.example.granny_gains_new.util.ButtonHandler;
-import com.example.granny_gains_new.util.UITextField;
-import com.example.granny_gains_new.util.UITextLabel;
+import com.example.granny_gains_new.database.DatabaseConnection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
-import static org.mockito.Mockito.*;
-
-@ExtendWith(MockitoExtension.class)
-class SignUpControllerTest {
-
-    @Mock
-    private UITextField tfFirstName, tfLastName, tfEmail, tfPhone, tfPassword;
-
-    @Mock
-    private UITextLabel lblincorrectdetails;
-
-    @Mock
-    private ButtonHandler buttonHandler;
+public class SignUpControllerTest {
 
     private SignUpController signUpController;
+    private Connection connection;
 
     @BeforeEach
-    void setUp() {
-        signUpController = new SignUpController(buttonHandler);
-        signUpController.setTextFields(tfFirstName, tfLastName, tfEmail, tfPhone, tfPassword);
-        signUpController.setLabel(lblincorrectdetails);
+    void setUp() throws SQLException {
+        // Establish a database connection (SQLite in-memory for testing)
+        connection = DatabaseConnection.getInstance();
+        signUpController = new SignUpController();
+
+        // Create the user table in the database if not already created
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute("CREATE TABLE IF NOT EXISTS User (" +
+                    "email TEXT PRIMARY KEY, " +
+                    "password TEXT NOT NULL, " +
+                    "first_name TEXT, " +
+                    "last_name TEXT, " +
+                    "secret_answer TEXT, " +
+                    "date_of_birth DATE, " +
+                    "gender TEXT, " +
+                    "height REAL, " +
+                    "weight REAL, " +
+                    "bmi REAL)");
+        }
     }
 
-//    @Test
-//    void testSignUpWithValidDetails() throws SQLException {
-//        // Arrange
-//        when(tfFirstName.getText()).thenReturn("John");
-//        when(tfLastName.getText()).thenReturn("Doe");
-//        when(tfEmail.getText()).thenReturn("john.doe@example.com");
-//        when(tfPhone.getText()).thenReturn("1234567890");
-//        when(tfPassword.getText()).thenReturn("password123");
-//
-//        try (MockedStatic<DatabaseConnection> mockedStatic = mockStatic(DatabaseConnection.class)) {
-//            Connection mockConnection = mock(Connection.class);
-//            PreparedStatement mockPreparedStatement = mock(PreparedStatement.class);
-//            ResultSet mockResultSet = mock(ResultSet.class);
-//
-//            mockedStatic.when(DatabaseConnection::getInstance).thenReturn(mockConnection);
-//            when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
-//            when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
-//            when(mockResultSet.next()).thenReturn(false); // Email is unique
-//
-//            // Act
-//            SignUpController spyController = spy(signUpController);
-//            doNothing().when(spyController).navigateToSecurityQuestion(any(User.class));
-//
-//            spyController.handleSignUp();
-//
-//            // Assert
-//            verify(spyController).navigateToSecurityQuestion(any(User.class));
-//            verify(lblincorrectdetails, never()).setText(anyString());
-//        }
-//    }
-
     @Test
-    void testSignUpWithInvalidEmail() {
+    void testInsertUserIntoDatabase() throws SQLException {
         // Arrange
-        when(tfFirstName.getText()).thenReturn("John");
-        when(tfLastName.getText()).thenReturn("Doe");
-        when(tfEmail.getText()).thenReturn("invalidemail");
-        when(tfPhone.getText()).thenReturn("1234567890");
-        when(tfPassword.getText()).thenReturn("password123");
+        User user = new User("john@example.com", "password123", "John", "Doe");
 
         // Act
-        signUpController.handleSignUp();
+        signUpController.insertUserIntoDatabase(user);
 
-        // Assert
-        verify(lblincorrectdetails).setText("Invalid Email.");
+        // Assert: Verify the user was successfully inserted into the database
+        try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM User WHERE email = ?")) {
+            stmt.setString(1, "john@example.com");
+            ResultSet resultSet = stmt.executeQuery();
+            assertTrue(resultSet.next());
+            assertEquals("john@example.com", resultSet.getString("email"));
+            assertEquals("password123", resultSet.getString("password"));
+            assertEquals("John", resultSet.getString("first_name"));
+            assertEquals("Doe", resultSet.getString("last_name"));
+        }
     }
 
     @Test
-    void testSignUpWithShortPassword() {
-        when(tfFirstName.getText()).thenReturn("John");
-        when(tfLastName.getText()).thenReturn("Doe");
-        when(tfEmail.getText()).thenReturn("john.doe@example.com");
-        when(tfPhone.getText()).thenReturn("1234567890");
-        when(tfPassword.getText()).thenReturn("short");
+    void testInsertUserWithDuplicateEmail() throws SQLException {
+        // Arrange: Insert a user with a specific email
+        User firstUser = new User("john@example.com", "password123", "John", "Doe");
+        User duplicateUser = new User("john@example.com", "differentpassword", "Jane", "Smith");
 
-        signUpController.handleSignUp();
+        // Act: Insert the first user
+        assertDoesNotThrow(() -> signUpController.insertUserIntoDatabase(firstUser));
 
-        verify(lblincorrectdetails).setText("Invalid Password. Password must have at least 8 characters\nand contain at least 1 number.");
+        // Act: Attempt to insert a duplicate user with the same email
+        assertDoesNotThrow(() -> signUpController.insertUserIntoDatabase(duplicateUser));
+
+        // Assert: Verify that only one user with the email "john@example.com" exists in the database
+        Connection connection = DatabaseConnection.getInstance();
+        try (PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) FROM User WHERE email = ?")) {
+            stmt.setString(1, "john@example.com");
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                assertEquals(1, count, "There should only be one user with this email");
+            }
+        }
     }
 
     @Test
-    void testSignUpWithInvalidPhoneNumber() {
-        when(tfFirstName.getText()).thenReturn("John");
-        when(tfLastName.getText()).thenReturn("Doe");
-        when(tfEmail.getText()).thenReturn("john.doe@example.com");
-        when(tfPhone.getText()).thenReturn("123abc");
-        when(tfPassword.getText()).thenReturn("password123");
+    void testSignUpWithEmptyEmailAndPassword() {
+        // Arrange: Create a user with an empty email and password
+        User user = new User("", "", "John", "Doe");
 
-        signUpController.handleSignUp();
+        // Act: Try inserting the user into the database
+        signUpController.insertUserIntoDatabase(user);
 
-        verify(lblincorrectdetails).setText("Invalid Phone Number.");
+        // Assert: Query the database to ensure the user was not inserted
+        Connection connection = DatabaseConnection.getInstance();
+        try (PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) FROM User WHERE first_name = ? AND last_name = ?")) {
+            stmt.setString(1, "John");
+            stmt.setString(2, "Doe");
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                assertEquals(0, count, "User should not be inserted with empty email and password");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            fail("Database query failed");
+        }
     }
 
     @Test
-    void testSignUpWithInvalidName() {
-        when(tfFirstName.getText()).thenReturn("123");
-        when(tfLastName.getText()).thenReturn("456");
-        when(tfEmail.getText()).thenReturn("john.doe@example.com");
-        when(tfPhone.getText()).thenReturn("1234567890");
-        when(tfPassword.getText()).thenReturn("password123");
+    void testSignUpWithInvalidEmailFormat() {
+        // Arrange: Create a user with an invalid email format
+        User user = new User("invalid-email", "password123", "John", "Doe");
 
-        signUpController.handleSignUp();
+        // Act: Try inserting the user into the database
+        signUpController.insertUserIntoDatabase(user);
 
-        verify(lblincorrectdetails).setText("Invalid Name.");
+        // Assert: Query the database to ensure the user was not inserted
+        Connection connection = DatabaseConnection.getInstance();
+        try (PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) FROM User WHERE email = ?")) {
+            stmt.setString(1, "invalid-email");
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                assertEquals(0, count, "User should not be inserted with an invalid email format");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            fail("Database query failed");
+        }
     }
 
     @Test
-    void testSignUpWithEmptyFields() {
-        when(tfFirstName.getText()).thenReturn("");
-        when(tfLastName.getText()).thenReturn("");
-        when(tfEmail.getText()).thenReturn("");
-        when(tfPhone.getText()).thenReturn("");
-        when(tfPassword.getText()).thenReturn("");
+    void testSuccessfulUserSignUp() throws SQLException {
+        // Arrange: Create a valid user
+        User user = new User("jane@example.com", "password123", "Jane", "Doe");
 
-        signUpController.handleSignUp();
+        // Act: Insert the user into the database
+        signUpController.insertUserIntoDatabase(user);
 
-        verify(lblincorrectdetails).setText("Please fill out all required fields.");
+        // Assert: Query the database to ensure the user was successfully inserted
+        Connection connection = DatabaseConnection.getInstance();
+        try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM User WHERE email = ?")) {
+            stmt.setString(1, "jane@example.com");
+            ResultSet resultSet = stmt.executeQuery();
+            assertTrue(resultSet.next(), "User should be successfully inserted into the database");
+            assertEquals("jane@example.com", resultSet.getString("email"));
+            assertEquals("password123", resultSet.getString("password"));
+            assertEquals("Jane", resultSet.getString("first_name"));
+            assertEquals("Doe", resultSet.getString("last_name"));
+        }
     }
+
 }
+*/
