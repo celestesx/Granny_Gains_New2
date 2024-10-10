@@ -108,6 +108,8 @@ public class DatabaseConnection {
                     " login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
                     " FOREIGN KEY (user_id) REFERENCES User(email) " +
                     "); ";
+                    // Favourites Table
+
 
     // Private constructor to prevent instantiation
     private DatabaseConnection() {}

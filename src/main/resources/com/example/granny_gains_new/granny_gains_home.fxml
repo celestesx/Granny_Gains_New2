@@ -16,39 +16,39 @@
     <!-- Top Navigation Bar -->
     <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="173.0" prefWidth="1880.0" spacing="40.0" style="-fx-padding: 20px;" stylesheets="@styles.css">
         <Button fx:id="SettingsButton" onAction="#handleSettings" prefHeight="56.0" prefWidth="123.0" style="-fx-text-fill: #B9D10D; -fx-background-color: #205072;" styleClass="button" text="Settings">
-         <HBox.margin>
-            <Insets />
-         </HBox.margin></Button>
-      <ImageView fitHeight="50.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/leaf.png" />
-         </image>
-      </ImageView>
+            <HBox.margin>
+                <Insets />
+            </HBox.margin></Button>
+        <ImageView fitHeight="50.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/leaf.png" />
+            </image>
+        </ImageView>
         <Button fx:id="mealsButton" onAction="#handleMeals" prefHeight="57.0" prefWidth="126.0" style="-fx-text-fill: #B9D10D; -fx-background-color: #205072;" styleClass="label-title" stylesheets="@styles.css" text="Meals">
             <font>
                 <Font name="Bell MT Bold" size="14.0" />
             </font></Button>
-      <ImageView fitHeight="90.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/dumbbell.png" />
-         </image>
-      </ImageView>
-      <Text fill="#205072" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Granny Gains" wrappingWidth="301.17601013183594">
-         <font>
-            <Font size="48.0" />
-         </font>
-      </Text>
-      <ImageView fitHeight="90.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/dumbbell.png" />
-         </image>
-      </ImageView>
+        <ImageView fitHeight="90.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/dumbbell.png" />
+            </image>
+        </ImageView>
+        <Text fill="#205072" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Granny Gains" wrappingWidth="301.17601013183594">
+            <font>
+                <Font size="48.0" />
+            </font>
+        </Text>
+        <ImageView fitHeight="90.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/dumbbell.png" />
+            </image>
+        </ImageView>
         <Button fx:id="fitnessButton" onAction="#handleFitness" prefHeight="58.0" prefWidth="115.0" style="-fx-text-fill: #B9D10D; -fx-background-color: #205072;" styleClass="button" text="Fitness" />
-      <ImageView fitHeight="50.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/leaf.png" />
-         </image>
-      </ImageView>
+        <ImageView fitHeight="50.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/leaf.png" />
+            </image>
+        </ImageView>
         <Button fx:id="logOutButton" onAction="#handleBackToSignIn" prefHeight="56.0" prefWidth="126.0" style="-fx-text-fill: white; -fx-background-color: #205072;" styleClass="button" text="Log Out" />
     </HBox>
 
@@ -60,25 +60,35 @@
 
     <!-- Welcome Label -->
     <Label fx:id="welcomeLabel" layoutX="300.0" layoutY="50.0" style="-fx-font-size: 24;" text="Welcome!" textFill="#205072" />
-   <Button fx:id="FriendsButton" onAction="#handleFriends" prefHeight="58.0" prefWidth="125.0" style="-fx-text-fill: black; -fx-background-color: B3EBF2;" styleClass="button" text="Friends" textOverrun="CLIP">
-      <font>
-         <Font size="42.0" />
-      </font>
-   </Button>
+
+    <!-- Friends and Favourites Buttons -->
+    <HBox alignment="CENTER" spacing="10.0">
+        <Button fx:id="FriendsButton" onAction="#handleFriends" prefHeight="58.0" prefWidth="125.0" style="-fx-text-fill: black; -fx-background-color: B3EBF2;" styleClass="button" text="Friends" textOverrun="CLIP">
+            <font>
+                <Font size="42.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="FavouritesButton" onAction="#handleFavourites" prefHeight="58.0" prefWidth="125.0" style="-fx-text-fill: black; -fx-background-color: B3EBF2;" styleClass="button" text="Favourites" textOverrun="CLIP">
+            <font>
+                <Font size="42.0" />
+            </font>
+        </Button>
+    </HBox>
 
     <!-- Footer Section -->
     <VBox alignment="CENTER" spacing="10.0" style="-fx-padding: 50px;">
-      <Line endX="1539.626220703125" endY="-6.627414703369141" startX="-100.0" stroke="#205072" />
-      <ImageView fitHeight="90.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/dumbbell.png" />
-         </image>
-      </ImageView>
+        <Line endX="1539.626220703125" endY="-6.627414703369141" startX="-100.0" stroke="#205072" />
+        <ImageView fitHeight="90.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/dumbbell.png" />
+            </image>
+        </ImageView>
         <Label style="-fx-font-size: 20px; -fx-font-family: 'Arial';" text="Granny Gains" textFill="#205072" />
         <Label style="-fx-font-size: 14px; -fx-padding: 0 50px;" text="Helping you stay fit and healthy at any age." textFill="#205072" wrapText="true" />
-      <VBox.margin>
-         <Insets top="10.0" />
-      </VBox.margin>
+        <VBox.margin>
+            <Insets top="10.0" />
+        </VBox.margin>
     </VBox>
 
 </VBox>
