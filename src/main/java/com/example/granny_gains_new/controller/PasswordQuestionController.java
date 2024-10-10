@@ -3,6 +3,7 @@ package com.example.granny_gains_new.controller;
 import com.example.granny_gains_new.database.DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -53,6 +54,10 @@ public class PasswordQuestionController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/forgot_password_page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
             stage.setScene(scene);
+            stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+            stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+            stage.setMaximized(true);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,12 +75,20 @@ public class PasswordQuestionController {
                 RedoPasswordController controller = fxmlLoader.getController();
                 controller.setEmail(email);
                 stage.setScene(scene);
+                stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+                stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+                stage.setMaximized(true);
+                stage.show();
             }
             else {
                 Stage stage = (Stage) BackToEmail.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_in_page.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
                 stage.setScene(scene);
+                stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+                stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+                stage.setMaximized(true);
+                stage.show();
             }
 
         } catch (IOException e) {

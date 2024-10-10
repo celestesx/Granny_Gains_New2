@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -49,7 +50,10 @@ public class SignUpController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_in_page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
             stage.setScene(scene);
+            stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+            stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
             stage.setMaximized(true);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -152,7 +156,10 @@ public class SignUpController {
             securityController.setUser(user);
 
             stage.setScene(scene);
+            stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+            stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
             stage.setMaximized(true);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

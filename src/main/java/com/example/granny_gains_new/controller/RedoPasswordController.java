@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -49,6 +50,10 @@ public class RedoPasswordController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/forgot_password_page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
             stage.setScene(scene);
+            stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+            stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+            stage.setMaximized(true);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,20 +63,38 @@ public class RedoPasswordController {
     protected void handlePassword() {
         String password = tfPassword.getText();
         String password2 = tfVerifyPassword.getText();
-        if (password.equals(password2) && !password.isEmpty()){
+        if (password.isEmpty()) {
+            lblwrongPassword.setText("Please fill out a Password");
+            return;
+        } else if (!password.equals(password2)) {
+            lblwrongPassword.setText("Passwords are not identical");
+            return;
+        }
+
+        boolean digit = false;
+        for (char c : tfPassword.getText().toCharArray()) {
+            if (Character.isDigit(c)) {
+                digit = true;
+                break;
+            }
+        }
+        if (tfPassword.getText().length() < 8 || !digit) {
+            lblwrongPassword.setText("Invalid Password. Password must have at least 8 characters\nand contain at least 1 number.");
+        }
+        else{
             UpdatePassword(email, password);
             try {
                 Stage stage = (Stage) ButtonSubmit.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_in_page.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
                 stage.setScene(scene);
+                stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+                stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+                stage.setMaximized(true);
+                stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if (password.isEmpty()) {
-            lblwrongPassword.setText("Please fill out a Password");
-        } else{
-            lblwrongPassword.setText("Passwords are not identical");
         }
     }
 
