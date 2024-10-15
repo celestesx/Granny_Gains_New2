@@ -1,9 +1,6 @@
 package com.example.granny_gains_new.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * This class is responsible for managing the database connection using the Singleton pattern.
@@ -94,6 +91,15 @@ public class DatabaseConnection {
                     " recipe_method TEXT, " +
                     " picture_url TEXT " +
                     "); " +
+                    // Meal Table (added)
+                    "CREATE TABLE IF NOT EXISTS MealTable (" +
+                    " meal_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    " recipe_name TEXT NOT NULL, " +
+                    " description TEXT, " +
+                    " servings INTEGER, " +
+                    " calories INTEGER, " +
+                    " picture_url TEXT " +
+                    "); " +
                     // Meal Plan Recipe Table
                     "CREATE TABLE IF NOT EXISTS Meal_plan_recipe (" +
                     " meal_plan_id INTEGER, " +
@@ -108,6 +114,7 @@ public class DatabaseConnection {
                     " login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
                     " FOREIGN KEY (user_id) REFERENCES User(email) " +
                     "); ";
+
 
     // Private constructor to prevent instantiation
     private DatabaseConnection() {}
@@ -163,6 +170,22 @@ public class DatabaseConnection {
             } catch (SQLException e) {
                 System.err.println("Error closing the database connection: " + e.getMessage());
             }
+        }
+    }
+
+    public static void insertMeal(String recipeName, String description, int servings, int calories, String pictureUrl) {
+        String insertSQL = "INSERT INTO MealTable (recipe_name, description, servings, calories, picture_url) VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = getInstance();
+             PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+            pstmt.setString(1, recipeName);
+            pstmt.setString(2, description);
+            pstmt.setInt(3, servings);
+            pstmt.setInt(4, calories);
+            pstmt.setString(5, pictureUrl);
+            pstmt.executeUpdate();
+            System.out.println("Meal added to the database successfully.");
+        } catch (SQLException e) {
+            System.err.println("Error inserting meal: " + e.getMessage());
         }
     }
 }

@@ -126,4 +126,11 @@ public class GrannyGainsHomeController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void handleFavourites() {
+        System.out.println("Navigating to Favourites Page...");
+        navigateToPage("/com/example/granny_gains_new/Favourites_Page.fxml", "Favourites Page");
+    }
+
 }

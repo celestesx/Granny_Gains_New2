@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.FavouritesController">
+    <children>
+        <BorderPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: F5F5DC;">
+            <top>
+                <Label fx:id="categoryHeader" alignment="CENTER" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #205072; -fx-padding: 20;" text="Favorite Fitness Workouts" BorderPane.alignment="CENTER" />
+            </top>
+            <left>
+                <Pane prefHeight="1080.0" prefWidth="300.0" style="-fx-background-color: #205072;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="backToHomeButton" layoutX="40.0" layoutY="150.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="50.0" prefWidth="220.0" styleClass="button">
+                            Go Back
+                        </Button>
+                        <Button fx:id="mealsButton" layoutX="40.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleMeals" prefHeight="50.0" prefWidth="220.0" styleClass="button">
+                            Favorite Meals
+                        </Button>
+                        <Button fx:id="fitnessButton" layoutX="40.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleFitness" prefHeight="50.0" prefWidth="220.0" styleClass="button">
+                            Favorite Fitness
+                        </Button>
+                    </children>
+                </Pane>
+            </left>
+            <center>
+                <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: F5F5DC; -fx-padding: 20;">
+                    <Label style="-fx-font-size: 24px; -fx-text-fill: #205072;" text="Your Favorite Fitness Items will be displayed here!" />
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
