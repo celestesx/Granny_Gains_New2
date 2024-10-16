@@ -36,46 +36,15 @@
                 <Circle layoutX="642.0" layoutY="73.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
 
 
-                <!-- Updated TitledPane and added navigation buttons -->
-                <TitledPane fx:id="userDetailsPane" expanded="false" focusTraversable="false" layoutX="760.0" layoutY="200.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: #D1FF98; -fx-border-color: #818589;">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
+                <VBox fx:id="userPanesContainer" layoutX="660.0" layoutY="200.0" spacing="30" prefWidth="600" />
 
-                    <!-- Friends Information -->
-                    <VBox>
-                        <TextFlow>
-                            <Text text="Name: " style="-fx-font-weight: bold;" />
-                            <Text fx:id="name" />
-                        </TextFlow>
-                        <TextFlow>
-                            <Text text="Email: " style="-fx-font-weight: bold;" />
-                            <Text fx:id="userEmail" />
-                        </TextFlow>
-                        <TextFlow>
-                            <Text text="Phone: " style="-fx-font-weight: bold;" />
-                            <Text fx:id="userPhone" />
-                        </TextFlow>
-                        <TextFlow>
-                            <Text text="Age: " style="-fx-font-weight: bold;" />
-                            <Text fx:id="userAge" />
-                        </TextFlow>
-                    </VBox>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <effect>
-                        <ColorAdjust contrast="0.28" />
-                    </effect>
-                </TitledPane>
-
-                <Button fx:id="prevButton" layoutX="760.0" layoutY="950.0" mnemonicParsing="false" onAction="#handlePrevUser" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #D1FF98; -fx-border-color: #818589;" text="Previous">
+                <Button fx:id="prevButton" layoutX="660.0" layoutY="950.0" mnemonicParsing="false" onAction="#handlePrevPage" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #D1FF98; -fx-border-color: #818589;" text="Previous">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Button>
 
-                <Button fx:id="nextButton" layoutX="1040.0" layoutY="950.0" mnemonicParsing="false" onAction="#handleNextUser" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #D1FF98; -fx-border-color: #818589;" text="Next">
+                <Button fx:id="nextButton" layoutX="1140.0" layoutY="950.0" mnemonicParsing="false" onAction="#handleNextPage" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #D1FF98; -fx-border-color: #818589;" text="Next">
                     <font>
                         <Font size="20.0" />
                     </font>

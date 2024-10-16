@@ -5,9 +5,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.geometry.Insets;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -43,10 +46,19 @@ public class FriendsController {
     private int currentUserIndex = 0;
 
     @FXML
+    private VBox userPanesContainer;
+
+    private static final int USERS_PER_PAGE = 3;
+    private int currentPage = 0;
+
+    @FXML
     public void initialize() {
         loadUsers();
-        updateUserDetails();
+        updateUserPanes();
         updateNavigationButtons();
+
+        userPanesContainer.setSpacing(30);
+        userPanesContainer.setPadding(new Insets(20));
     }
 
     @FXML
@@ -96,7 +108,7 @@ public class FriendsController {
                 while (rs.next()) {
                     try {
                         List<Object> details = new ArrayList<>();
-                        details.add(rs.getString("first_name") + " " + rs.getString("last_name")); // Full name
+                        details.add(rs.getString("first_name") + " " + rs.getString("last_name"));
                         details.add(rs.getString("email"));
                         details.add(rs.getDouble("phone"));
                         LocalDate dob = rs.getDate("date_of_birth").toLocalDate();
@@ -111,24 +123,6 @@ public class FriendsController {
             }
         } catch (SQLException e) {
             System.err.println("Error: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    private void handlePrevUser() {
-        if (currentUserIndex > 0) {
-            currentUserIndex--;
-            updateUserDetails();
-            updateNavigationButtons();
-        }
-    }
-
-    @FXML
-    private void handleNextUser() {
-        if (currentUserIndex < Users.size() - 1) {
-            currentUserIndex++;
-            updateUserDetails();
-            updateNavigationButtons();
         }
     }
 
@@ -150,7 +144,71 @@ public class FriendsController {
     }
 
     private void updateNavigationButtons() {
-        prevButton.setDisable(currentUserIndex == 0);
-        nextButton.setDisable(currentUserIndex == Users.size() - 1);
+        prevButton.setDisable(currentPage == 0);
+        nextButton.setDisable((currentPage + 1) * USERS_PER_PAGE >= Users.size());
+    }
+
+    @FXML
+    private void handlePrevPage() {
+        if (currentPage > 0) {
+            currentPage--;
+            updateUserPanes();
+            updateNavigationButtons();
+        }
+    }
+
+    @FXML
+    private void handleNextPage() {
+        if ((currentPage + 1) * USERS_PER_PAGE < Users.size()) {
+            currentPage++;
+            updateUserPanes();
+            updateNavigationButtons();
+        }
+    }
+
+    private void updateUserPanes() {
+        userPanesContainer.getChildren().clear();
+        int startIndex = currentPage * USERS_PER_PAGE;
+        int endIndex = Math.min(startIndex + USERS_PER_PAGE, Users.size());
+
+        for (int i = startIndex; i < endIndex; i++) {
+            TitledPane userPane = createUserPane(Users.get(i));
+            userPanesContainer.getChildren().add(userPane);
+        }
+    }
+
+    private TitledPane createUserPane(List<Object> userDetails) {
+        VBox container = new VBox();
+        container.setPrefHeight(200); // Set a fixed height for the container
+        container.setStyle("-fx-border-color: #818589; -fx-border-width: 1; -fx-background-color: #F5F5DC;");
+
+        TitledPane pane = new TitledPane();
+        pane.setText((String) userDetails.get(0));
+        pane.setExpanded(false);
+        pane.setCollapsible(true);
+        pane.setStyle("-fx-border-width: 0;");
+
+        VBox content = new VBox(12);
+        content.setPadding(new Insets(12));
+        content.getChildren().addAll(
+            createLabel("Name: ", (String) userDetails.get(0)),
+            createLabel("Email: ", (String) userDetails.get(1)),
+            createLabel("Phone: ", convertPhoneNumberToString((Double) userDetails.get(2))),
+            createLabel("Age: ", String.valueOf(userDetails.get(3)))
+        );
+
+        pane.setContent(content);
+        container.getChildren().add(pane);
+
+        // Make the TitledPane expand to fill the container
+        VBox.setVgrow(pane, javafx.scene.layout.Priority.ALWAYS);
+
+        return pane;
+    }
+
+    private Label createLabel(String labelText, String value) {
+        Label label = new Label(labelText + value);
+        label.setStyle("-fx-font-size: 16px;");
+        return label;
     }
 }
