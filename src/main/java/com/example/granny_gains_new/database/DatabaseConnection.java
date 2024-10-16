@@ -107,6 +107,14 @@ public class DatabaseConnection {
                     " FOREIGN KEY (meal_plan_id) REFERENCES Meal_plan(meal_plan_id), " +
                     " FOREIGN KEY (recipe_id) REFERENCES Recipe(recipe_id) " +
                     ");" +
+                    // Favourite Fitness Table
+                    "CREATE TABLE IF NOT EXISTS FitnessTable ( " +
+                    " favorite_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    " user_id TEXT, " +
+                    " exercise_id INTEGER, " +
+                    " FOREIGN KEY (user_id) REFERENCES User(email), " +
+                    " FOREIGN KEY (exercise_id) REFERENCES Workout(workout_id) " +
+                    ");" +
                     // Session Table
                     "CREATE TABLE IF NOT EXISTS sessions (" +
                     " session_id TEXT PRIMARY KEY, " +
@@ -117,7 +125,8 @@ public class DatabaseConnection {
 
 
     // Private constructor to prevent instantiation
-    private DatabaseConnection() {}
+    private DatabaseConnection() {
+    }
 
     /**
      * This method returns the singleton instance of the Connection.
@@ -186,6 +195,19 @@ public class DatabaseConnection {
             System.out.println("Meal added to the database successfully.");
         } catch (SQLException e) {
             System.err.println("Error inserting meal: " + e.getMessage());
+        }
+    }
+
+    public static void insertFavoriteExercise(String userId, int exerciseId) {
+        String insertSQL = "INSERT INTO FavoritesExercises (user_id, exercise_id) VALUES (?, ?)";
+        try (Connection connection = getInstance();
+             PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+            pstmt.setString(1, userId);
+            pstmt.setInt(2, exerciseId);
+            pstmt.executeUpdate();
+            System.out.println("Exercise added to favorites successfully.");
+        } catch (SQLException e) {
+            System.err.println("Error inserting favorite exercise: " + e.getMessage());
         }
     }
 }

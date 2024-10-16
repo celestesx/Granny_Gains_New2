@@ -3,12 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.FavouritesController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.FavFitnessController">
     <children>
         <BorderPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: F5F5DC;">
             <top>
@@ -32,6 +34,16 @@
             <center>
                 <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: F5F5DC; -fx-padding: 20;">
                     <Label style="-fx-font-size: 24px; -fx-text-fill: #205072;" text="Your Favorite Fitness Items will be displayed here!" />
+
+                    <!-- TableView for displaying fitness entries -->
+                    <TableView fx:id="fitnessTableView">
+                        <columns>
+                            <TableColumn fx:id="fitnessNameColumn" text="Fitness Name" />
+                            <TableColumn fx:id="descriptionColumn" text="Description" />
+                            <TableColumn fx:id="durationColumn" text="Duration (min)" />
+                            <TableColumn fx:id="caloriesColumn" text="Calories" />
+                        </columns>
+                    </TableView>
                 </VBox>
             </center>
         </BorderPane>
