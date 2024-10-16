@@ -43,7 +43,6 @@ public class FriendsController {
     private Button nextButton;
 
     private List<List<Object>> Users = new ArrayList<>();
-    private int currentUserIndex = 0;
 
     @FXML
     private VBox userPanesContainer;
@@ -126,17 +125,6 @@ public class FriendsController {
         }
     }
 
-    private void updateUserDetails() {
-        if (!Users.isEmpty()) {
-            List<Object> currentUser = Users.get(currentUserIndex);
-            userDetailsPane.setText((String) currentUser.get(0));
-            name.setText((String) currentUser.get(0));
-            userEmail.setText((String) currentUser.get(1));
-            userPhone.setText(convertPhoneNumberToString((Double) currentUser.get(2)));
-            userAge.setText(String.valueOf(currentUser.get(3)));
-        }
-    }
-
     private String convertPhoneNumberToString(Double phoneNumber) {
         long phoneNumberLong = phoneNumber.longValue();
 
@@ -179,7 +167,7 @@ public class FriendsController {
 
     private TitledPane createUserPane(List<Object> userDetails) {
         VBox container = new VBox();
-        container.setPrefHeight(200); // Set a fixed height for the container
+        container.setPrefHeight(200);
         container.setStyle("-fx-border-color: #818589; -fx-border-width: 1; -fx-background-color: #F5F5DC;");
 
         TitledPane pane = new TitledPane();
@@ -200,7 +188,6 @@ public class FriendsController {
         pane.setContent(content);
         container.getChildren().add(pane);
 
-        // Make the TitledPane expand to fill the container
         VBox.setVgrow(pane, javafx.scene.layout.Priority.ALWAYS);
 
         return pane;
