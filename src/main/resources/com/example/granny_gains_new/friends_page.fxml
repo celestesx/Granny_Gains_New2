@@ -24,12 +24,6 @@
                     </font>
                 </Label>
 
-                <Button layoutX="760.0" layoutY="900.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: #D1FF98; -fx-text-fill: #000000; -fx-background-radius: 5; -fx-border-color: #818589;" stylesheets="@styles.css" text="Add a Friend">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Button>
-
                 <Button fx:id="BackButton" layoutX="200.0" layoutY="950.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #D1FF98; -fx-border-color: #818589;" text="Back">
                     <font>
                         <Font size="20.0" />
@@ -42,8 +36,8 @@
                 <Circle layoutX="642.0" layoutY="73.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
 
 
-                <!-- Drop Down Button -->
-                <TitledPane expanded="false" focusTraversable="false" layoutX="760.0" layoutY="200.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: #D1FF98; -fx-border-color: #818589;" text="Neil Dalton">
+                <!-- Updated TitledPane and added navigation buttons -->
+                <TitledPane fx:id="userDetailsPane" expanded="false" focusTraversable="false" layoutX="760.0" layoutY="200.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: #D1FF98; -fx-border-color: #818589;">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -51,16 +45,20 @@
                     <!-- Friends Information -->
                     <VBox>
                         <TextFlow>
-                            <Text text="Phone: " style="-fx-font-weight: bold;" />
-                            <Text text="0449 152 209" />
+                            <Text text="Name: " style="-fx-font-weight: bold;" />
+                            <Text fx:id="name" />
                         </TextFlow>
                         <TextFlow>
                             <Text text="Email: " style="-fx-font-weight: bold;" />
-                            <Text text="n.dalton@gmail.com" />
+                            <Text fx:id="userEmail" />
+                        </TextFlow>
+                        <TextFlow>
+                            <Text text="Phone: " style="-fx-font-weight: bold;" />
+                            <Text fx:id="userPhone" />
                         </TextFlow>
                         <TextFlow>
                             <Text text="Age: " style="-fx-font-weight: bold;" />
-                            <Text text="74 years old" />
+                            <Text fx:id="userAge" />
                         </TextFlow>
                     </VBox>
                     <opaqueInsets>
@@ -70,61 +68,18 @@
                         <ColorAdjust contrast="0.28" />
                     </effect>
                 </TitledPane>
-                <TitledPane expanded="false" layoutX="760.0" layoutY="400.0" prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: #D1FF98; -fx-border-color: #818589;" text="Jerry Franco">
+
+                <Button fx:id="prevButton" layoutX="760.0" layoutY="950.0" mnemonicParsing="false" onAction="#handlePrevUser" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #D1FF98; -fx-border-color: #818589;" text="Previous">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="20.0" />
                     </font>
+                </Button>
 
-                    <content>
-                        <VBox>
-                            <children>
-                                <TextFlow>
-                                    <Text text="Phone: " style="-fx-font-weight: bold;" />
-                                    <Text text="0492 750 597" />
-                                </TextFlow>
-                                <TextFlow>
-                                    <Text text="Email: " style="-fx-font-weight: bold;" />
-                                    <Text text="jfranco2@gmail.com" />
-                                </TextFlow>
-                                <TextFlow>
-                                    <Text text="Age: " style="-fx-font-weight: bold;" />
-                                    <Text text="63 years old" />
-                                </TextFlow>
-                            </children>
-                        </VBox>
-                    </content>
-                    <effect>
-                        <ColorAdjust contrast="0.28" />
-                    </effect>
-                </TitledPane>
-                <TitledPane expanded="false" layoutX="760.0" layoutY="600.0" prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: #D1FF98; -fx-border-color: #818589;" text="Drew Hayden">
+                <Button fx:id="nextButton" layoutX="1040.0" layoutY="950.0" mnemonicParsing="false" onAction="#handleNextUser" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #D1FF98; -fx-border-color: #818589;" text="Next">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="20.0" />
                     </font>
-
-                    <content>
-                        <VBox>
-                            <children>
-                                <TextFlow>
-                                    <Text text="Phone: " style="-fx-font-weight: bold;" />
-                                    <Text text="0491 634 662" />
-                                </TextFlow>
-                                <TextFlow>
-                                    <Text text="Email: " style="-fx-font-weight: bold;" />
-                                    <Text text="dhayden@gmail.com" />
-                                </TextFlow>
-                                <TextFlow>
-                                    <Text text="Age: " style="-fx-font-weight: bold;" />
-                                    <Text text="78 years old" />
-                                </TextFlow>
-                            </children>
-                        </VBox>
-                    </content>
-                    <effect>
-                        <ColorAdjust contrast="0.28" />
-                    </effect>
-                </TitledPane>
-
+                </Button>
             </Pane>
         </top>
     </BorderPane>
