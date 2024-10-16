@@ -38,10 +38,8 @@
                     <!-- TableView for displaying fitness entries -->
                     <TableView fx:id="fitnessTableView">
                         <columns>
-                            <TableColumn fx:id="fitnessNameColumn" text="Fitness Name" />
-                            <TableColumn fx:id="descriptionColumn" text="Description" />
-                            <TableColumn fx:id="durationColumn" text="Duration (min)" />
-                            <TableColumn fx:id="caloriesColumn" text="Calories" />
+                            <TableColumn fx:id="workoutNameColumn" text="Workout Name" />
+                            <TableColumn fx:id="savedDateColumn" text="Saved Date" />
                         </columns>
                     </TableView>
                 </VBox>

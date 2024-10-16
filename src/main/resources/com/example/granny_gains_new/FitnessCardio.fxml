@@ -10,87 +10,123 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.layout.HBox?>
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.FitnessController">
     <children>
         <BorderPane prefHeight="1080.0" prefWidth="1920.0">
             <left>
                 <Pane prefHeight="1080.0" prefWidth="377.0" style="-fx-background-color: #205072;" stylesheets="@styles.css" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="HIITButton" layoutX="123.0" layoutY="648.0" mnemonicParsing="false" onAction="#NavHIIT" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="HIIT" />
-                  <Button fx:id="HomeButton" layoutX="125.0" layoutY="138.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="64.0" prefWidth="135.0" style="-fx-background-color: #1e81b0;" stylesheets="@styles.css" text="HOME">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="StrengthButton" layoutX="123.0" layoutY="471.0" mnemonicParsing="false" onAction="#NavStrength" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="Strength" />
-                  <Button fx:id="CardioButton" layoutX="122.0" layoutY="308.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="Cardio" />
-                  <Button fx:id="LogButton" layoutX="111.0" layoutY="814.0" mnemonicParsing="false" onAction="#handleLog" prefHeight="49.0" prefWidth="162.0" style="-fx-background-color: #1e81b0;" stylesheets="@styles.css" text="Fitness Log">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="53.0" fitWidth="60.0" layoutX="45.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8-cardio-64 (1).png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="53.0" fitWidth="60.0" layoutX="45.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8-strength-50.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="53.0" fitWidth="60.0" layoutX="45.0" layoutY="655.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8-workout-50.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="53.0" fitWidth="60.0" layoutX="166.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8-home-80.png" />
-                     </image>
-                  </ImageView>
-               </children></Pane>
+                    <children>
+                        <Button fx:id="HIITButton" layoutX="123.0" layoutY="648.0" mnemonicParsing="false" onAction="#NavHIIT" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="HIIT" />
+                        <Button fx:id="HomeButton" layoutX="125.0" layoutY="138.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="64.0" prefWidth="135.0" style="-fx-background-color: #1e81b0;" stylesheets="@styles.css" text="HOME">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="StrengthButton" layoutX="123.0" layoutY="471.0" mnemonicParsing="false" onAction="#NavStrength" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="Strength" />
+                        <Button fx:id="CardioButton" layoutX="122.0" layoutY="308.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="Cardio" />
+                        <Button fx:id="LogButton" layoutX="111.0" layoutY="814.0" mnemonicParsing="false" onAction="#handleLog" prefHeight="49.0" prefWidth="162.0" style="-fx-background-color: #1e81b0;" stylesheets="@styles.css" text="Fitness Log">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Button>
+                        <ImageView fitHeight="53.0" fitWidth="60.0" layoutX="45.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8-cardio-64 (1).png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fitHeight="53.0" fitWidth="60.0" layoutX="45.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8-strength-50.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fitHeight="53.0" fitWidth="60.0" layoutX="45.0" layoutY="655.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8-workout-50.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fitHeight="53.0" fitWidth="60.0" layoutX="166.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8-home-80.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </Pane>
             </left>
             <center>
                 <Pane prefHeight="669.0" prefWidth="632.0" style="-fx-background-color: F5F5DC;" BorderPane.alignment="CENTER">
                     <children>
-                  <ImageView fx:id="Cardio1" fitHeight="171.0" fitWidth="310.0" layoutX="296.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="Cardio2" fitHeight="171.0" fitWidth="310.0" layoutX="718.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="Cardio3" fitHeight="171.0" fitWidth="310.0" layoutX="296.0" layoutY="630.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="Cardio4" fitHeight="171.0" fitWidth="310.0" layoutX="718.0" layoutY="630.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="Cardio1Title" layoutX="241.0" layoutY="397.0" prefHeight="40.0" prefWidth="409.0" text="Lorem Ipsum" textFill="#205072">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
-                  <Label fx:id="Cardio3Title" layoutX="241.0" layoutY="823.0" prefHeight="35.0" prefWidth="358.0" text="Lorem Ipsum" textFill="#205072">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
-                  <Label fx:id="Cardio4Title" layoutX="718.0" layoutY="818.0" prefHeight="40.0" prefWidth="351.0" text="Lorem Ipsum" textFill="#205072">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
-                  <Label fx:id="Cardio2Title" layoutX="718.0" layoutY="398.0" prefHeight="34.0" prefWidth="374.0" text="Lorem Ipsum" textFill="#205072">
-                     <font>
-                        <Font size="21.0" />
-                     </font></Label>
-                  <Button fx:id="logCardio1" layoutX="406.0" layoutY="173.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
-                  <Button fx:id="logCardio2" layoutX="828.0" layoutY="173.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
-                  <Button fx:id="logCardio4" layoutX="828.0" layoutY="602.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
-                  <Button fx:id="logCardio3" layoutX="400.0" layoutY="602.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
-                  <Text fill="#205072" fontSmoothingType="LCD" layoutX="574.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cardio" wrappingWidth="175.17601013183594">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </Text>
-                  <ImageView fx:id="HelpImageView" fitHeight="47.0" fitWidth="61.0" layoutX="726.0" layoutY="39.0" onMouseClicked="#handleHelp" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8-info-50.png" />
-                     </image>
-                  </ImageView>
+                        <!-- Cardio Workouts with Heart Icons -->
+                        <HBox layoutX="296.0" layoutY="205.0">
+                            <ImageView fx:id="Cardio1" fitHeight="171.0" fitWidth="310.0" preserveRatio="true" />
+                            <ImageView fx:id="unfavourited1" fitHeight="59.0" fitWidth="82.0" onMouseClicked="#toggleFavorite" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@images/icons8-favorite-50.png" />
+                                </image>
+                            </ImageView>
+                        </HBox>
+                        <HBox layoutX="718.0" layoutY="205.0">
+                            <ImageView fx:id="Cardio2" fitHeight="171.0" fitWidth="310.0" preserveRatio="true" />
+                            <ImageView fx:id="unfavourited2" fitHeight="59.0" fitWidth="82.0" onMouseClicked="#toggleFavorite" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@images/icons8-favorite-50.png" />
+                                </image>
+                            </ImageView>
+                        </HBox>
+                        <HBox layoutX="296.0" layoutY="630.0">
+                            <ImageView fx:id="Cardio3" fitHeight="171.0" fitWidth="310.0" preserveRatio="true" />
+                            <ImageView fx:id="unfavourited3" fitHeight="59.0" fitWidth="82.0" onMouseClicked="#toggleFavorite" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@images/icons8-favorite-50.png" />
+                                </image>
+                            </ImageView>
+                        </HBox>
+                        <HBox layoutX="718.0" layoutY="630.0">
+                            <ImageView fx:id="Cardio4" fitHeight="171.0" fitWidth="310.0" preserveRatio="true" />
+                            <ImageView fx:id="unfavourited4" fitHeight="59.0" fitWidth="82.0" onMouseClicked="#toggleFavorite" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@images/icons8-favorite-50.png" />
+                                </image>
+                            </ImageView>
+                        </HBox>
+                        <Label fx:id="Cardio1Title" layoutX="241.0" layoutY="397.0" prefHeight="40.0" prefWidth="409.0" text="Lorem Ipsum" textFill="#205072">
+                            <font>
+                                <Font size="21.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="Cardio3Title" layoutX="241.0" layoutY="823.0" prefHeight="35.0" prefWidth="358.0" text="Lorem Ipsum" textFill="#205072">
+                            <font>
+                                <Font size="21.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="Cardio4Title" layoutX="718.0" layoutY="818.0" prefHeight="40.0" prefWidth="351.0" text="Lorem Ipsum" textFill="#205072">
+                            <font>
+                                <Font size="21.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="Cardio2Title" layoutX="718.0" layoutY="398.0" prefHeight="34.0" prefWidth="374.0" text="Lorem Ipsum" textFill="#205072">
+                            <font>
+                                <Font size="21.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="logCardio1" layoutX="406.0" layoutY="173.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
+                        <Button fx:id="logCardio2" layoutX="828.0" layoutY="173.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
+                        <Button fx:id="logCardio4" layoutX="828.0" layoutY="602.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
+                        <Button fx:id="logCardio3" layoutX="400.0" layoutY="602.0" mnemonicParsing="false" onAction="#markAsComplete" text="Uncompleted " />
+                        <Text fill="#205072" fontSmoothingType="LCD" layoutX="574.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cardio" wrappingWidth="175.17601013183594">
+                            <font>
+                                <Font size="48.0" />
+                            </font>
+                        </Text>
+                        <ImageView fx:id="HelpImageView" fitHeight="47.0" fitWidth="61.0" layoutX="726.0" layoutY="39.0" onMouseClicked="#handleHelp" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8-info-50.png" />
+                            </image>
+                        </ImageView>
                     </children>
                 </Pane>
             </center>
         </BorderPane>
     </children>
 </AnchorPane>
+

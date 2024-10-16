@@ -22,16 +22,10 @@ public class FavFitnessController {
     private TableView<FitnessEntry> fitnessTableView;
 
     @FXML
-    private TableColumn<FitnessEntry, String> fitnessNameColumn;
+    private TableColumn<FitnessEntry, String> workoutNameColumn; // Adjusted column name
 
     @FXML
-    private TableColumn<FitnessEntry, String> descriptionColumn;
-
-    @FXML
-    private TableColumn<FitnessEntry, Integer> durationColumn;
-
-    @FXML
-    private TableColumn<FitnessEntry, Integer> caloriesColumn;
+    private TableColumn<FitnessEntry, String> savedDateColumn; // Added saved_date column
 
     @FXML
     private Button backToHomeButton;
@@ -51,7 +45,7 @@ public class FavFitnessController {
     // Generic method to navigate between pages
     private void navigateToPage(String fxmlFilePath, String pageName) {
         try {
-            Stage stage = (Stage) backToHomeButton.getScene().getWindow(); // Use backToHomeButton here as well
+            Stage stage = (Stage) backToHomeButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFilePath));
             Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
             stage.setScene(scene);
@@ -64,23 +58,19 @@ public class FavFitnessController {
 
     @FXML
     public void initialize() {
-        fitnessNameColumn.setCellValueFactory(new PropertyValueFactory<>("fitnessName"));
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
-        caloriesColumn.setCellValueFactory(new PropertyValueFactory<>("caloriesBurned"));
+        workoutNameColumn.setCellValueFactory(new PropertyValueFactory<>("workoutName")); // Use workout_name
+        savedDateColumn.setCellValueFactory(new PropertyValueFactory<>("savedDate")); // Use saved_date
 
         // Set widths based on the percentage of the table width
-        fitnessNameColumn.prefWidthProperty().bind(fitnessTableView.widthProperty().multiply(0.3)); // 30%
-        descriptionColumn.prefWidthProperty().bind(fitnessTableView.widthProperty().multiply(0.4)); // 40%
-        durationColumn.prefWidthProperty().bind(fitnessTableView.widthProperty().multiply(0.15)); // 15%
-        caloriesColumn.prefWidthProperty().bind(fitnessTableView.widthProperty().multiply(0.15)); // 15%
+        workoutNameColumn.prefWidthProperty().bind(fitnessTableView.widthProperty().multiply(0.5)); // 50%
+        savedDateColumn.prefWidthProperty().bind(fitnessTableView.widthProperty().multiply(0.5)); // 50%
 
         loadSavedFitnessItems();
         fitnessTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     private void loadSavedFitnessItems() {
-        String query = "SELECT fitness_name, description, duration, calories_burned FROM FitnessTable";
+        String query = "SELECT workout_name, saved_date FROM FitnessTable"; // Adjusted query
 
         ObservableList<FitnessEntry> savedFitnessItems = FXCollections.observableArrayList();
 
@@ -89,12 +79,10 @@ public class FavFitnessController {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                String fitnessName = rs.getString("fitness_name");
-                String description = rs.getString("description");
-                int duration = rs.getInt("duration");
-                int caloriesBurned = rs.getInt("calories_burned");
+                String workoutName = rs.getString("workout_name"); // Adjusted to match your table
+                String savedDate = rs.getString("saved_date"); // Fetching saved_date
 
-                savedFitnessItems.add(new FitnessEntry(fitnessName, description, duration, caloriesBurned));
+                savedFitnessItems.add(new FitnessEntry(workoutName, savedDate)); // Updated to match the new entry structure
             }
 
             fitnessTableView.setItems(savedFitnessItems);
@@ -114,32 +102,20 @@ public class FavFitnessController {
 
     // Nested class for fitness entries
     public static class FitnessEntry {
-        private final String fitnessName;
-        private final String description;
-        private final int duration; // Duration in minutes
-        private final int caloriesBurned;
+        private final String workoutName; // Only this field needed
+        private final String savedDate; // Added savedDate
 
-        public FitnessEntry(String fitnessName, String description, int duration, int caloriesBurned) {
-            this.fitnessName = fitnessName;
-            this.description = description;
-            this.duration = duration;
-            this.caloriesBurned = caloriesBurned;
+        public FitnessEntry(String workoutName, String savedDate) {
+            this.workoutName = workoutName; // Set workout_name
+            this.savedDate = savedDate; // Set saved_date
         }
 
-        public String getFitnessName() {
-            return fitnessName;
+        public String getWorkoutName() { // Getter for workout_name
+            return workoutName;
         }
 
-        public String getDescription() {
-            return description;
-        }
-
-        public int getDuration() {
-            return duration;
-        }
-
-        public int getCaloriesBurned() {
-            return caloriesBurned;
+        public String getSavedDate() { // Getter for saved_date
+            return savedDate;
         }
     }
 }

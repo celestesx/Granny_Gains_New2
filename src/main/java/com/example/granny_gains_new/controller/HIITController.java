@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import javafx.scene.Parent;
 
@@ -39,6 +41,139 @@ public class HIITController {
     @FXML
     private Button logHiit1, logHiit2 , logHiit3, logHiit4;
 
+    @FXML
+    private ImageView unfavourited1, unfavourited2, unfavourited3, unfavourited4; // ImageViews for the heart icons
+
+    private boolean[] isFavourited = {false, false, false, false}; // Track if each workout is favorited
+
+    private String[] currentWorkoutNames = {
+            "Beginner Seated HIIT Workout",
+            "HIIT Workout for Seniors to Lose Weight",
+            "High Intensity Exercises for Seniors",
+            "Beginner HIIT Workout For Seniors"
+    };
+
+    @FXML
+    public void toggleFavorite(MouseEvent event) {
+        // Get the source of the click event
+        ImageView source = (ImageView) event.getSource();
+        int index = -1;
+
+        if (source == unfavourited1) {
+            index = 0;
+        } else if (source == unfavourited2) {
+            index = 1;
+        } else if (source == unfavourited3) {
+            index = 2;
+        } else if (source == unfavourited4) {
+            index = 3;
+        }
+
+        if (index == -1) {
+            System.out.println("Unknown heart icon clicked.");
+            return;
+        } else {
+            System.out.println("Heart icon " + index + " clicked. Current favorited status: " + isFavourited[index]);
+        }
+
+
+        if (isFavourited[index]) {
+            // Remove from favorites
+            boolean success = removeWorkoutFromFitnessTable(currentWorkoutNames[index]);
+            if (success) {
+                updateHeartImage(source, false);
+                System.out.println("Workout Unfavorited");
+            } else {
+                System.out.println("Failed to unfavorite the workout.");
+            }
+        } else {
+            // Save to favorites
+            boolean success = addWorkoutToFitnessTable(currentWorkoutNames[index]);
+            if (success) {
+                updateHeartImage(source, true);
+                System.out.println("Workout Favourited");
+            } else {
+                System.out.println("Failed to favorite the workout due to database errors.");
+            }
+        }
+
+        isFavourited[index] = !isFavourited[index]; // Toggle favorited status
+    }
+
+    private void updateHeartImage(ImageView heartIcon, boolean favorited) {
+        String heartImagePath = favorited
+                ? "/com/example/granny_gains_new/images/icons8-favorite-50 (1).png" // Filled heart image
+                : "/com/example/granny_gains_new/images/icons8-favorite-50.png"; // Unfilled heart image
+        Image heartImage = new Image(getClass().getResourceAsStream(heartImagePath));
+        heartIcon.setImage(heartImage);
+    }
+
+    private void updateHeartIcons() {
+        // Set initial state of heart icons based on favorited status
+        for (int i = 0; i < isFavourited.length; i++) {
+            ImageView heartIcon = null;
+            switch (i) {
+                case 0:
+                    heartIcon = unfavourited1;
+                    break;
+                case 1:
+                    heartIcon = unfavourited2;
+                    break;
+                case 2:
+                    heartIcon = unfavourited3;
+                    break;
+                case 3:
+                    heartIcon = unfavourited4;
+                    break;
+            }
+            if (heartIcon != null) {
+                updateHeartImage(heartIcon, isFavourited[i]);
+            }
+        }
+    }
+
+    public boolean addWorkoutToFitnessTable(String workoutName) {
+        String insertSQL = "INSERT INTO FitnessTable (workout_name, saved_date) VALUES (?, ?)";
+        String savedDate = LocalDate.now().toString();  // Get the current date
+
+        try (Connection connection = DatabaseConnection.getInstance();
+             PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
+
+            preparedStatement.setString(1, workoutName);
+            preparedStatement.setString(2, savedDate);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Workout added to favorites: " + workoutName + " on " + savedDate);
+                return true; // Success
+            } else {
+                System.out.println("No rows affected when adding workout.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Failure
+    }
+
+    public boolean removeWorkoutFromFitnessTable(String workoutName) {
+        String deleteSQL = "DELETE FROM FitnessTable WHERE workout_name = ?";
+        try (Connection connection = DatabaseConnection.getInstance();
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL)) {
+
+            preparedStatement.setString(1, workoutName);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Workout removed from favorites: " + workoutName);
+                return true; // Success
+            } else {
+                System.out.println("No rows affected when removing workout.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Failure
+    }
 
     @FXML
     private void handleLog() {

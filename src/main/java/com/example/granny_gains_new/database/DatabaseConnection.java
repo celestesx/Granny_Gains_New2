@@ -107,14 +107,12 @@ public class DatabaseConnection {
                     " FOREIGN KEY (meal_plan_id) REFERENCES Meal_plan(meal_plan_id), " +
                     " FOREIGN KEY (recipe_id) REFERENCES Recipe(recipe_id) " +
                     ");" +
-                    // Favourite Fitness Table
+// Favourite Fitness Table
                     "CREATE TABLE IF NOT EXISTS FitnessTable ( " +
                     " favorite_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    " user_id TEXT, " +
-                    " exercise_id INTEGER, " +
-                    " FOREIGN KEY (user_id) REFERENCES User(email), " +
-                    " FOREIGN KEY (exercise_id) REFERENCES Workout(workout_id) " +
-                    ");" +
+                    " workout_name TEXT, " +
+                    " saved_date TEXT " +  // Column to store the date when the workout was saved
+                    ");"+
                     // Session Table
                     "CREATE TABLE IF NOT EXISTS sessions (" +
                     " session_id TEXT PRIMARY KEY, " +
