@@ -8,9 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Region;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -27,16 +28,6 @@ public class FriendsController {
     @FXML
     private Button BackButton;
 
-    @FXML
-    private TitledPane userDetailsPane;
-    @FXML
-    private Text name;
-    @FXML
-    private Text userEmail;
-    @FXML
-    private Text userPhone;
-    @FXML
-    private Text userAge;
     @FXML
     private Button prevButton;
     @FXML
@@ -160,24 +151,26 @@ public class FriendsController {
         int endIndex = Math.min(startIndex + USERS_PER_PAGE, Users.size());
 
         for (int i = startIndex; i < endIndex; i++) {
-            TitledPane userPane = createUserPane(Users.get(i));
+            StackPane userPane = createUserPane(Users.get(i));
             userPanesContainer.getChildren().add(userPane);
         }
     }
 
-    private TitledPane createUserPane(List<Object> userDetails) {
-        VBox container = new VBox();
-        container.setPrefHeight(200);
-        container.setStyle("-fx-border-color: #818589; -fx-border-width: 1; -fx-background-color: #F5F5DC;");
+    private StackPane createUserPane(List<Object> userDetails) {
+        StackPane stackPane = new StackPane();
+        stackPane.setPrefHeight(200);
+        stackPane.setStyle("-fx-background-color: transparent;");
 
         TitledPane pane = new TitledPane();
         pane.setText((String) userDetails.get(0));
         pane.setExpanded(false);
         pane.setCollapsible(true);
-        pane.setStyle("-fx-border-width: 0;");
+        pane.setMaxHeight(Region.USE_PREF_SIZE);
+        
+        pane.setStyle("-fx-border-width: 0; -fx-background-color: transparent;");
 
-        VBox content = new VBox(12);
-        content.setPadding(new Insets(12));
+        VBox content = new VBox(10);
+        content.setPadding(new Insets(10));
         content.getChildren().addAll(
             createLabel("Name: ", (String) userDetails.get(0)),
             createLabel("Email: ", (String) userDetails.get(1)),
@@ -186,16 +179,16 @@ public class FriendsController {
         );
 
         pane.setContent(content);
-        container.getChildren().add(pane);
+        stackPane.getChildren().add(pane);
 
-        VBox.setVgrow(pane, javafx.scene.layout.Priority.ALWAYS);
+        StackPane.setAlignment(pane, javafx.geometry.Pos.TOP_CENTER);
 
-        return pane;
+        return stackPane;
     }
 
     private Label createLabel(String labelText, String value) {
         Label label = new Label(labelText + value);
-        label.setStyle("-fx-font-size: 16px;");
+        label.setStyle("-fx-font-size: 18px;");
         return label;
     }
 }
