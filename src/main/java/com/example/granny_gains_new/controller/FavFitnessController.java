@@ -5,6 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,21 +21,35 @@ import java.sql.SQLException;
 public class FavFitnessController {
 
     @FXML
-    private TableView<FitnessEntry> fitnessTableView;
+    TableView<FitnessEntry> fitnessTableView;
 
     @FXML
-    private TableColumn<FitnessEntry, String> workoutNameColumn; // Adjusted column name
+    TableColumn<FitnessEntry, String> workoutNameColumn; // Adjusted column name
 
     @FXML
-    private TableColumn<FitnessEntry, String> savedDateColumn; // Added saved_date column
+    TableColumn<FitnessEntry, String> savedDateColumn; // Added saved_date column
 
     @FXML
-    private Button backToHomeButton;
+    Button backToHomeButton;
 
     // Method to display favorited Meals
     @FXML
     public void handleMeals() {
-        navigateToPage("/com/example/granny_gains_new/Fav_Meals_Page.fxml", "Favorite Meals Page");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/Fav_Meals_Page.fxml")); // Update with correct path
+            Parent root = loader.load();
+
+            Scene newScene = new Scene(root);
+            Stage currentStage = (Stage) backToHomeButton.getScene().getWindow();
+            currentStage.setScene(newScene);
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the error appropriately
+        }
+    }
+
+    public Scene getCurrentScene(Node node) {
+        return node.getScene(); // Returns the current scene of the provided node
     }
 
     // Method to display favorited Fitness items
@@ -69,7 +85,7 @@ public class FavFitnessController {
         fitnessTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
-    private void loadSavedFitnessItems() {
+    void loadSavedFitnessItems() {
         String query = "SELECT workout_name, saved_date FROM FitnessTable"; // Adjusted query
 
         ObservableList<FitnessEntry> savedFitnessItems = FXCollections.observableArrayList();
