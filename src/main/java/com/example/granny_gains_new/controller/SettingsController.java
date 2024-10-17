@@ -23,6 +23,9 @@ public class SettingsController {
         loadEmailFromSession();
         loadDOBFromSession();
         loadPhoneFromSession();
+        loadHeightFromSession();
+        loadWeightFromSession();
+        loadBMIFromSession();
     }
     @FXML
     private Button backButton;
@@ -59,6 +62,15 @@ public class SettingsController {
 
     @FXML
     private Label FetchPhone;
+
+    @FXML
+    private Label FetchHeight;
+
+    @FXML
+    private Label FetchWeight;
+
+    @FXML
+    private Label FetchBMI;
 
 
     @FXML
@@ -179,7 +191,96 @@ public class SettingsController {
         }
     }
 
+    @FXML
+    private Button editButton;
 
+    @FXML
+    protected void handleEdit() {
+        
+        System.out.println("Edit button clicked");
+    }
+
+
+
+    @FXML
+    private void loadHeightFromSession() {
+        double height = fetchUserHeightFromSession();
+        if (height > 0) {
+            FetchHeight.setText(String.format("%.2f cm", height));
+        } else {
+            FetchHeight.setText("Not available");
+        }
+    }
+
+    private double fetchUserHeightFromSession() {
+        double height = 0;
+        String query = "SELECT u.height FROM User u "
+                + "JOIN sessions s ON u.email = s.user_id "
+                + "ORDER BY s.login_time DESC LIMIT 1";
+        try (Connection conn = DatabaseConnection.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                height = rs.getDouble("height");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching height from session: " + e.getMessage());
+        }
+        return height;
+    }
+
+    @FXML
+    private void loadWeightFromSession() {
+        double weight = fetchUserWeightFromSession();
+        if (weight > 0) {
+            FetchWeight.setText(String.format("%.2f kg", weight));
+        } else {
+            FetchWeight.setText("Not available");
+        }
+    }
+
+    private double fetchUserWeightFromSession() {
+        double weight = 0;
+        String query = "SELECT u.weight FROM User u "
+                + "JOIN sessions s ON u.email = s.user_id "
+                + "ORDER BY s.login_time DESC LIMIT 1";
+        try (Connection conn = DatabaseConnection.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                weight = rs.getDouble("weight");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching weight from session: " + e.getMessage());
+        }
+        return weight;
+    }
+
+    @FXML
+    private void loadBMIFromSession() {
+        double bmi = fetchUserBMIFromSession();
+        if (bmi > 0) {
+            FetchBMI.setText(String.format("%.2f", bmi));
+        } else {
+            FetchBMI.setText("Not available");
+        }
+    }
+
+    private double fetchUserBMIFromSession() {
+        double bmi = 0;
+        String query = "SELECT u.bmi FROM User u "
+                + "JOIN sessions s ON u.email = s.user_id "
+                + "ORDER BY s.login_time DESC LIMIT 1";
+        try (Connection conn = DatabaseConnection.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                bmi = rs.getDouble("bmi");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching BMI from session: " + e.getMessage());
+        }
+        return bmi;
+    }
 
 }
-

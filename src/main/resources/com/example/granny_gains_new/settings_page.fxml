@@ -25,7 +25,7 @@
                         <Image url="@images/settingsprofile.png" />
                      </image>
                      <VBox.margin>
-                        <Insets left="120.0" />
+                        <Insets left="150.0" />
                      </VBox.margin>
                   </ImageView>
                   <Label text="User" textFill="WHITE">
@@ -33,64 +33,25 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="145.0" />
+                        <Insets left="175.0" top="10.0" />
                      </VBox.margin>
                   </Label>
                </children>
             </VBox>
-            <VBox prefHeight="374.0" prefWidth="340.0">
-               <children>
-                  <HBox prefHeight="45.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="51.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/icons8-test-account-50.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="158.0" styleClass="label-titlewhite" stylesheets="@styles.css" text="Edit Profile" textFill="#eeeded">
-                           <opaqueInsets>
-                              <Insets left="30.0" />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="45.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="51.0" fitWidth="52.0" onMouseClicked="#handleToHelp" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/icons8-help-50.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="89.0" styleClass="label-titlewhite" stylesheets="@styles.css" text="Help" textFill="#eeeded">
-                           <opaqueInsets>
-                              <Insets left="30.0" />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets top="30.0" />
-                     </padding>
-                  </HBox>
-               </children>
-            </VBox>
+            <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEdit" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #65737e;" stylesheets="@styles.css" text="Edit" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="100.0" top="550.0" />
+               </VBox.margin>
+            </Button>
             <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #65737e;" stylesheets="@styles.css" text="Back" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
                <VBox.margin>
-                  <Insets left="100.0" top="300.0" />
+                  <Insets left="100.0" top="20.0" />
                </VBox.margin>
             </Button>
          </children>
@@ -107,26 +68,26 @@
                   <Insets top="50.0" />
                </VBox.margin>
             </Label>
-            <VBox spacing="40.0">
+            <VBox spacing="20.0">
                <children>
-                  <Label alignment="TOP_LEFT" prefHeight="60.0" prefWidth="1400.0" stylesheets="@styles.css" text="Profile details" textFill="WHITE">
+                  <Label alignment="TOP_LEFT" prefHeight="50.0" prefWidth="1400.0" stylesheets="@styles.css" text="Profile Details" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="36.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="60.0" top="50.0" />
+                        <Insets left="60.0" top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="1400.0" spacing="100.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1400.0" spacing="100.0">
                      <children>
                         <Label prefHeight="40.0" prefWidth="200.0" text="Name:" textFill="WHITE">
                            <font>
-                              <Font size="28.0" />
+                              <Font size="22.0" />
                            </font>
                         </Label>
                         <Label fx:id="FetchNameLabel" prefHeight="40.0" prefWidth="600.0" text="Welcome!" textFill="WHITE">
                            <font>
-                              <Font size="28.0" />
+                              <Font size="22.0" />
                            </font>
                         </Label>
                      </children>
@@ -134,16 +95,67 @@
                         <Insets left="100.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="1400.0" spacing="100.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1400.0" spacing="100.0">
                      <children>
                         <Label prefHeight="40.0" prefWidth="200.0" text="Date of Birth:" textFill="WHITE">
                            <font>
-                              <Font size="28.0" />
+                              <Font size="22.0" />
                            </font>
                         </Label>
                         <Label fx:id="FetchDOBLabel" prefHeight="40.0" prefWidth="600.0" text="  " textFill="WHITE">
                            <font>
-                              <Font size="28.0" />
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="100.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1400.0" spacing="100.0">
+                     <children>
+                        <Label prefHeight="40.0" prefWidth="200.0" text="Height:" textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="FetchHeight" prefHeight="40.0" prefWidth="600.0" text="  " textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="100.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1400.0" spacing="100.0">
+                     <children>
+                        <Label prefHeight="40.0" prefWidth="200.0" text="Weight:" textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="FetchWeight" prefHeight="40.0" prefWidth="600.0" text="  " textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="100.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1400.0" spacing="100.0">
+                     <children>
+                        <Label prefHeight="40.0" prefWidth="200.0" text="BMI:" textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="FetchBMI" prefHeight="40.0" prefWidth="600.0" text="  " textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
                            </font>
                         </Label>
                      </children>
@@ -158,26 +170,26 @@
                   <Insets left="100.0" top="30.0" />
                </VBox.margin>
             </Line>
-            <VBox spacing="40.0">
+            <VBox spacing="20.0">
                <children>
-                  <Label alignment="TOP_LEFT" prefHeight="60.0" prefWidth="1400.0" stylesheets="@styles.css" text="Contact Info" textFill="WHITE">
+                  <Label alignment="TOP_LEFT" prefHeight="50.0" prefWidth="1400.0" stylesheets="@styles.css" text="Contact Info" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="36.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="60.0" top="50.0" />
+                        <Insets left="60.0" top="30.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="1400.0" spacing="100.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1400.0" spacing="100.0">
                      <children>
                         <Label prefHeight="40.0" prefWidth="200.0" text="Phone:" textFill="WHITE">
                            <font>
-                              <Font size="28.0" />
+                              <Font size="22.0" />
                            </font>
                         </Label>
                         <Label fx:id="FetchPhone" prefHeight="40.0" prefWidth="600.0" text="  " textFill="WHITE">
                            <font>
-                              <Font size="28.0" />
+                              <Font size="22.0" />
                            </font>
                         </Label>
                      </children>
@@ -185,16 +197,16 @@
                         <Insets left="100.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="1400.0" spacing="100.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1400.0" spacing="100.0">
                      <children>
                         <Label prefHeight="40.0" prefWidth="200.0" text="Email:" textFill="WHITE">
                            <font>
-                              <Font size="28.0" />
+                              <Font size="22.0" />
                            </font>
                         </Label>
                         <Label fx:id="FetchEmailLabel" prefHeight="40.0" prefWidth="600.0" text="  " textFill="WHITE">
                            <font>
-                              <Font size="28.0" />
+                              <Font size="22.0" />
                            </font>
                         </Label>
                      </children>
