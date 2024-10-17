@@ -115,7 +115,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1400.0" spacing="100.0">
                      <children>
-                        <Label prefHeight="40.0" prefWidth="200.0" text="Height:" textFill="WHITE">
+                        <Label prefHeight="40.0" prefWidth="200.0" text="Height (cm):" textFill="WHITE">
                            <font>
                               <Font size="22.0" />
                            </font>
@@ -132,7 +132,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1400.0" spacing="100.0">
                      <children>
-                        <Label prefHeight="40.0" prefWidth="200.0" text="Weight:" textFill="WHITE">
+                        <Label prefHeight="40.0" prefWidth="200.0" text="Weight (kg):" textFill="WHITE">
                            <font>
                               <Font size="22.0" />
                            </font>
