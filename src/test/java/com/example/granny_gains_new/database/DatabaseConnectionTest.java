@@ -73,3 +73,4 @@ public class DatabaseConnectionTest {
     }
 }
 */
+// these tests were used locally to verify connection to the local database were successful
