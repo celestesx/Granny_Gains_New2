@@ -83,9 +83,16 @@ public class EditSettingsController {
             System.err.println("Error fetching user name from session: " + e.getMessage());
         }
 
-        FetchNameLabel.setText(userName);
-        FetchDOBLabel.setText(dateOfBirth.toString());
-
+        if (!userName.isEmpty()) {
+            FetchNameLabel.setText( userName );
+        } else {
+            FetchNameLabel.setText("Guest!");
+        }
+        if (dateOfBirth != null) {
+            FetchDOBLabel.setText(dateOfBirth.toString());
+        } else {
+            FetchDOBLabel.setText("Date of Birth not available!");
+        }
         if (height > 0) {
             heightField.setText(String.format("%.2f", height));
         } else {
@@ -96,14 +103,11 @@ public class EditSettingsController {
         } else {
             weightField.setText("");
         }
-        
-        // Update BMI label
         if (height > 0 && weight > 0) {
             FetchBMI.setText(String.format("%.2f", bmi));
         } else {
             FetchBMI.setText("");
         }
-
         if (phone != null && !phone.isEmpty()) {
             phoneField.setText(phone);
         } else {
