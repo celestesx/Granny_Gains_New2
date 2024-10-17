@@ -33,25 +33,25 @@ public class EditSettingsController {
     }
 
     @FXML
-    private Label FetchEmailLabel;
-
-    @FXML
     private Label FetchNameLabel;
 
     @FXML
     private Label FetchDOBLabel;
 
     @FXML
-    private Label FetchPhone;
+    private TextField heightField;
 
     @FXML
-    private Label FetchHeight;
-
-    @FXML
-    private Label FetchWeight;
+    private TextField weightField;
 
     @FXML
     private Label FetchBMI;
+
+    @FXML
+    private TextField phoneField;
+
+    @FXML
+    private TextField emailField;
 
     @FXML
     private void loadUserSession() {
@@ -83,40 +83,36 @@ public class EditSettingsController {
             System.err.println("Error fetching user name from session: " + e.getMessage());
         }
 
-        if (!userName.isEmpty()) {
-            FetchNameLabel.setText( userName );
-        } else {
-            FetchNameLabel.setText("Guest!");
-        }
-        if (phone != null && !phone.isEmpty()) {
-            FetchPhone.setText( phone );
-        } else {
-            FetchPhone.setText("");
-        }
-        if (email != null && !email.isEmpty()) {
-            FetchEmailLabel.setText( email );
-        } else {
-            FetchEmailLabel.setText("Guest!");
-        }
-        if (dateOfBirth != null) {
-            FetchDOBLabel.setText(dateOfBirth.toString());
-        } else {
-            FetchDOBLabel.setText("Date of Birth not available!");
-        }
+        FetchNameLabel.setText(userName);
+        FetchDOBLabel.setText(dateOfBirth.toString());
+
         if (height > 0) {
-            FetchHeight.setText(String.format("%.2f cm", height));
+            heightField.setText(String.format("%.2f", height));
         } else {
-            FetchHeight.setText("Not available");
+            heightField.setText("");
         }
         if (weight > 0) {
-            FetchWeight.setText(String.format("%.2f kg", weight));
+            weightField.setText(String.format("%.2f", weight));
         } else {
-            FetchWeight.setText("Not available");
+            weightField.setText("");
         }
-        if (bmi > 0) {
+        
+        // Update BMI label
+        if (height > 0 && weight > 0) {
             FetchBMI.setText(String.format("%.2f", bmi));
         } else {
-            FetchBMI.setText("Not available");
+            FetchBMI.setText("");
+        }
+
+        if (phone != null && !phone.isEmpty()) {
+            phoneField.setText(phone);
+        } else {
+            phoneField.setText("");
+        }
+        if (email != null && !email.isEmpty()) {
+            emailField.setText(email);
+        } else {
+            emailField.setText("");
         }
     }
 
