@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class SettingsController {
+public class EditSettingsController {
 
     @FXML
     public void initialize() {
@@ -22,6 +22,8 @@ public class SettingsController {
     }
     @FXML
     private Button backButton;
+
+
     @FXML
     protected void handleBackToHome() throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
@@ -50,18 +52,6 @@ public class SettingsController {
 
     @FXML
     private Label FetchBMI;
-
-    @FXML
-    private Button editButton;
-
-    @FXML
-    protected void handleEdit() throws IOException {
-        Stage stage = (Stage) editButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/edit_settings_page.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
-        stage.setScene(scene);
-        System.out.println("Edit button clicked");
-    }
 
     @FXML
     private void loadUserSession() {
@@ -128,5 +118,17 @@ public class SettingsController {
         } else {
             FetchBMI.setText("Not available");
         }
+    }
+
+    @FXML
+    private Button saveButton;
+
+    @FXML
+    protected void handleSave() throws IOException {
+        Stage stage = (Stage) saveButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/settings_page.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+        stage.setScene(scene);
+        System.out.println("Save button clicked");
     }
 }
