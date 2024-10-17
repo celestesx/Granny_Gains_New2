@@ -100,7 +100,7 @@ public class FriendsController {
                         List<Object> details = new ArrayList<>();
                         details.add(rs.getString("first_name") + " " + rs.getString("last_name"));
                         details.add(rs.getString("email"));
-                        details.add(rs.getDouble("phone"));
+                        details.add(rs.getString("phone"));
                         LocalDate dob = rs.getDate("date_of_birth").toLocalDate();
                         LocalDate currentDate = LocalDate.now();
                         Period age = Period.between(dob, currentDate);
@@ -114,12 +114,6 @@ public class FriendsController {
         } catch (SQLException e) {
             System.err.println("Error: " + e.getMessage());
         }
-    }
-
-    private String convertPhoneNumberToString(Double phoneNumber) {
-        long phoneNumberLong = phoneNumber.longValue();
-
-        return String.valueOf(phoneNumberLong);
     }
 
     private void updateNavigationButtons() {
@@ -174,7 +168,7 @@ public class FriendsController {
         content.getChildren().addAll(
             createLabel("Name: ", (String) userDetails.get(0)),
             createLabel("Email: ", (String) userDetails.get(1)),
-            createLabel("Phone: ", convertPhoneNumberToString((Double) userDetails.get(2))),
+            createLabel("Phone: ", (String) userDetails.get(2)),
             createLabel("Age: ", String.valueOf(userDetails.get(3)))
         );
 
