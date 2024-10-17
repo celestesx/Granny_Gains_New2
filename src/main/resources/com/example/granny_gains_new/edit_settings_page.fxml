@@ -215,6 +215,14 @@
                         <Insets left="100.0" />
                      </VBox.margin>
                   </HBox>
+                  <Label fx:id="lblincorrectdetails" style="-fx-text-fill: red;" text=" ">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="100.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
             </VBox>
          </children>
