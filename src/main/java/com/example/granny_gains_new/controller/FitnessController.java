@@ -197,14 +197,33 @@ public class FitnessController {
     }
 
     @FXML
-    protected void NavStrength() throws IOException {
-        Stage stage = (Stage) StrengthButton.getScene().getWindow();
-        double width = stage.getWidth();
-        double height = stage.getHeight();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/FitnessStrength.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), width, height);
-        stage.setScene(scene);
+    // Generic method to navigate between pages
+    private void NavStrength(String fxmlFilePath, String pageName) {
+        try {
+            Stage stage = (Stage) StrengthButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFilePath));
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            System.out.println("Navigated to " + pageName);
+        } catch (IOException e) {
+            System.err.println("Error loading " + pageName + ": " + e.getMessage());
+        }
     }
+    @FXML
+    public void handleStrength() {
+        NavStrength("/com/example/granny_gains_new/FitnessStrengthNew.fxml", "Home Page");
+    }
+
+//    @FXML
+//    protected void NavStrength() throws IOException {
+//        Stage stage = (Stage) StrengthButton.getScene().getWindow();
+//        double width = stage.getWidth();
+//        double height = stage.getHeight();
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/FitnessStrength.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(), width, height);
+//        stage.setScene(scene);
+//    }
 
     @FXML
     protected void NavHIIT() throws IOException {
