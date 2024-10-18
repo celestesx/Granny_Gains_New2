@@ -26,7 +26,7 @@ public class DatabaseConnection {
                     " password TEXT NOT NULL, " +
                     " first_name TEXT, " +
                     " last_name TEXT, " +
-                    " phone REAL, " +
+                    " phone TEXT, " +
                     " date_of_birth DATE, " +
                     " gender TEXT, " +
                     " height REAL, " +

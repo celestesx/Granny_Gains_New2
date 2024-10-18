@@ -18,33 +18,15 @@ public class SettingsController {
 
     @FXML
     public void initialize() {
-
-        loadNameFromSession();
-        loadEmailFromSession();
-        loadDOBFromSession();
-        loadPhoneFromSession();
+        loadUserSession();
     }
     @FXML
     private Button backButton;
-
-
-
     @FXML
     protected void handleBackToHome() throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/granny_gains_home.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
-        stage.setScene(scene);
-    }
-
-    @FXML
-    private Button HelpButton;
-
-    @FXML
-    protected void handleToHelp() throws IOException {
-        Stage stage = (Stage) HelpButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/help_page.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
         stage.setScene(scene);
     }
 
@@ -60,52 +42,37 @@ public class SettingsController {
     @FXML
     private Label FetchPhone;
 
+    @FXML
+    private Label FetchHeight;
 
     @FXML
-    private void loadPhoneFromSession() {
-        String phone = fetchUserPhoneFromSession();
-        if (phone != null && !phone.isEmpty()) {
-            FetchPhone.setText( phone );
-        } else {
-            FetchPhone.setText("");
-        }
-    }
-    private String fetchUserPhoneFromSession() {
-        String phone = "";
-        String query = "SELECT u.phone FROM User u "
-                + "JOIN sessions s ON u.email = s.user_id "
-                + "ORDER BY s.login_time DESC LIMIT 1"; // Fetch the latest session
-
-        try (Connection conn = DatabaseConnection.getInstance();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                phone = rs.getString("phone");
-            }
-        } catch (SQLException e) {
-            System.err.println("Error fetching phone from session: " + e.getMessage());
-        }
-        return phone;
-    }
-
-
-
+    private Label FetchWeight;
 
     @FXML
-    private void loadNameFromSession() {
-        String userName = fetchUserNameFromSession();
-        if (userName != null && !userName.isEmpty()) {
-            FetchNameLabel.setText( userName );
-        } else {
-            FetchNameLabel.setText("Guest!");
-        }
+    private Label FetchBMI;
+
+    @FXML
+    private Button editButton;
+
+    @FXML
+    protected void handleEdit() throws IOException {
+        Stage stage = (Stage) editButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/edit_settings_page.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+        stage.setScene(scene);
+        System.out.println("Edit button clicked");
     }
 
-
-    private String fetchUserNameFromSession() {
+    @FXML
+    private void loadUserSession() {
         String userName = "";
-        String query = "SELECT u.first_name, u.last_name FROM User u "
+        String phone = "";
+        String email = "";
+        LocalDate dateOfBirth = null;
+        double height = 0;
+        double weight = 0;
+        double bmi = 0;
+        String query = "SELECT u.first_name, u.last_name, u.phone, u.email, u.date_of_birth, u.height, u.weight, u.bmi FROM User u "
                 + "JOIN sessions s ON u.email = s.user_id "
                 + "ORDER BY s.login_time DESC LIMIT 1"; // Fetch the latest session
 
@@ -115,71 +82,51 @@ public class SettingsController {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 userName = rs.getString("first_name") + " " + rs.getString("last_name");
+                phone = rs.getString("phone");
+                email = rs.getString("email");
+                dateOfBirth = rs.getDate("date_of_birth").toLocalDate();
+                height = rs.getDouble("height");
+                weight = rs.getDouble("weight");
+                bmi = rs.getDouble("bmi");
             }
         } catch (SQLException e) {
             System.err.println("Error fetching user name from session: " + e.getMessage());
         }
-        return userName;
-    }
 
-    private String fetchUserEmailFromSession() {
-        String email = "";
-        String query = "SELECT u.email FROM User u "
-                + "JOIN sessions s ON u.email = s.user_id "
-                + "ORDER BY s.login_time DESC LIMIT 1"; // Fetch the latest session
-
-        try (Connection conn = DatabaseConnection.getInstance();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                email = rs.getString("email"); // Fetch the email field
-            }
-        } catch (SQLException e) {
-            System.err.println("Error fetching email from session: " + e.getMessage());
+        if (!userName.isEmpty()) {
+            FetchNameLabel.setText( userName );
+        } else {
+            FetchNameLabel.setText("Guest!");
         }
-        return email;
-    }
-
-    @FXML
-    private void loadEmailFromSession() {
-        String email = fetchUserEmailFromSession();
+        if (phone != null && !phone.isEmpty()) {
+            FetchPhone.setText( phone );
+        } else {
+            FetchPhone.setText("");
+        }
         if (email != null && !email.isEmpty()) {
             FetchEmailLabel.setText( email );
         } else {
             FetchEmailLabel.setText("Guest!");
         }
-    }
-
-    private LocalDate fetchUserDOBFromSession() {
-        LocalDate dateOfBirth = null;
-        String query = "SELECT u.date_of_birth FROM User u "
-                + "JOIN sessions s ON u.email = s.user_id "
-                + "ORDER BY s.login_time DESC LIMIT 1";
-        try (Connection conn = DatabaseConnection.getInstance();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                dateOfBirth = rs.getDate("date_of_birth").toLocalDate();
-            }
-        } catch (SQLException e) {
-            System.err.println("Error fetching date of birth from session: " + e.getMessage());
-        }
-        return dateOfBirth;
-    }
-
-    @FXML
-    private void loadDOBFromSession() {
-        LocalDate dateOfBirth = fetchUserDOBFromSession();
         if (dateOfBirth != null) {
             FetchDOBLabel.setText(dateOfBirth.toString());
         } else {
             FetchDOBLabel.setText("Date of Birth not available!");
         }
+        if (height > 0) {
+            FetchHeight.setText(String.format("%.2f cm", height));
+        } else {
+            FetchHeight.setText("Not available");
+        }
+        if (weight > 0) {
+            FetchWeight.setText(String.format("%.2f kg", weight));
+        } else {
+            FetchWeight.setText("Not available");
+        }
+        if (bmi > 0) {
+            FetchBMI.setText(String.format("%.2f", bmi));
+        } else {
+            FetchBMI.setText("Not available");
+        }
     }
-
-
-
 }
-
