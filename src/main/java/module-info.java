@@ -15,6 +15,7 @@ module com.example.granny_gains_new {
     requires java.desktop;
 
 
+
     opens com.example.granny_gains_new to javafx.fxml;
     exports com.example.granny_gains_new;
     exports com.example.granny_gains_new.controller;
