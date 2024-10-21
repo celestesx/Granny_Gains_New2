@@ -39,12 +39,20 @@
                   </Label>
                </children>
             </VBox>
+            <Button fx:id="changePasswordButton" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #65737e;" stylesheets="@styles.css" text="Change Password" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="100.0" top="500.0" />
+               </VBox.margin>
+            </Button>
             <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #65737e;" stylesheets="@styles.css" text="Save" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
                <VBox.margin>
-                  <Insets left="100.0" top="550.0" />
+                  <Insets left="100.0" top="20.0" />
                </VBox.margin>
             </Button>
             <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #65737e;" stylesheets="@styles.css" text="Back" textFill="WHITE">
