@@ -22,9 +22,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MealsController {
+    private RecipeDBHandler recipeDBHandler = new RecipeDBHandler(); // Default instance for real app usage
 
     @FXML
-    private ListView<Recipe> recipeListView;
+    ListView<Recipe> recipeListView;
 
     @FXML
     private Button HomeButton, AllRecipesButton, BreakfastButton, LunchButton, DinnerButton;
@@ -32,15 +33,23 @@ public class MealsController {
     @FXML
     private Label categoryHeader; // Label for the category header
 
+
+    public MealsController() {
+    }
+
+    // Setter method for injecting RecipeDBHandler (for testing purposes)
+    public void setRecipeDBHandler(RecipeDBHandler recipeDBHandler) {
+        this.recipeDBHandler = recipeDBHandler;
+    }
     @FXML
     public void initialize() {
         loadRecipes(null);
         categoryHeader.setText("All Recipes"); // Default header for all recipes
     }
 
-    private void loadRecipes(String filter) {
-        RecipeDBHandler dbHandler = new RecipeDBHandler();
-        List<Recipe> recipeList = dbHandler.getAllRecipes();
+    void loadRecipes(String filter) {
+//        RecipeDBHandler dbHandler = new RecipeDBHandler();
+        List<Recipe> recipeList = recipeDBHandler.getAllRecipes();
 
         if (filter != null) {
             recipeList = recipeList.stream()
@@ -115,7 +124,7 @@ public class MealsController {
         });
     }
 
-      private void showRecipeDetailPage(Recipe recipe) throws IOException {
+    private void showRecipeDetailPage(Recipe recipe) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/recipiesview.fxml"));
 
@@ -159,4 +168,6 @@ public class MealsController {
         Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
         stage.setScene(scene);
     }
+
+
 }

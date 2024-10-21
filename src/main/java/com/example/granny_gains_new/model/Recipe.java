@@ -27,6 +27,9 @@ public class Recipe {
         this.pictureUrl = pictureUrl;
     }
 
+    public Recipe(String pancakes, String recipeType, String breakfast, String pancakes1) {
+    }
+
     // Getters and Setters
     public int getRecipeId() {
         return recipeId;
