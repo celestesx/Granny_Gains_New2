@@ -13,7 +13,7 @@ public class RecipeDBHandler {
 
     public RecipeDBHandler() {
         // Establish connection to the database using the DatabaseConnection class
-        this.conn = DatabaseConnection.getInstance();
+        this.conn = (Connection) DatabaseConnection.getInstance();
     }
 
     // Add a recipe to the database if it doesn't exist

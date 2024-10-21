@@ -18,32 +18,42 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class RecipeDetailController {
+    private DatabaseConnection dbConnection;
+
+    // Constructor for dependency injection (can be used in tests)
+    public RecipeDetailController(DatabaseConnection dbConnection) {
+        this.dbConnection = dbConnection;
+    }
+
+    // Default constructor for normal use (uses the static method)
+    public RecipeDetailController() {
+        this(DatabaseConnection.getInstance());
+    }
+    @FXML
+    Label recipeNameLabel;
 
     @FXML
-    private Label recipeNameLabel;
+    ImageView recipeImageView;
 
     @FXML
-    private ImageView recipeImageView;
+    Label servingsLabel;
 
     @FXML
-    private Label servingsLabel;
+    Label caloriesLabel;
 
     @FXML
-    private Label caloriesLabel;
+    TextArea ingredientsTextArea;
 
     @FXML
-    private TextArea ingredientsTextArea;
+    TextArea methodTextArea;
 
     @FXML
-    private TextArea methodTextArea;
+    TextArea recipeDescriptionTextArea;
 
     @FXML
-    private TextArea recipeDescriptionTextArea;
+    ImageView unfavourited;
 
-    @FXML
-    private ImageView unfavourited;
-
-    private boolean isFavourited = false; // Track if the meal is favorited
+    boolean isFavourited = false; // Track if the meal is favorited
 
     private Recipe currentRecipe; // Declare an instance variable to hold the recipe
 
@@ -92,29 +102,26 @@ public class RecipeDetailController {
         }
 
         String query = "INSERT INTO MealTable (recipe_name, description, servings, calories, picture_url) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = DatabaseConnection.getInstance();
+        try (Connection conn = (Connection) dbConnection.getInstance();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             String recipeName = recipeNameLabel.getText();
-            String description = ""; // You need to get the description from the current recipe
             int servings = Integer.parseInt(servingsLabel.getText().split(": ")[1]);
             int calories = Integer.parseInt(caloriesLabel.getText().split(": ")[1].split(" ")[0]);
             String pictureUrl = currentRecipe.getPictureUrl();
-
-            // Assuming you have a method in Recipe to get the description
-            description = currentRecipe.getDescription(); // Get the description here
+            String description = currentRecipe.getDescription();
 
             stmt.setString(1, recipeName);
-            stmt.setString(2, description); // Set the description value
+            stmt.setString(2, description);
             stmt.setInt(3, servings);
             stmt.setInt(4, calories);
             stmt.setString(5, pictureUrl);
 
             int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0; // Return true if meal saved successfully
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false; // Return false on error
+            return false;
         }
     }
 
@@ -124,7 +131,7 @@ public class RecipeDetailController {
         }
 
         String query = "DELETE FROM MealTable WHERE recipe_name = ?";
-        try (Connection conn = DatabaseConnection.getInstance();
+        try (Connection conn = (Connection) DatabaseConnection.getInstance();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, currentRecipe.getRecipeName());
@@ -136,9 +143,10 @@ public class RecipeDetailController {
         }
     }
 
-    private boolean validateRecipeData() {
+    boolean validateRecipeData() {
         return currentRecipe != null; // Just check if currentRecipe is not null
     }
+
 
     public void setRecipeData(Recipe recipe) {
         this.currentRecipe = recipe; // Store the passed recipe in the instance variable
@@ -146,7 +154,7 @@ public class RecipeDetailController {
         recipeNameLabel.setText(recipe.getRecipeName());
 
         // Load the corresponding image for the recipe
-        Image recipeImage = new Image(getClass().getResourceAsStream("/com/example/granny_gains_new/meals_images/" + recipe.getPictureUrl() + ".png"));
+        Image recipeImage = loadImage("/com/example/granny_gains_new/meals_images/" + recipe.getPictureUrl() + ".png");
         recipeImageView.setImage(recipeImage);
 
         // Set servings and calories
@@ -167,6 +175,17 @@ public class RecipeDetailController {
         // Update the heart image based on the favorited status
         updateHeartImage(isFavourited);
     }
+
+    // Extract image loading to a separate method
+    protected Image loadImage(String imagePath) {
+        try {
+            return new Image(getClass().getResourceAsStream(imagePath));
+        } catch (NullPointerException e) {
+            // Return a default image if the resource is not found
+            return new Image(getClass().getResourceAsStream("/com/example/granny_gains_new/images/HIIT1.png"));
+        }
+    }
+
 
     @FXML
     protected void handleBackToMeals() throws IOException {

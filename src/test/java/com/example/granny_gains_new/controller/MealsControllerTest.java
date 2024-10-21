@@ -45,15 +45,15 @@ class MealsControllerTest {
 
     @BeforeEach
     void setUp() {
-        // Initialize Mockito
+        // Initialise Mockito
         MockitoAnnotations.openMocks(this);
 
-        // Initialize some test data
+        // Initialise some test data
         recipe1 = new Recipe("Pancakes", "breakfast", "Fluffy pancakes", "pancakes");
         recipe2 = new Recipe("Grilled Cheese", "lunch", "Delicious grilled cheese", "grilled_cheese");
         recipe3 = new Recipe("Spaghetti", "dinner", "Classic spaghetti", "spaghetti");
 
-        // Create the MealsController using no-arg constructor (required for JavaFX)
+        // Create the MealsController using no-arg constructor
         mealsController = new MealsController();
 
         // Inject the mock RecipeDBHandler using the setter method
@@ -67,20 +67,20 @@ class MealsControllerTest {
 
     @Test
     void testLoadRecipes_NoFilter() throws InterruptedException {
-        // Arrange: mock the database call to return all recipes
+        // mock the database call to return all recipes
         List<Recipe> allRecipes = Arrays.asList(recipe1, recipe2, recipe3);  // Exactly 3 recipes
         when(mockDbHandler.getAllRecipes()).thenReturn(allRecipes);          // Mock returns 3 recipes
 
-        // Act: Call the loadRecipes method with no filter
+        // Call the loadRecipes method with no filter
         Platform.runLater(() -> mealsController.loadRecipes(null));
 
         // Wait for JavaFX thread to complete
         waitForFxEvents();
 
-        // Assert: Verify that all recipes are loaded into the ListView
+        //  Verify that all recipes are loaded into the ListView
         ObservableList<Recipe> loadedRecipes = mealsController.recipeListView.getItems();
 
-        // Debug: Print out the size and items in the ListView
+        // Print out the size and items in the ListView
         System.out.println("Loaded Recipes Size: " + loadedRecipes.size());
         loadedRecipes.forEach(recipe -> System.out.println("Recipe: " + recipe.getRecipeName()));
 
@@ -92,17 +92,17 @@ class MealsControllerTest {
 
     @Test
     void testLoadRecipes_EmptyFilterResult() throws InterruptedException {
-        // Arrange: mock the database call to return all recipes
+
         List<Recipe> allRecipes = Arrays.asList(recipe1, recipe2, recipe3);
         when(mockDbHandler.getAllRecipes()).thenReturn(allRecipes);
 
-        // Act: Call the loadRecipes method with a filter that matches no recipes
+
         Platform.runLater(() -> mealsController.loadRecipes("snack"));
 
-        // Wait for JavaFX thread to complete
+
         waitForFxEvents();
 
-        // Assert: Verify that no recipes are loaded into the ListView
+
         ObservableList<Recipe> loadedRecipes = mealsController.recipeListView.getItems();
         assertEquals(0, loadedRecipes.size());
     }
