@@ -18,15 +18,6 @@ public class FavouritesPageController {
         navigateToPage("/com/example/granny_gains_new/granny_gains_home.fxml", "Home Page");
     }
 
-    @FXML
-    public void handleMeals() {
-        navigateToPage("/com/example/granny_gains_new/Fav_Meals_Page.fxml", "Meals Page");
-    }
-
-    @FXML
-    public void handleFitness() {
-        navigateToPage("/com/example/granny_gains_new/Fav_Fitness_Page", "Fitness Page");
-    }
 
     // Generic method to navigate between pages
     private void navigateToPage(String fxmlFilePath, String pageName) {

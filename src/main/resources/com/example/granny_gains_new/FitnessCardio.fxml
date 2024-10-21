@@ -6,12 +6,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.layout.HBox?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.FitnessController">
+<AnchorPane fx:id="FitnessCardioPage" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.granny_gains_new.controller.FitnessController">
     <children>
         <BorderPane prefHeight="1080.0" prefWidth="1920.0">
             <left>
@@ -23,7 +23,7 @@
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Button>
-                        <Button fx:id="StrengthButton" layoutX="123.0" layoutY="471.0" mnemonicParsing="false" onAction="#NavStrength" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="Strength" />
+                        <Button fx:id="StrengthButton" layoutX="123.0" layoutY="471.0" mnemonicParsing="false" onAction="#handleStrength" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="Strength" />
                         <Button fx:id="CardioButton" layoutX="122.0" layoutY="308.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="137.0" stylesheets="@styles.css" text="Cardio" />
                         <Button fx:id="LogButton" layoutX="111.0" layoutY="814.0" mnemonicParsing="false" onAction="#handleLog" prefHeight="49.0" prefWidth="162.0" style="-fx-background-color: #1e81b0;" stylesheets="@styles.css" text="Fitness Log">
                             <font>
@@ -129,4 +129,3 @@
         </BorderPane>
     </children>
 </AnchorPane>
-
