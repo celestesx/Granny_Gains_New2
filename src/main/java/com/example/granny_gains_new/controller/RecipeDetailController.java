@@ -20,30 +20,30 @@ import java.util.List;
 public class RecipeDetailController {
 
     @FXML
-    private Label recipeNameLabel;
+    Label recipeNameLabel;
 
     @FXML
-    private ImageView recipeImageView;
+    ImageView recipeImageView;
 
     @FXML
-    private Label servingsLabel;
+    Label servingsLabel;
 
     @FXML
-    private Label caloriesLabel;
+    Label caloriesLabel;
 
     @FXML
-    private TextArea ingredientsTextArea;
+    TextArea ingredientsTextArea;
 
     @FXML
-    private TextArea methodTextArea;
+    TextArea methodTextArea;
 
     @FXML
-    private TextArea recipeDescriptionTextArea;
+    TextArea recipeDescriptionTextArea;
 
     @FXML
-    private ImageView unfavourited;
+    ImageView unfavourited;
 
-    private boolean isFavourited = false; // Track if the meal is favorited
+    boolean isFavourited = false; // Track if the meal is favorited
 
     private Recipe currentRecipe; // Declare an instance variable to hold the recipe
 
@@ -136,7 +136,7 @@ public class RecipeDetailController {
         }
     }
 
-    private boolean validateRecipeData() {
+    boolean validateRecipeData() {
         return currentRecipe != null; // Just check if currentRecipe is not null
     }
 
@@ -146,7 +146,7 @@ public class RecipeDetailController {
         recipeNameLabel.setText(recipe.getRecipeName());
 
         // Load the corresponding image for the recipe
-        Image recipeImage = new Image(getClass().getResourceAsStream("/com/example/granny_gains_new/meals_images/" + recipe.getPictureUrl() + ".png"));
+        Image recipeImage = loadImage("/com/example/granny_gains_new/meals_images/" + recipe.getPictureUrl() + ".png");
         recipeImageView.setImage(recipeImage);
 
         // Set servings and calories
@@ -166,6 +166,16 @@ public class RecipeDetailController {
 
         // Update the heart image based on the favorited status
         updateHeartImage(isFavourited);
+    }
+
+    // Extract image loading to a separate method
+    protected Image loadImage(String imagePath) {
+        try {
+            return new Image(getClass().getResourceAsStream(imagePath));
+        } catch (NullPointerException e) {
+            // Return a default image if the resource is not found
+            return new Image(getClass().getResourceAsStream("/com/example/granny_gains_new/images/HIIT1.png"));
+        }
     }
 
     @FXML
