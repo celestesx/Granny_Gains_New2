@@ -258,4 +258,16 @@ public class EditSettingsController {
             System.err.println("Error inserting user profile into the database: " + e.getMessage());
         }
     }
+
+    @FXML
+    private Button changePasswordButton;
+
+    @FXML
+    protected void handleChangePassword() throws IOException {
+        System.out.println("Change Password button clicked");
+        Stage stage = (Stage) changePasswordButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/change_password.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+        stage.setScene(scene);
+    }
 }
