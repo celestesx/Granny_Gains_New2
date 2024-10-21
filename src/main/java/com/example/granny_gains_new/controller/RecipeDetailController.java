@@ -18,17 +18,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class RecipeDetailController {
-    private DatabaseConnection dbConnection;
 
-    // Constructor for dependency injection (can be used in tests)
-    public RecipeDetailController(DatabaseConnection dbConnection) {
-        this.dbConnection = dbConnection;
-    }
-
-    // Default constructor for normal use (uses the static method)
-    public RecipeDetailController() {
-        this(DatabaseConnection.getInstance());
-    }
     @FXML
     Label recipeNameLabel;
 
@@ -102,26 +92,29 @@ public class RecipeDetailController {
         }
 
         String query = "INSERT INTO MealTable (recipe_name, description, servings, calories, picture_url) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = (Connection) dbConnection.getInstance();
+        try (Connection conn = DatabaseConnection.getInstance();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             String recipeName = recipeNameLabel.getText();
+            String description = ""; // You need to get the description from the current recipe
             int servings = Integer.parseInt(servingsLabel.getText().split(": ")[1]);
             int calories = Integer.parseInt(caloriesLabel.getText().split(": ")[1].split(" ")[0]);
             String pictureUrl = currentRecipe.getPictureUrl();
-            String description = currentRecipe.getDescription();
+
+            // Assuming you have a method in Recipe to get the description
+            description = currentRecipe.getDescription(); // Get the description here
 
             stmt.setString(1, recipeName);
-            stmt.setString(2, description);
+            stmt.setString(2, description); // Set the description value
             stmt.setInt(3, servings);
             stmt.setInt(4, calories);
             stmt.setString(5, pictureUrl);
 
             int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+            return rowsAffected > 0; // Return true if meal saved successfully
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return false; // Return false on error
         }
     }
 
@@ -131,7 +124,7 @@ public class RecipeDetailController {
         }
 
         String query = "DELETE FROM MealTable WHERE recipe_name = ?";
-        try (Connection conn = (Connection) DatabaseConnection.getInstance();
+        try (Connection conn = DatabaseConnection.getInstance();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, currentRecipe.getRecipeName());
@@ -146,7 +139,6 @@ public class RecipeDetailController {
     boolean validateRecipeData() {
         return currentRecipe != null; // Just check if currentRecipe is not null
     }
-
 
     public void setRecipeData(Recipe recipe) {
         this.currentRecipe = recipe; // Store the passed recipe in the instance variable
@@ -185,7 +177,6 @@ public class RecipeDetailController {
             return new Image(getClass().getResourceAsStream("/com/example/granny_gains_new/images/HIIT1.png"));
         }
     }
-
 
     @FXML
     protected void handleBackToMeals() throws IOException {

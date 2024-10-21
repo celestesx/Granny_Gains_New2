@@ -87,7 +87,19 @@ class RecipeDetailControllerTest {
 
 
 
+    @Test
+    void testSetRecipeData() {
+        // Act: Set the recipe data
+        recipeDetailController.setRecipeData(mockRecipe);
 
+        // Assert: Verify that the UI components are updated correctly
+        assertEquals("Test Recipe", recipeDetailController.recipeNameLabel.getText());
+        assertEquals("Servings: 2", recipeDetailController.servingsLabel.getText());
+        assertEquals("Calories: 250 kcal", recipeDetailController.caloriesLabel.getText());
+        assertEquals("Ingredient 1\nIngredient 2", recipeDetailController.ingredientsTextArea.getText());
+        assertEquals("Step 1\nStep 2", recipeDetailController.methodTextArea.getText());
+        assertEquals("This is a test description.", recipeDetailController.recipeDescriptionTextArea.getText());
+    }
 
     @Test
     void testValidateRecipeData() {
