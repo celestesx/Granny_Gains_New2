@@ -212,7 +212,7 @@ public class FitnessController {
     }
     @FXML
     public void handleStrength() {
-        NavStrength("/com/example/granny_gains_new/FitnessStrengthNew.fxml", "Home Page");
+        NavStrength("/com/example/granny_gains_new/FitnessStrength.fxml", "Home Page");
     }
 
 //    @FXML
