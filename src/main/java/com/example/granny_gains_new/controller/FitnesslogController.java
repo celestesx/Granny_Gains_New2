@@ -20,13 +20,13 @@ import java.sql.SQLException;
 public class FitnesslogController {
 
     @FXML
-    private TableView<WorkoutEntry> diaryTableView;
+    TableView<WorkoutEntry> diaryTableView;
 
     @FXML
-    private TableColumn<WorkoutEntry, String> workoutNameColumn;
+    TableColumn<WorkoutEntry, String> workoutNameColumn;
 
     @FXML
-    private TableColumn<WorkoutEntry, String> dateCompletedColumn;
+    TableColumn<WorkoutEntry, String> dateCompletedColumn;
 
     @FXML
     private Button backButton;
@@ -38,8 +38,32 @@ public class FitnesslogController {
         loadCompletedWorkouts();
     }
 
-    private void loadCompletedWorkouts() {
-        String query = "SELECT workout_name, date_completed FROM WorkoutDiary ORDER BY date_completed DESC";
+//    void loadCompletedWorkouts() {
+//        String query = "SELECT workout_name, date_completed FROM WorkoutDiary ORDER BY date_completed DESC";
+//
+//        ObservableList<WorkoutEntry> completedWorkouts = FXCollections.observableArrayList();
+//
+//        try (Connection conn = DatabaseConnection.getInstance();
+//             PreparedStatement stmt = conn.prepareStatement(query);
+//             ResultSet rs = stmt.executeQuery()) {
+//
+//            while (rs.next()) {
+//                String workoutName = rs.getString("workout_name");
+//                String dateCompleted = rs.getTimestamp("date_completed").toString();
+//                completedWorkouts.add(new WorkoutEntry(workoutName, dateCompleted));
+//            }
+//
+//            diaryTableView.setItems(completedWorkouts);
+//        } catch (SQLException e) {
+//            System.err.println("Error loading completed workouts: " + e.getMessage());
+//        }
+//    }
+
+    void loadCompletedWorkouts() {
+        // Format the date and time from the database in 'YYYY-MM-DD HH:MM:SS' format
+        String query = "SELECT workout_name, strftime('%Y-%m-%d %H:%M:%S', date_completed) AS formatted_date " +
+                "FROM WorkoutDiary " +
+                "ORDER BY date_completed ASC"; // Order explicitly by date_completed
 
         ObservableList<WorkoutEntry> completedWorkouts = FXCollections.observableArrayList();
 
@@ -49,7 +73,7 @@ public class FitnesslogController {
 
             while (rs.next()) {
                 String workoutName = rs.getString("workout_name");
-                String dateCompleted = rs.getTimestamp("date_completed").toString();
+                String dateCompleted = rs.getString("formatted_date"); // Use the formatted date
                 completedWorkouts.add(new WorkoutEntry(workoutName, dateCompleted));
             }
 
@@ -58,7 +82,6 @@ public class FitnesslogController {
             System.err.println("Error loading completed workouts: " + e.getMessage());
         }
     }
-
     @FXML
     private void handleBack() throws Exception {
         Stage stage = (Stage) backButton.getScene().getWindow();
