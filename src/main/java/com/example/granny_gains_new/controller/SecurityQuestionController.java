@@ -16,6 +16,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Controller class for managing security question related tasks during sign up process.
+ */
 public class SecurityQuestionController {
 
     private User user;
@@ -40,6 +43,11 @@ public class SecurityQuestionController {
         this.user = user;
     }
 
+    /**
+     * Method to handle the action of navigating back to the sign-in page.
+     * This method retrieves the current window's stage, loads the sign-in page FXML file, and sets it as the current scene.
+     * If an IOException occurs during the loading process, it will be caught and its stack trace will be printed.
+     */
     @FXML
     protected void handleBackToSignIn() {
         try {
@@ -52,7 +60,14 @@ public class SecurityQuestionController {
         }
     }
 
-    // Method to handle the sign-up action
+    /**
+     * This method handles the process of saving the security question and answer for a user.
+     * If the answer field is empty, it displays an error message.
+     * It then inserts the user's email, password, name, phone, selected secret question, and answer into the database.
+     * Upon successful insertion, a message is printed indicating the successful save operation.
+     * If any SQL errors occur during the process, an error message is displayed.
+     * Finally, it navigates the user to the BMI calculator page by loading the corresponding FXML file and passing the user's email to the BMI calculator controller.
+     */
     @FXML
     protected void handleSecurityQuestion() {
         if (tfAnswer.getText().isEmpty()){
