@@ -16,6 +16,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Controller class for handling user actions related to forgot password functionality.
+ * Provides methods for entering email, validating credentials, and navigating back to sign in page.
+ */
 public class ForgotPasswordController {
 
     @FXML
@@ -31,10 +35,12 @@ public class ForgotPasswordController {
     private Label lblemail;
 
 
+    /**
+     * Handles the event when the "Back to Sign In" button is clicked. It loads the sign-in page
+     * FXML file and sets the stage to display the sign-in page again.
+     */
     @FXML
     protected void handleBackToSignIn() {
-
-
         try {
             Stage stage = (Stage) ButtonEnterEmail.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_in_page.fxml"));
@@ -49,6 +55,11 @@ public class ForgotPasswordController {
         }
     }
 
+    /**
+     * This method handles the action when entering an email. It checks if the email text field is empty.
+     * If it's empty, it displays a message requesting to fill in the email. Otherwise, it calls the validateCredentials
+     * method to check the entered email against the database and proceed accordingly.
+     */
     @FXML
     protected void handleEnterEmail() {
 
@@ -60,6 +71,13 @@ public class ForgotPasswordController {
         validateCredentials(tfEmail.getText());
     }
 
+    /**
+     * Validates the user credentials by checking if the provided email exists in the database.
+     * If the email exists, it displays the password question page with the corresponding security question.
+     * If the email does not exist, it updates the label to show "Invalid Email".
+     *
+     * @param email the email address to validate credentials for
+     */
     protected void validateCredentials(String email) {
         try (Connection conn = DatabaseConnection.getInstance()) {
             if (conn == null || conn.isClosed()) {
