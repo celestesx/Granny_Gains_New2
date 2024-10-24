@@ -9,9 +9,17 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The RecipeLoader class is responsible for loading recipes from a CSV file and adding them to the database.
+ */
 public class RecipeLoader {
 
-    // Load recipes from a CSV file and add them to the database (no duplicates)
+    /**
+     * Loads recipes from a CSV file and adds them to the database.
+     *
+     * @param filePath The path to the CSV file containing recipes.
+     * @param dbHandler The RecipeDBHandler object for interacting with the database.
+     */
     public void loadRecipesFromCSV(String filePath, RecipeDBHandler dbHandler) {
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
             String[] line;
@@ -49,14 +57,17 @@ public class RecipeLoader {
         }
     }
 
-    // Helper method to parse a list from a string like ["item1", "item2"]
+    /**
+     * Parses a comma-separated string into a List of Strings.
+     *
+     * @param listString The comma-separated string to be parsed.
+     * @return A List of Strings containing the parsed items after trimming any leading or trailing spaces.
+     */
     private List<String> parseListFromString(String listString) {
-        // Remove square brackets and split by commas
         String[] items = listString.replaceAll("\\[|\\]", "").split(",");
 
-        // Trim spaces and return as a List<String>
         return Arrays.asList(items).stream()
-                .map(String::trim)  // Remove any leading/trailing spaces
+                .map(String::trim)
                 .toList();
     }
 }
