@@ -20,6 +20,10 @@ import java.sql.SQLException;
 import java.text.CollationElementIterator;
 import java.util.UUID;
 
+/**
+ * Controller class for handling password reset functionality.
+ * Includes methods for updating user password and navigating between scenes.
+ */
 public class RedoPasswordController {
 
     private String email;
@@ -43,6 +47,12 @@ public class RedoPasswordController {
         this.email = email;
     }
 
+    /**
+     * This method is called when the user wants to go back to the email input page from the password reset page.
+     * It loads the forgot_password_page.fxml file using FXMLLoader and sets the scene to display it.
+     * The stage is then adjusted to fill the entire screen and maximized to ensure optimal viewing.
+     * If an IOException occurs while loading the FXML file, it is caught and printed to the error stream.
+     */
     @FXML
     protected void handleBackToEmail() {
         try {
@@ -59,6 +69,14 @@ public class RedoPasswordController {
         }
     }
 
+    /**
+     * This method handles the submission of a new password by the user.
+     * It first checks if both password fields are filled out and if they match.
+     * Then it validates the password by ensuring it has at least 8 characters and contains at least 1 digit.
+     * If the password passes validation, it calls the UpdatePassword method to update the user's password in the database.
+     * If the update is successful, it redirects the user back to the sign-in page.
+     * If an IOException occurs during the redirection process, an error message is printed.
+     */
     @FXML
     protected void handlePassword() {
         String password = tfPassword.getText();
@@ -98,6 +116,12 @@ public class RedoPasswordController {
         }
     }
 
+    /**
+     * Update the password of a user in the database.
+     *
+     * @param email The email of the user whose password is to be updated
+     * @param password The new password to set for the user
+     */
     public void UpdatePassword(String email, String password) {
         String sql = "UPDATE User SET password = ? WHERE email = ?";
         try (Connection conn = DatabaseConnection.getInstance();  // Get the database connection
