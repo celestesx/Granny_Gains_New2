@@ -13,6 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+/**
+ * Controller class for BMI Calculator application.
+ * Responsible for handling user input, calculating BMI, saving user profile, and database operations.
+ */
 public class BMICalculatorController {
 
     private String email; // Email passed from the sign-up page
@@ -38,18 +42,34 @@ public class BMICalculatorController {
     @FXML
     private Button btnSave;
 
-    // Set the email when loading this controller
+
+    /**
+     * Set the email address for the user.
+     *
+     * @param email a String representing the email address to be set
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * This method initialises the BMICalculatorController by setting actions for the btnCalculate and btnSave buttons.
+     * When the btnCalculate button is clicked, it calls the calculateBMI() method to calculate and display BMI.
+     * When the btnSave button is clicked, it calls the saveProfile() method to save user profile data and navigate to the home page.
+     */
     @FXML
     protected void initialize() {
         btnCalculate.setOnAction(event -> calculateBMI());
         btnSave.setOnAction(event -> saveProfile());
     }
 
-    // Method to calculate BMI and display it in the lblBMI label
+
+    /**
+     * Calculates the Body Mass Index (BMI) based on the user's input for height and weight.
+     * If the input values are valid, it converts the height from centimeters to meters and calculates the BMI.
+     * Then it displays the calculated BMI on a label in the UI.
+     * If the input values are invalid (e.g., non-numeric inputs), it displays an error message on the UI label.
+     */
     void calculateBMI() {
         try {
             double height = Double.parseDouble(tfHeight.getText()) / 100; // Convert height from cm to meters
@@ -64,7 +84,13 @@ public class BMICalculatorController {
         }
     }
 
-    // Method to save the user profile to the database and navigate to the home page
+
+    /**
+     * Saves the user profile data by extracting information from the UI components,
+     * calculating the BMI, and inserting the profile into the database.
+     * After saving, navigates to the sign-in page.
+     * Handles NumberFormatException if input values are invalid and IOException during navigation.
+     */
     void saveProfile() {
         try {
             // Get the date of birth from DatePicker
@@ -95,7 +121,17 @@ public class BMICalculatorController {
         }
     }
 
-    // Method to insert the user's profile data into the SQLite database using email
+
+    /**
+     * Inserts the user profile data into the database.
+     *
+     * @param email a String representing the user's email address
+     * @param dateOfBirth a LocalDate representing the user's date of birth
+     * @param gender a String representing the user's gender
+     * @param height a double representing the user's height
+     * @param weight a double representing the user's weight
+     * @param bmi a double representing the user's BMI
+     */
     private void insertProfileIntoDatabase(String email, LocalDate dateOfBirth, String gender, double height, double weight, double bmi) {
         // SQL query to insert the data into the User table
         String sql = "UPDATE User SET date_of_birth = ?, gender = ?, height = ?, weight = ?, bmi = ? WHERE email = ?";

@@ -1,4 +1,5 @@
 package com.example.granny_gains_new.controller;
+
 import com.example.granny_gains_new.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,9 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 
-
+/**
+ * Controller class for the Granny Gains application. Handles user interactions and navigation logic.
+ */
 public class GrannyGainsController {
 
     @FXML
@@ -26,6 +29,9 @@ public class GrannyGainsController {
     @FXML
     private Button nextButton;
 
+    /**
+     * Initializes the terms and conditions text in the GUI.
+     */
     @FXML
     public void initialize() {
         termsAndConditions.setText("""
@@ -42,17 +48,30 @@ public class GrannyGainsController {
     """);
     }
 
+    /**
+     * Handles the button click event for the "Hello" button in the Granny Gains application.
+     * Updates the welcome text to display a welcome message.
+     */
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to Granny Gains!");
     }
 
+    /**
+     * Handles the event when the agree checkbox is clicked.
+     * If the checkbox is selected, enables the next button; otherwise, disables it.
+     */
     @FXML
     protected void onAgreeCheckBoxClick() {
         boolean accepted = agreeCheckBox.isSelected();
         nextButton.setDisable(!accepted);
     }
 
+    /**
+     * Handles the button click event for the "Next" button in the Granny Gains application.
+     * Loads the sign-in page and displays it in a new scene.
+     * @throws IOException if an error occurs during loading the FXML file or setting the scene
+     */
     @FXML
     protected void onNextButtonClick() throws IOException {
         Stage stage = (Stage) nextButton.getScene().getWindow();

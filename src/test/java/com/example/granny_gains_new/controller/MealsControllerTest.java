@@ -21,6 +21,11 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * This class contains test methods to validate the functionality of the MealsController class.
+ * It sets up necessary dependencies, initializes test data, and performs tests with different scenarios.
+ * The tests focus on loading recipes based on different filters and verifying the expected behavior.
+ */
 class MealsControllerTest {
 
     @Mock
@@ -33,6 +38,13 @@ class MealsControllerTest {
     private Recipe recipe2;
     private Recipe recipe3;
 
+    /**
+     * Initializes the JavaFX toolkit before executing any tests. This method ensures that the JavaFX toolkit is initialized only once before all tests are run.
+     * If the current thread is not the JavaFX application thread, it starts up the JavaFX toolkit by invoking Platform.startup() and waits for the initialization to complete.
+     * This method uses a CountDownLatch to synchronize the initialization process and ensures that the toolkit is ready within a specified time limit.
+     *
+     * @throws InterruptedException if the thread is interrupted while waiting for the JavaFX toolkit initialization
+     */
     @BeforeAll
     static void initToolkit() throws InterruptedException {
         // Initialize the JavaFX toolkit only once before all tests
@@ -43,6 +55,11 @@ class MealsControllerTest {
         }
     }
 
+    /**
+     * Set up the necessary environment before each test method is executed.
+     * This method initializes the Mockito framework, sets up test data by creating Recipe objects,
+     * creates a new instance of MealsController, injects a mock RecipeDBHandler, and sets up a ListView.
+     */
     @BeforeEach
     void setUp() {
         // Initialise Mockito
@@ -63,8 +80,13 @@ class MealsControllerTest {
         mealsController.recipeListView = new ListView<>();
     }
 
-
-
+    /**
+     * Test method to verify the behavior of loading recipes without applying any filter.
+     * This test case mocks the database call to return all recipes and validates if the expected
+     * number of recipes are loaded into the ListView after calling the loadRecipes method with no filter.
+     *
+     * @throws InterruptedException if the thread is interrupted while waiting for JavaFX thread events
+     */
     @Test
     void testLoadRecipes_NoFilter() throws InterruptedException {
         // mock the database call to return all recipes
@@ -87,9 +109,14 @@ class MealsControllerTest {
         assertEquals(3, loadedRecipes.size(), "ListView should contain exactly 3 recipes");
     }
 
-
-
-
+    /**
+     * Test method to verify the behavior of loading recipes with an empty filter result.
+     * This test case sets up the necessary test data, mocks the database call to return all recipes,
+     * loads recipes with a specified filter, waits for JavaFX thread events to complete, and then asserts
+     * that the loaded recipes list is empty.
+     *
+     * @throws InterruptedException if the thread is interrupted while waiting for JavaFX thread events
+     */
     @Test
     void testLoadRecipes_EmptyFilterResult() throws InterruptedException {
 
@@ -108,8 +135,12 @@ class MealsControllerTest {
     }
 
 
-
-    // Helper method to wait for JavaFX thread events to complete
+    /**
+     * Waits for JavaFX events to complete by utilizing a CountDownLatch to synchronize the process.
+     * This method runs the JavaFX code on the application thread using Platform.runLater and awaits
+     * the completion for a specified time period. If the thread is interrupted during the wait,
+     * it interrupts the current thread.
+     */
     private void waitForFxEvents() {
         final CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(latch::countDown);

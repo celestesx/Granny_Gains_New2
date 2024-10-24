@@ -16,8 +16,21 @@ import java.util.concurrent.CountDownLatch;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Test class for the FitnessController class.
+ */
 public class FitnessControllerTest {
 
+    /**
+     * Initializes the JavaFX toolkit for testing purposes. This method is annotated with
+     * {@code @BeforeAll} to ensure it runs before any tests in the test class.
+     * <p>
+     * It starts the JavaFX platform and waits until it is fully initialized before proceeding.
+     * This method is typically used in a test setup to prepare the environment for JavaFX testing.
+     * Any exceptions thrown during the initialization process will be propagated to the caller.
+     *
+     * @throws Exception if an error occurs during the initialization process.
+     */
     @BeforeAll
     static void initToolkit() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
@@ -25,11 +38,25 @@ public class FitnessControllerTest {
         latch.await();
     }
 
+    /**
+     * Set up method to initialize the FitnessController for testing purposes.
+     * This method is annotated with {@code @BeforeEach} to ensure it runs before each test method in the test class.
+     * Initializes a new instance of FitnessController for testing purposes.
+     *
+     * @throws Exception if any error occurs during the setup process.
+     */
     @BeforeEach
     public void setUp() throws Exception {
         FitnessController fitnessController = new FitnessController();
     }
 
+    /**
+     * Test the navigation to the FitnessStrength page by simulating the loading of the FitnessCardio.fxml file.
+     * This test method runs on the JavaFX application thread and verifies that the FitnessCardioPage is not null after navigation.
+     * It uses a CountDownLatch to synchronize the test running on the application thread.
+     *
+     * @throws Exception if an error occurs during the navigation testing process
+     */
     @Test
     void testNavStrength() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);

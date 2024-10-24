@@ -19,6 +19,12 @@ import java.sql.SQLException;
 import java.util.Set;
 import java.util.HashSet;
 
+/**
+ * This class represents a controller for managing favorite meals related functionality.
+ * It includes methods for handling navigation between pages, loading saved meals data,
+ * initializing table columns, and setting up cell factories for the TableView.
+ * The class uses JavaFX annotations for handling GUI components and event handling.
+ */
 public class FavMealsController {
 
     @FXML
@@ -39,7 +45,14 @@ public class FavMealsController {
     @FXML
     private Button backToHomeButton, mealsButton, fitnessButton;
 
-    // Method to go back to the Home page
+
+    /**
+     * Handles the action to navigate back to the home screen.
+     * Retrieves the current stage from the backToHomeButton's scene and sets the scene to the home screen FXML.
+     * The home screen FXML is loaded using FXMLLoader with a scene size of 1000x1000.
+     *
+     * @throws IOException if an error occurs during the loading of the home screen FXML.
+     */
     @FXML
     protected void handleBackToHome() throws IOException {
         Stage stage = (Stage) backToHomeButton.getScene().getWindow(); // Use backToHomeButton instead of HomeButton
@@ -48,19 +61,37 @@ public class FavMealsController {
         stage.setScene(scene);
     }
 
-    // Method to display favorited Meals
+
+    /**
+     * Handles the action to navigate to the Favorite Meals Page.
+     * Retrieves the current stage from the backToHomeButton's scene and sets the scene to the Favorite Meals Page FXML.
+     * The Favorite Meals Page FXML is loaded using FXMLLoader with a scene size of 1200x700.
+     * Prints a message upon successful navigation or an error message if an IOException occurs.
+     */
     @FXML
     public void handleMeals() {
         navigateToPage("/com/example/granny_gains_new/Fav_Meals_Page.fxml", "Favorite Meals Page");
     }
 
-    // Method to display favorited Fitness items
+
+    /**
+     * Handles the action to navigate to the Favorite Fitness Page.
+     * Retrieves the current stage from the backToHomeButton's scene and sets the scene to the Favorite Fitness Page FXML.
+     * The Favorite Fitness Page FXML is loaded using FXMLLoader with a scene size of 1200x700.
+     * Prints a message upon successful navigation or an error message if an IOException occurs.
+     */
     @FXML
     public void handleFitness() {
         navigateToPage("/com/example/granny_gains_new/Fav_Fitness_Page.fxml", "Favorite Fitness Page");
     }
 
-    // Generic method to navigate between pages
+
+    /**
+     * Navigates to a specified page based on the provided FXML file path and page name.
+     *
+     * @param fxmlFilePath the file path to the FXML file of the page to navigate to
+     * @param pageName the name of the page being navigated to
+     */
     private void navigateToPage(String fxmlFilePath, String pageName) {
         try {
             Stage stage = (Stage) backToHomeButton.getScene().getWindow(); // Use backToHomeButton here as well
@@ -74,6 +105,10 @@ public class FavMealsController {
         }
     }
 
+    /**
+     * Initialises the meal table view by setting up cell value factories, column widths, cell factories,
+     * and loading saved meal entries to display in the table.
+     */
     @FXML
     public void initialize() {
         mealNameColumn.setCellValueFactory(new PropertyValueFactory<>("mealName"));
@@ -131,6 +166,12 @@ public class FavMealsController {
         loadSavedMeals();
     }
 
+    /**
+     * Method to load saved meals from the MealTable in the database, avoiding duplicates based on meal names.
+     * Retrieves recipe name, description, servings, and calories from the MealTable.
+     * Creates MealEntry objects for unique meal names and populates the mealTableView with the saved meals.
+     * Prints an error message if there is an issue with loading the meals from the database.
+     */
     private void loadSavedMeals() {
         String query = "SELECT recipe_name, description, servings, calories FROM MealTable";
 
@@ -161,6 +202,9 @@ public class FavMealsController {
     }
 
 
+    /**
+     * Represents a single entry in a meal plan, containing details such as meal name, description, servings, and calories.
+     */
     public static class MealEntry {
         private final String mealName;
         private final String description;

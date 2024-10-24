@@ -17,6 +17,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The SignUpController class controls the sign-up functionality for the application.
+ * It includes handling user input, validating user data, and navigating to the security question page upon successful sign-up.
+ * This class uses JavaFX for UI components and interacts with the database to check for existing user information.
+ */
 public class SignUpController {
 
     @FXML
@@ -43,6 +48,11 @@ public class SignUpController {
     @FXML
     private Label lblincorrectdetails;
 
+    /**
+     * Method to handle the back button click event to navigate back to the sign-in page.
+     * It retrieves the current stage and loads the sign-in page FXML to display it with maximized window size.
+     * If an IOException occurs during the process, it prints the stack trace.
+     */
     @FXML
     protected void handleBackToSignIn() {
         try {
@@ -59,7 +69,15 @@ public class SignUpController {
         }
     }
 
-    // Method to handle the sign-up action
+    /**
+     * Method to handle the sign-up process when the sign-up button is clicked.
+     * It creates a new User object with the input data from the UI fields.
+     * Validates the input data for email, password, first name, last name, and phone number.
+     * If any validation fails, appropriate error messages are displayed.
+     * Checks if the email is already in use by querying the database.
+     * If all validations pass, navigates to the security question page with the user data.
+     * If an SQL exception occurs during database operations, it prints the error message.
+     */
     @FXML
     protected void handleSignUp() {
         // Create a new User object using the input data

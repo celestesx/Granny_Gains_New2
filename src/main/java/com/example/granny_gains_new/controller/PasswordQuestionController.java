@@ -16,6 +16,11 @@ import java.sql.SQLException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Controller class for managing password question retrieval and answer submission.
+ * This class handles the retrieval and display of security questions based on the user's email,
+ * as well as the validation of the user's answer to proceed with resetting the password.
+ */
 public class PasswordQuestionController {
 
     private String email;
@@ -47,6 +52,12 @@ public class PasswordQuestionController {
     }
 
 
+    /**
+     * Method to handle the action of going back to the email entry page.
+     * Retrieves the stage from the current scene, loads the 'forgot_password_page.fxml' file
+     * in a new scene, sets the stage to display the new scene with maximized dimensions.
+     * If an IOException occurs during the loading process, the exception is printed to the error stream.
+     */
     @FXML
     protected void handleBackToEmail() {
         try {
@@ -63,6 +74,13 @@ public class PasswordQuestionController {
         }
     }
 
+    /**
+     * Method to handle the submission of an answer.
+     * Retrieves the answer from a text field and validates it with the provided email.
+     * If the answer is valid, loads a new scene for redoing the password with the email set in the RedoPasswordController.
+     * If the answer is invalid, loads a new scene for signing in.
+     * Handles potential IOException during scene loading by printing the exception to the error stream.
+     */
     @FXML
     protected void handleSubmitAnswer() {
         try {
@@ -96,6 +114,13 @@ public class PasswordQuestionController {
         }
     }
 
+    /**
+     * Validates the user's answer to the security question saved in the database.
+     *
+     * @param email the email address of the user
+     * @param answer the user's answer to the security question
+     * @return true if the provided answer matches the user's secret answer in the database, false otherwise
+     */
     public boolean validateAnswer(String email, String answer) {
         try (Connection conn = DatabaseConnection.getInstance()) {
             if (conn == null || conn.isClosed()) {

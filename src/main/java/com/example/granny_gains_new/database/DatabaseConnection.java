@@ -107,7 +107,7 @@ public class DatabaseConnection {
                     " FOREIGN KEY (meal_plan_id) REFERENCES Meal_plan(meal_plan_id), " +
                     " FOREIGN KEY (recipe_id) REFERENCES Recipe(recipe_id) " +
                     ");" +
-// Favourite Fitness Table
+                    // Favourite Fitness Table
                     "CREATE TABLE IF NOT EXISTS FitnessTable ( " +
                     " favorite_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     " workout_name TEXT, " +
@@ -122,7 +122,10 @@ public class DatabaseConnection {
                     "); ";
 
 
-    // Private constructor to prevent instantiation
+
+    /**
+     * Private constructor for the DatabaseConnection class.
+     */
     private DatabaseConnection() {
     }
 
@@ -180,6 +183,15 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Inserts a new meal into the database with the provided details.
+     *
+     * @param recipeName  the name of the recipe for the meal
+     * @param description a description of the meal
+     * @param servings    the number of servings for the meal
+     * @param calories    the total calories in the meal
+     * @param pictureUrl  the URL of the picture associated with the meal
+     */
     public static void insertMeal(String recipeName, String description, int servings, int calories, String pictureUrl) {
         String insertSQL = "INSERT INTO MealTable (recipe_name, description, servings, calories, picture_url) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = getInstance();
@@ -196,6 +208,12 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Inserts a new favorite exercise for a user into the database.
+     *
+     * @param userId     the unique identifier of the user adding the exercise to favorites
+     * @param exerciseId the unique identifier of the exercise to be added to favorites
+     */
     public static void insertFavoriteExercise(String userId, int exerciseId) {
         String insertSQL = "INSERT INTO FavoritesExercises (user_id, exercise_id) VALUES (?, ?)";
         try (Connection connection = getInstance();

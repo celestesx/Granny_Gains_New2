@@ -15,6 +15,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.UUID;
 
+/**
+ * This class represents the controller for editing user settings in the Granny Gains application.
+ * It loads the user session data from the database to populate the settings fields and allows the user
+ * to save the updated settings or change their password.
+ */
 public class EditSettingsController {
 
     @FXML
@@ -25,6 +30,12 @@ public class EditSettingsController {
     private Button backButton;
 
 
+    /**
+     * Handles the action when the Back to Home button is clicked. Loads the settings_page.fxml file
+     * and sets it as the scene for the current stage to navigate back to the main home screen.
+     *
+     * @throws IOException if an I/O error occurs during loading the settings_page.fxml file
+     */
     @FXML
     protected void handleBackToHome() throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
@@ -57,6 +68,13 @@ public class EditSettingsController {
     @FXML
     private Label lblincorrectdetails;
 
+    /**
+     * This method loads the user session by fetching the user's information from the database.
+     * It retrieves the user's full name, phone number, email, date of birth, height, weight, and BMI from the most recent session entry in the database.
+     * If the user information is successfully retrieved, it populates the respective fields in the UI with the fetched values.
+     * If any of the information is missing or empty, appropriate default values are displayed in the UI fields.
+     * If there is an error while fetching the user information from the database, an error message is printed to the console.
+     */
     @FXML
     private void loadUserSession() {
         String userName = "";
@@ -127,6 +145,16 @@ public class EditSettingsController {
     @FXML
     private Button saveButton;
 
+    /**
+     * This method handles the action when the Save button is clicked in the user settings form.
+     * It validates the input fields for email, phone number, height, and weight.
+     * Checks for empty fields, valid email format, unique email, valid phone number, height range (50-250 cm), and weight range (20-500 kg).
+     * If any validation fails, appropriate error messages are displayed.
+     * If all validations pass, it updates the user's information in the database by calling the UpdateDatabase method.
+     * Finally, it navigates back to the settings page.
+     *
+     * @throws IOException if an I/O error occurs during navigating back to the settings page
+     */
     @FXML
     protected void handleSave() throws IOException {
         String email = emailField.getText();
@@ -230,6 +258,15 @@ public class EditSettingsController {
         System.out.println("Save button clicked");
     }
 
+    /**
+     * Updates the user profile information in the database based on the provided parameters.
+     *
+     * @param activeEmail The current active email of the user whose profile is being updated.
+     * @param email The new email to update in the user profile.
+     * @param phone The new phone number to update in the user profile.
+     * @param height The new height to update in the user profile.
+     * @param weight The new weight to update in the user profile.
+     */
     private void UpdateDatabase(String activeEmail, String email, String phone, double height, double weight) {
         String sql = "UPDATE User SET email = ?, phone = ?, height = ?, weight = ?, bmi = ? WHERE email = ?";
         try (Connection conn = DatabaseConnection.getInstance();
@@ -262,6 +299,12 @@ public class EditSettingsController {
     @FXML
     private Button changePasswordButton;
 
+    /**
+     * Handles the action when the Change Password button is clicked.
+     * Loads the change_password.fxml file and sets it as the scene for the current stage.
+     *
+     * @throws IOException if an I/O error occurs during loading the change_password.fxml file
+     */
     @FXML
     protected void handleChangePassword() throws IOException {
         System.out.println("Change Password button clicked");

@@ -21,6 +21,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controller class for managing the display of recipes in a JavaFX application.
+ * Uses a RecipeDBHandler instance to interact with the database and load recipe data.
+ */
 public class MealsController {
     private RecipeDBHandler recipeDBHandler = new RecipeDBHandler(); // Default instance for real app usage
 
@@ -34,10 +38,17 @@ public class MealsController {
     private Label categoryHeader; // Label for the category header
 
 
+    /**
+     * Constructor for the MealsController class.
+     */
     public MealsController() {
     }
 
-    // Setter method for injecting RecipeDBHandler (for testing purposes)
+    /**
+     * Sets the RecipeDBHandler for the controller.
+     *
+     * @param recipeDBHandler The RecipeDBHandler instance to be set.
+     */
     public void setRecipeDBHandler(RecipeDBHandler recipeDBHandler) {
         this.recipeDBHandler = recipeDBHandler;
     }
@@ -47,8 +58,14 @@ public class MealsController {
         categoryHeader.setText("All Recipes"); // Default header for all recipes
     }
 
+    /**
+     * Loads recipes based on the provided filter and populates the recipe list view accordingly.
+     * If filter is null, all recipes are loaded. If a filter is provided,
+     * only recipes of the specified type are displayed.
+     *
+     * @param filter The type of recipes to filter on. If null, all recipes are loaded.
+     */
     void loadRecipes(String filter) {
-//        RecipeDBHandler dbHandler = new RecipeDBHandler();
         List<Recipe> recipeList = recipeDBHandler.getAllRecipes();
 
         if (filter != null) {
@@ -124,6 +141,12 @@ public class MealsController {
         });
     }
 
+    /**
+     * Shows the detailed view of a recipe by loading the recipe detail page and setting the recipe data.
+     *
+     * @param recipe The Recipe object for which the detailed view will be displayed.
+     * @throws IOException If an I/O error occurs while loading the page.
+     */
     private void showRecipeDetailPage(Recipe recipe) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/recipiesview.fxml"));
@@ -137,30 +160,53 @@ public class MealsController {
         stage.setScene(scene);
     }
 
+    /**
+     * Updates the category header to display "All Recipes" and loads all recipes to populate the recipe list view.
+     */
     @FXML
     protected void showAllRecipes() {
         categoryHeader.setText("All Recipes"); // Update header when showing all recipes
         loadRecipes(null);
     }
 
+    /**
+     * Updates the category header to display "Breakfast Recipes" and loads breakfast recipes
+     * to populate the recipe list view accordingly.
+     */
     @FXML
     protected void showBreakfastRecipes() {
         categoryHeader.setText("Breakfast Recipes"); // Update header when showing breakfast recipes
         loadRecipes("breakfast");
     }
 
+    /**
+     * Updates the category header to display "Lunch Recipes" and loads lunch recipes into the recipe list view.
+     * This method sets the text of the categoryHeader to "Lunch Recipes" and then calls loadRecipes("lunch")
+     * to populate the recipe list view with lunch recipes.
+     */
     @FXML
     protected void showLunchRecipes() {
         categoryHeader.setText("Lunch Recipes"); // Update header when showing lunch recipes
         loadRecipes("lunch");
     }
 
+    /**
+     * Updates the category header to display "Dinner Recipes" and loads dinner recipes
+     * to populate the recipe list view accordingly.
+     */
     @FXML
     protected void showDinnerRecipes() {
         categoryHeader.setText("Dinner Recipes"); // Update header when showing dinner recipes
         loadRecipes("dinner");
     }
 
+    /**
+     * Handles the action of navigating back to the home screen.
+     * This method retrieves the current stage from the HomeButton, loads the Granny Gains Home FXML file,
+     * creates a Scene with a width and height of 1000 by 1000, and sets this Scene on the stage to navigate back to the home screen.
+     *
+     * @throws IOException if an error occurs during the loading of the FXML file
+     */
     @FXML
     protected void handleBackToHome() throws IOException {
         Stage stage = (Stage) HomeButton.getScene().getWindow();

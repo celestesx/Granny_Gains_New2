@@ -2,6 +2,10 @@ package com.example.granny_gains_new.model;
 
 import java.util.List;
 
+/**
+ * Represents a Recipe with details such as recipe type, name, servings, calories, description,
+ * ingredients, cooking method, and picture URL.
+ */
 public class Recipe {
     private int recipeId;            // Primary key (auto-increment)
     private String recipeType;       // e.g., Breakfast, Lunch, Dinner, Snack
@@ -13,7 +17,19 @@ public class Recipe {
     private List<String> recipeMethod; // Cooking/preparation method
     private String pictureUrl;       // URL to the recipe image
 
-    // Constructor
+    /**
+     * Constructor for creating a Recipe object.
+     *
+     * @param recipeId      The unique identifier of the recipe.
+     * @param recipeType    The type or category of the recipe.
+     * @param recipeName    The name of the recipe.
+     * @param servings      The number of servings the recipe yields.
+     * @param calories      The calorie count of the recipe.
+     * @param description   A brief description or instructions for the recipe.
+     * @param ingredients   A list of ingredients required for the recipe.
+     * @param recipeMethod  The steps or method to prepare the recipe.
+     * @param pictureUrl    The URL or path to the picture of the recipe.
+     */
     public Recipe(int recipeId, String recipeType, String recipeName, int servings, int calories,
                   String description, List<String> ingredients, List<String> recipeMethod, String pictureUrl) {
         this.recipeId = recipeId;
@@ -27,10 +43,18 @@ public class Recipe {
         this.pictureUrl = pictureUrl;
     }
 
+    /**
+     * Constructor for creating a Recipe object.
+     *
+     * @param pancakes  The name of the recipe (e.g., "Pancakes").
+     * @param recipeType  The type or category of the recipe (e.g., "breakfast").
+     * @param breakfast  A brief description or instructions for the recipe (e.g., "Fluffy pancakes").
+     * @param pancakes1  Additional information related to the recipe (e.g., "pancakes").
+     */
     public Recipe(String pancakes, String recipeType, String breakfast, String pancakes1) {
     }
 
-    // Getters and Setters
+
     public int getRecipeId() {
         return recipeId;
     }
@@ -103,6 +127,14 @@ public class Recipe {
         this.pictureUrl = pictureUrl;
     }
 
+    /**
+     * Returns a string representation of the Recipe object, including all its fields.
+     *
+     * @return a string representation of the Recipe object in the format:
+     * "Recipe{recipeId=<recipeId>, recipeType='<recipeType>', recipeName='<recipeName>', servings=<servings>,
+     * calories=<calories>, description='<description>', ingredients=<ingredients>, recipeMethod=<recipeMethod>,
+     * pictureUrl='<pictureUrl>'}"
+     */
     @Override
     public String toString() {
         return "Recipe{" +

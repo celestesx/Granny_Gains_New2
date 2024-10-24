@@ -7,16 +7,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Handles interactions with the database for Recipe objects.
+ *
+ * Provides methods to add recipes, check if a recipe already exists, and retrieve all recipes from the database.
+ */
 public class RecipeDBHandler {
 
     private Connection conn;
 
+    /**
+     * The RecipeDBHandler class is responsible for handling interactions with the recipe database table.
+     * Upon instantiation, it establishes a connection to the database using the DatabaseConnection class.
+     */
     public RecipeDBHandler() {
         // Establish connection to the database using the DatabaseConnection class
         this.conn = (Connection) DatabaseConnection.getInstance();
     }
 
-    // Add a recipe to the database if it doesn't exist
+    /**
+     * Adds a new recipe to the database if it does not already exist.
+     *
+     * @param recipe The Recipe object to be added to the database.
+     */
     public void addRecipe(Recipe recipe) {
         if (!recipeExists(recipe.getRecipeName())) {
             String sql = "INSERT INTO Recipe(recipe_type, recipe_name, servings, calories, description, ingredients, recipe_method, picture_url) "
@@ -44,7 +57,10 @@ public class RecipeDBHandler {
         }
     }
 
-    // Check if a recipe with the same name already exists
+    /**
+     * Checks if a recipe with the given name exists in the database.
+     *
+     * @param recipeName The name of the recipe to check*/
     public boolean recipeExists(String recipeName) {
         String sql = "SELECT recipe_id FROM Recipe WHERE recipe_name = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -57,7 +73,11 @@ public class RecipeDBHandler {
         return false;
     }
 
-    // Retrieve a list of all recipes from the database
+    /**
+     * Retrieves all recipes from the database and returns them as a list of Recipe objects.
+     *
+     * @return A list of Recipe objects containing all recipes from the database.
+     */
     public List<Recipe> getAllRecipes() {
         List<Recipe> recipes = new ArrayList<>();
         String sql = "SELECT * FROM Recipe";

@@ -1,4 +1,5 @@
 package com.example.granny_gains_new.controller;
+
 import com.example.granny_gains_new.database.DatabaseConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +22,11 @@ import java.time.LocalDate;
 
 import javafx.scene.Parent;
 
-
+/**
+ * Controller class for managing interactions with the HIIT workout section of the application.
+ * Includes methods for toggling workout favorites, adding and removing workouts from the fitness table,
+ * marking workouts as completed, handling navigation to different sections, and displaying help information.
+ */
 public class HIITController {
     @FXML
     private Button HomeButton;
@@ -53,6 +58,11 @@ public class HIITController {
             "Beginner HIIT Workout For Seniors"
     };
 
+    /**
+     * Toggles the favorite status of a workout icon based on the provided MouseEvent.
+     *
+     * @param event The MouseEvent that triggered the method.
+     */
     @FXML
     public void toggleFavorite(MouseEvent event) {
         // Get the source of the click event
@@ -100,6 +110,12 @@ public class HIITController {
         isFavourited[index] = !isFavourited[index]; // Toggle favorited status
     }
 
+    /**
+     * Updates the ImageView of a heart icon based on the favorited status.
+     *
+     * @param heartIcon The ImageView representing the heart icon to be updated.
+     * @param favorited A boolean indicating whether the heart icon should be filled or unfilled.
+     */
     private void updateHeartImage(ImageView heartIcon, boolean favorited) {
         String heartImagePath = favorited
                 ? "/com/example/granny_gains_new/images/icons8-favorite-50 (1).png" // Filled heart image
@@ -108,6 +124,13 @@ public class HIITController {
         heartIcon.setImage(heartImage);
     }
 
+    /**
+     * Updates the heart icons based on the favorited status.
+     * Loops through the isFavourited array to set the initial state of heart icons
+     * corresponding to their favorited status.
+     * If a heart icon is found for a particular favorited status, it calls updateHeartImage
+     * method to update the heart icon image based on the favorited status.
+     */
     private void updateHeartIcons() {
         // Set initial state of heart icons based on favorited status
         for (int i = 0; i < isFavourited.length; i++) {
@@ -132,6 +155,12 @@ public class HIITController {
         }
     }
 
+    /**
+     * Adds a workout to the FitnessTable in the database.
+     *
+     * @param workoutName The name of the workout to be added.
+     * @return true if the workout was successfully added, false otherwise.
+     */
     public boolean addWorkoutToFitnessTable(String workoutName) {
         String insertSQL = "INSERT INTO FitnessTable (workout_name, saved_date) VALUES (?, ?)";
         String savedDate = LocalDate.now().toString();  // Get the current date
@@ -155,6 +184,12 @@ public class HIITController {
         return false; // Failure
     }
 
+    /**
+     * Removes the specified workout from the FitnessTable.
+     *
+     * @param workoutName The name of the workout to be removed.
+     * @return true if the workout is successfully removed, false otherwise.
+     */
     public boolean removeWorkoutFromFitnessTable(String workoutName) {
         String deleteSQL = "DELETE FROM FitnessTable WHERE workout_name = ?";
         try (Connection connection = DatabaseConnection.getInstance();
@@ -175,6 +210,11 @@ public class HIITController {
         return false; // Failure
     }
 
+    /**
+     * Private method handleLog is responsible for opening a new stage that displays the fitness log UI.
+     * It loads the fitnesslog.fxml file using FXMLLoader, creates a new Stage, sets the scene with the loaded Parent, and shows the stage.
+     * If an IOException occurs during the loading process, it prints the stack trace and displays an error message.
+     */
     @FXML
     private void handleLog() {
         try {
@@ -189,6 +229,11 @@ public class HIITController {
         }
     }
 
+    /**
+     * Marks the selected workout as complete by updating the button text and saving the workout to the database.
+     *
+     * @param event The ActionEvent triggering the method.
+     */
     @FXML
     private void markAsComplete(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
@@ -211,7 +256,11 @@ public class HIITController {
         addWorkoutToDiary(workoutName);
     }
 
-    // Method to add workout to diary database
+    /**
+     * Adds a workout to the Workout Diary database table with the specified workout name and the current timestamp.
+     *
+     * @param workoutName The name of the workout to be added to the diary.
+     */
     private void addWorkoutToDiary(String workoutName) {
         String query = "INSERT INTO WorkoutDiary (workout_name, date_completed) VALUES (?, CURRENT_TIMESTAMP)";
 
@@ -230,6 +279,12 @@ public class HIITController {
     @FXML
     private ImageView HelpImageView;
 
+    /**
+     * Method handleHelp is responsible for handling the Help button action.
+     * It loads the fitness_help.fxml file using FXMLLoader, creates a new Scene with the loaded Parent,
+     * and sets it to the current Stage to display the help information.
+     *
+     * @throws IOException*/
     @FXML
     protected void handleHelp() throws IOException {
         Stage stage = (Stage) HelpImageView.getScene().getWindow();
@@ -238,7 +293,14 @@ public class HIITController {
         stage.setScene(scene);
     }
 
-
+    /**
+     * Navigates to the FitnessCardio.fxml scene when the NavCardio method is invoked.
+     * Retrieves the current window's Stage, loads the FitnessCardio.fxml file with FXMLLoader,
+     * creates a new Scene with the loaded content, and sets the Stage to display the new Scene.
+     * Throws an IOException if an error occurs during the loading process.
+     *
+     * @throws IOException If an error occurs during loading the FitnessCardio.fxml file.
+     */
     @FXML
     protected void NavCardio() throws IOException {
         Stage stage = (Stage) CardioButton.getScene().getWindow();
@@ -247,6 +309,14 @@ public class HIITController {
         stage.setScene(scene);
     }
 
+    /**
+     * Navigates to the FitnessStrength.fxml scene when the NavStrength method is invoked.
+     * Retrieves the current window's Stage, loads the FitnessStrength.fxml file with FXMLLoader,
+     * creates a new Scene with the loaded content, and sets the Stage to display the new Scene.
+     * Throws an IOException if an error occurs during the loading process.
+     *
+     * @throws IOException If an error occurs during loading the FitnessStrength.fxml file.
+     */
     @FXML
     protected void NavStrength() throws IOException {
         Stage stage = (Stage) StrengthButton.getScene().getWindow();
@@ -255,6 +325,14 @@ public class HIITController {
         stage.setScene(scene);
     }
 
+    /**
+     * Navigates to the FitnessHIIT.fxml scene when the NavHIIT method is invoked.
+     * Retrieves the current window's Stage, loads the FitnessHIIT.fxml file with FXMLLoader,
+     * creates a new Scene with the loaded content, and sets the Stage to display the new Scene.
+     * Throws an IOException if an error occurs during the loading process.
+     *
+     * @throws IOException If an error occurs during loading the FitnessHIIT.fxml file.
+     */
     @FXML
     protected void NavHIIT() throws IOException {
         Stage stage = (Stage) HIITButton.getScene().getWindow();
@@ -263,6 +341,14 @@ public class HIITController {
         stage.setScene(scene);
     }
 
+    /**
+     * Handle the action of navigating back to the home screen.
+     * This method retrieves the current Stage of the application window, loads the Granny Gains home FXML file,
+     * creates a new Scene with the loaded content, and sets the Stage to display the home screen.
+     * Throws an IOException if an error occurs during the loading process.
+     *
+     * @throws IOException If an error occurs while loading the Granny Gains home FXML file
+     */
     @FXML
     protected void handleBackToHome() throws IOException {
         Stage stage = (Stage) HomeButton.getScene().getWindow();
@@ -271,20 +357,24 @@ public class HIITController {
         stage.setScene(scene);
     }
 
-
     @FXML
     private ImageView HIIT1, HIIT2, HIIT3, HIIT4;
 
     @FXML
     private Label HIIT1Title, HIIT2Title, HIIT3Title, HIIT4Title;
 
-    // Method to initialize the controller
     @FXML
     public void initialize() {
         loadHIITWorkouts();
     }
 
-    // Method to load cardio workouts from CSV and update the UI
+    /**
+     * Loads HIIT workouts from a CSV file and updates the workout tiles with corresponding information.
+     * The CSV file should have the format: "title, thumbnailPath, videoLink" per row.
+     * The method reads the CSV file, skips the header row, and extracts workout data for each row.
+     * It then updates the workout tiles based on the workout counter, assigning the title, thumbnail,
+     * and video link to the appropriate ImageView and Label elements.
+     */
     private void loadHIITWorkouts() {
         String csvFile = "src/main/java/com/example/granny_gains_new/database/HIIT.csv";
         String line;
@@ -329,7 +419,15 @@ public class HIITController {
         }
     }
 
-    // Method to update the ImageView and Label for a workout tile in FitnessCardio.fxml
+    /**
+     * Updates the workout tile with the provided image, title, and video link.
+     *
+     * @param imageView The ImageView to display the workout image.
+     * @param titleLabel The Label to display the workout title.
+     * @param title The title of the workout.
+     * @param imagePath The path to the image file.
+     * @param videoLink The link to the workout video.
+     */
     private void updateWorkoutTile(ImageView imageView, Label titleLabel, String title, String imagePath, String videoLink) {
         // Load and set the image in the ImageView
         try {
@@ -347,7 +445,11 @@ public class HIITController {
         titleLabel.setOnMouseClicked(event -> openVideoPlayer(videoLink));  // You can also click the title
     }
 
-    // Method to open a new scene with the video player
+    /**
+     * Opens a new video player window with the specified video URL.
+     *
+     * @param videoUrl The URL of the video to be played in the video player window.
+     */
     private void openVideoPlayer(String videoUrl) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/fitness_player.fxml"));

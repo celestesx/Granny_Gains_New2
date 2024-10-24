@@ -15,8 +15,18 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.UUID;
 
+/**
+ * ChangePasswordController is responsible for handling the user interface interactions for changing a user's password.
+ * It includes methods for initialising the controller, handling submission of new password, going back to home page,
+ * loading user's session information, and updating the user's password in the database.
+ */
 public class ChangePasswordController {
 
+    /**
+     * Initializes the ChangePasswordController by loading the user session and setting the initial stage value to 0.
+     * The user session is retrieved from the database by executing a query to fetch the latest session details.
+     * If the query is successful, the email and password values are updated accordingly.
+     */
     @FXML
     public void initialize() {
         loadUserSession();
@@ -39,6 +49,11 @@ public class ChangePasswordController {
     @FXML
     private Button backButton;
 
+    /**
+     * Changes the current scene to the home page when the back button is clicked.
+     *
+     * @throws IOException if an error occurs while loading the home page FXML file
+     */
     @FXML
     protected void handleBackToHome() throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
@@ -50,6 +65,15 @@ public class ChangePasswordController {
     @FXML
     private Button submitButton;
 
+    /**
+     * Handles the submission of a new password input by the user.
+     * Processes the password based on the current stage of the password change process.
+     * If the stage is 0, verifies the password entered by the user.
+     * If the stage is 1, checks the validity of the newly entered password.
+     * If the stage is 2, updates the user's password in the database and navigates to the edit settings page.
+     *
+     * @throws IOException if an error occurs during database operations or scene navigation
+     */
     @FXML
     protected void handleSubmit() throws IOException {
         String testPassword = passwordField.getText();
@@ -104,6 +128,12 @@ public class ChangePasswordController {
         }
     }
 
+    /**
+     * Method to load the latest user session details from the database.
+     * Fetches the email and password of the user associated with the latest session.
+     * Executes a query to retrieve the session information and updates the local email and password fields accordingly.
+     * If an SQL exception occurs during the database operation, an error message is printed to the standard error.
+     */
     @FXML
     private void loadUserSession() {
         String query = "SELECT u.email, u.password FROM User u "

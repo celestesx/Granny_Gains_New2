@@ -22,9 +22,9 @@ import java.sql.SQLException;
 import javafx.scene.Parent;
 import java.time.LocalDate;
 
-
-
-
+/**
+ * Class representing a Fitness Controller for managing workout activities and user interactions.
+ */
 public class FitnessController {
 
     @FXML
@@ -54,6 +54,11 @@ public class FitnessController {
             "20 Minute Dance Workout for Seniors"
     };
 
+    /**
+     * Toggles the favorite status of a workout when the heart icon associated with the workout is clicked.
+     *
+     * @param event The MouseEvent triggering the method.
+     */
     @FXML
     public void toggleFavorite(MouseEvent event) {
         // Get the source of the click event
@@ -101,6 +106,12 @@ public class FitnessController {
         isFavourited[index] = !isFavourited[index]; // Toggle favorited status
     }
 
+    /**
+     * Updates the image of a heart icon based on the favorited status.
+     *
+     * @param heartIcon The ImageView to update the heart image.
+     * @param favorited A boolean indicating whether the heart should be filled (true) or unfilled (false).
+     */
     private void updateHeartImage(ImageView heartIcon, boolean favorited) {
         String heartImagePath = favorited
                 ? "/com/example/granny_gains_new/images/icons8-favorite-50 (1).png" // Filled heart image
@@ -109,6 +120,11 @@ public class FitnessController {
         heartIcon.setImage(heartImage);
     }
 
+    /**
+     * Updates the heart icons displayed in the UI based on the favorited status.
+     * Iterates through the isFavourited array to set the initial state of heart icons.
+     * Calls the updateHeartImage method to update the image of each heart icon.
+     */
     private void updateHeartIcons() {
         // Set initial state of heart icons based on favorited status
         for (int i = 0; i < isFavourited.length; i++) {
@@ -133,6 +149,12 @@ public class FitnessController {
         }
     }
 
+    /**
+     * Adds a workout to the fitness table in the database.
+     *
+     * @param workoutName The name of the workout to add to the fitness table.
+     * @return true if the workout was successfully added to the fitness table, false otherwise.
+     */
     public boolean addWorkoutToFitnessTable(String workoutName) {
         String insertSQL = "INSERT INTO FitnessTable (workout_name, saved_date) VALUES (?, ?)";
         String savedDate = LocalDate.now().toString();  // Get the current date
@@ -156,6 +178,12 @@ public class FitnessController {
         return false; // Failure
     }
 
+    /**
+     * Removes a workout from the FitnessTable in the database.
+     *
+     * @param workoutName The name of the workout to be removed from the FitnessTable.
+     * @return true if the workout was successfully removed from the FitnessTable, false otherwise.
+     */
     public boolean removeWorkoutFromFitnessTable(String workoutName) {
         String deleteSQL = "DELETE FROM FitnessTable WHERE workout_name = ?";
         try (Connection connection = DatabaseConnection.getInstance();
@@ -176,6 +204,13 @@ public class FitnessController {
         return false; // Failure
     }
 
+    /**
+     * Handles the action when the Help button is clicked. Loads the fitness_help.fxml file
+     * into a new scene and sets it in the current stage. The size of the new scene matches
+     * the width and height of the current stage.
+     *
+     * @throws IOException If an I/O error occurs when loading the fitness_help.fxml file.
+     */
     @FXML
     protected void handleHelp() throws IOException {
         Stage stage = (Stage) HelpButton.getScene().getWindow();
@@ -186,6 +221,12 @@ public class FitnessController {
         stage.setScene(scene);
     }
 
+    /**
+     * Navigates to the Cardio page by loading FitnessCardio.fxml into a new scene with the same dimensions as the current stage.
+     * Note: This method is intended to be used for navigating to the Cardio page.
+     *
+     * @throws IOException If an I/O error occurs when loading FitnessCardio.fxml.
+     */
     @FXML
     protected void NavCardio() throws IOException {
         Stage stage = (Stage) CardioButton.getScene().getWindow();
@@ -196,8 +237,13 @@ public class FitnessController {
         stage.setScene(scene);
     }
 
+    /**
+     * Navigates to a new page by loading the specified FXML file and updating the scene in the current stage.
+     *
+     * @param fxmlFilePath The file path of the FXML file to load for the new page.
+     * @param pageName The name of the page being navigated to.
+     */
     @FXML
-    // Generic method to navigate between pages
     private void NavStrength(String fxmlFilePath, String pageName) {
         try {
             Stage stage = (Stage) StrengthButton.getScene().getWindow();
@@ -210,21 +256,22 @@ public class FitnessController {
             System.err.println("Error loading " + pageName + ": " + e.getMessage());
         }
     }
+
+    /**
+     * Handles the strength button action by navigating to a new page that displays fitness strength content.
+     * This method loads the specified FXML file for FitnessStrength.fxml and sets it in the current stage scene.
+     */
     @FXML
     public void handleStrength() {
         NavStrength("/com/example/granny_gains_new/FitnessStrength.fxml", "Home Page");
     }
 
-//    @FXML
-//    protected void NavStrength() throws IOException {
-//        Stage stage = (Stage) StrengthButton.getScene().getWindow();
-//        double width = stage.getWidth();
-//        double height = stage.getHeight();
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/FitnessStrength.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), width, height);
-//        stage.setScene(scene);
-//    }
 
+    /**
+     * Navigates to the HIIT fitness page by loading the FitnessHIIT.fxml file into a new scene with the same dimensions as the current stage.
+     *
+     * @throws IOException If an I/O error occurs when loading the FitnessHIIT.fxml file.
+     */
     @FXML
     protected void NavHIIT() throws IOException {
         Stage stage = (Stage) HIITButton.getScene().getWindow();
@@ -235,6 +282,14 @@ public class FitnessController {
         stage.setScene(scene);
     }
 
+    /**
+     * Method to handle the action when the user wants to navigate back to the home screen.
+     * Retrieves the current stage, width, and height from the HomeButton context in order to maintain dimensions.
+     * Loads the granny_gains_home.fxml file using FXMLLoader and creates a new scene with the same dimensions.
+     * Sets the newly created scene in the current stage to navigate back to the home screen.
+     *
+     * @throws IOException If an I/O error occurs while loading granny_gains_home.fxml.
+     */
     @FXML
     protected void handleBackToHome() throws IOException {
         Stage stage = (Stage) HomeButton.getScene().getWindow();
@@ -256,12 +311,20 @@ public class FitnessController {
     @FXML
     private Button logCardio1, logCardio2, logCardio3, logCardio4;
 
-    // Method to initialize the controller
+    /**
+     * Initializes the FitnessController by loading cardio workouts and updating heart icons.
+     */
     @FXML
     public void initialize() {
         loadCardioWorkouts();
         updateHeartIcons();
     }
+
+    /**
+     * Handles the action when the log button is clicked. It loads the fitnesslog.fxml file
+     * using FXMLLoader to display a new stage with the log content.
+     * If an IOException occurs during loading, an error message is printed to the standard error stream.
+     */
     @FXML
     private void handleLog() {
         try {
@@ -276,7 +339,13 @@ public class FitnessController {
         }
     }
 
-    // Method to load cardio workouts from CSV and update the UI
+    /**
+     * Loads cardio workout data from a CSV file and updates the UI elements with the information.
+     * The CSV file is expected to have columns for workout title, thumbnail image path, and video link.
+     * This method reads the CSV file, skips the header row, parses each line, and assigns workout details
+     * to the corresponding ImageView and Label based on a counter.
+     * If an error occurs during file reading or image loading, an error message is printed.
+     */
     private void loadCardioWorkouts() {
         String csvFile = "src/main/java/com/example/granny_gains_new/database/fitness.csv";
         String line;
@@ -321,7 +390,16 @@ public class FitnessController {
         }
     }
 
-    // Method to update the ImageView and Label for a workout tile in FitnessCardio.fxml
+
+    /**
+     * Updates the workout tile with the provided information.
+     *
+     * @param imageView The ImageView to display the workout image.
+     * @param titleLabel The Label to display the workout title.
+     * @param title The title of the workout.
+     * @param imagePath The path to the image file for the workout thumbnail.
+     * @param videoLink The link to the video associated with the workout.
+     */
     private void updateWorkoutTile(ImageView imageView, Label titleLabel, String title, String imagePath, String videoLink) {
         // Load and set the image in the ImageView
         try {
@@ -339,7 +417,13 @@ public class FitnessController {
         titleLabel.setOnMouseClicked(event -> openVideoPlayer(videoLink));  // You can also click the title
     }
 
-    // Method to open a new scene with the video player
+
+    /**
+     * Opens a new video player window to play a video from the provided URL.
+     *
+     * @param videoUrl The URL of the video to be played in the video player window.
+     *                If the URL is not valid or the video cannot be loaded, an IOException is thrown.
+     */
     private void openVideoPlayer(String videoUrl) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/fitness_player.fxml"));
@@ -358,6 +442,13 @@ public class FitnessController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Marks a workout as complete based on the button clicked. Updates the button text to "Completed"
+     * and saves the workout name to the database in the WorkoutDiary table with the current timestamp.
+     *
+     * @param event The ActionEvent that triggered the method.
+     */
     @FXML
     private void markAsComplete(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
@@ -380,7 +471,13 @@ public class FitnessController {
         addWorkoutToDiary(workoutName);
     }
 
-    // Method to add workout to diary database
+
+    /**
+     * Adds a workout to the workout diary with the specified workout name and current timestamp.
+     *
+     * @param workoutName The name of the workout to add to the workout diary.
+     * @return true if the workout was successfully added to the diary, false otherwise.
+     */
     private boolean addWorkoutToDiary(String workoutName) {
         String query = "INSERT INTO WorkoutDiary (workout_name, date_completed) VALUES (?, CURRENT_TIMESTAMP)";
 
@@ -397,6 +494,12 @@ public class FitnessController {
         return false;
     }
 
+    /**
+     * Removes a workout from the WorkoutDiary table in the database.
+     *
+     * @param currentWorkoutName The name of the workout to be removed from the WorkoutDiary table.
+     * @return true if the workout was successfully removed from the WorkoutDiary table, false otherwise.
+     */
     private boolean removeWorkoutFromDiary(String currentWorkoutName) {
         if (currentWorkoutName == null) {
             return false; // No workout to remove
@@ -413,19 +516,18 @@ public class FitnessController {
         }
     }
 
-
-/**
- REPLACING DYNAMIC ADJUSTMENTS
-    FXIDS in "src/main/resources/com/example/granny_gains_new/FitnessCardio.fxml"
-
- <--Labels-->
-    Cardio1Title, Cardio2Title, Cardio3Title, Cardio4Title
- </--Labels-->
-
- <--Images (Thumbnail) -->
-    Cardio1, Cardio2, Cardio3, Cardio4
- </--Labels-->
- */
+///**
+// REPLACING DYNAMIC ADJUSTMENTS
+//    FXIDS in "src/main/resources/com/example/granny_gains_new/FitnessCardio.fxml"
+//
+// <--Labels-->
+//    Cardio1Title, Cardio2Title, Cardio3Title, Cardio4Title
+// </--Labels-->
+//
+// <--Images (Thumbnail) -->
+//    Cardio1, Cardio2, Cardio3, Cardio4
+// </--Labels-->
+// */
 }
 
 
