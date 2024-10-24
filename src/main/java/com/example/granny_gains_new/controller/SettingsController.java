@@ -14,6 +14,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+/**
+ * SettingsController class controls the settings page of Granny Gains application.
+ * It includes methods for initializing the page, handling navigation, and loading user session information.
+ */
 public class SettingsController {
 
     @FXML
@@ -22,6 +26,12 @@ public class SettingsController {
     }
     @FXML
     private Button backButton;
+    /**
+     * Method to handle going back to the home screen.
+     * Retrieves the current stage, loads the home FXML file, and sets the scene to navigate back to the home screen.
+     *
+     * @throws IOException if an error occurs during loading the FXML file
+     */
     @FXML
     protected void handleBackToHome() throws IOException {
         Stage stage = (Stage) backButton.getScene().getWindow();
@@ -54,6 +64,13 @@ public class SettingsController {
     @FXML
     private Button editButton;
 
+    /**
+     * Method to handle the edit button action. Retrieves the current Stage from the editButton's Scene,
+     * loads the edit settings page FXML file using a FXMLLoader, creates a new Scene with the loaded FXML content,
+     * and sets the Stage's scene to navigate to the edit settings page.
+     *
+     * @throws IOException if an error occurs during loading the edit settings page FXML file
+     */
     @FXML
     protected void handleEdit() throws IOException {
         Stage stage = (Stage) editButton.getScene().getWindow();
@@ -63,6 +80,13 @@ public class SettingsController {
         System.out.println("Edit button clicked");
     }
 
+    /**
+     * Method to load user session data from the database and display it in the UI elements of the settings screen.
+     * Fetches the latest user session information including user details like name, phone, email, date of birth, height, weight, and BMI.
+     * If the session data is successfully retrieved, it populates the corresponding labels in the UI with the fetched user information.
+     * If any data is missing or not available, appropriate default or placeholder values are displayed.
+     * If an error occurs during the database query execution, an error message is shown in the console.
+     */
     @FXML
     private void loadUserSession() {
         String userName = "";
