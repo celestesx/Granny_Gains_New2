@@ -56,7 +56,10 @@ public class FavouritesController {
 
 
     /**
+     * Navigates to a specified page by loading the corresponding FXML file.
      *
+     * @param fxmlFilePath the path to the FXML file to load
+     * @param pageName the name of the page being navigated to
      */
     private void navigateToPage(String fxmlFilePath, String pageName) {
         try {
