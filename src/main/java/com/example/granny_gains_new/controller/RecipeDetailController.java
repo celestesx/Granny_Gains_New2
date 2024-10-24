@@ -17,6 +17,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Controller class for handling the details of a Recipe.
+ */
 public class RecipeDetailController {
 
     @FXML
@@ -47,6 +50,12 @@ public class RecipeDetailController {
 
     private Recipe currentRecipe; // Declare an instance variable to hold the recipe
 
+    /**
+     * This method handles toggling the favorite status of the current recipe. If the current recipe
+     * is not set, it will display a message and return. If the current recipe is favorited,
+     * it will remove it from the favorites. If the current recipe is not favorited, it will
+     * save it to the favorites. It will update the heart image accordingly.
+     */
     @FXML
     protected void FavouriteMeal() {
         if (currentRecipe == null) {
@@ -77,6 +86,11 @@ public class RecipeDetailController {
         isFavourited = !isFavourited; // Toggle favorited status
     }
 
+    /**
+     * Updates the heart image based on the favorited status.
+     *
+     * @param favorited a boolean value indicating whether the heart image should be filled or unfilled
+     */
     private void updateHeartImage(boolean favorited) {
         String heartImagePath = favorited
                 ? "/com/example/granny_gains_new/images/icons8-favorite-50 (1).png" // Filled heart image
@@ -85,6 +99,11 @@ public class RecipeDetailController {
         unfavourited.setImage(heartImage);
     }
 
+    /**
+     * Saves the current meal to the favorites table in the database.
+     *
+     * @return true if the meal was saved successfully, false otherwise
+     */
     private boolean saveMealToFavorites() {
         // Perform validation
         if (!validateRecipeData()) {
@@ -96,16 +115,15 @@ public class RecipeDetailController {
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             String recipeName = recipeNameLabel.getText();
-            String description = ""; // You need to get the description from the current recipe
+            String description = "";
             int servings = Integer.parseInt(servingsLabel.getText().split(": ")[1]);
             int calories = Integer.parseInt(caloriesLabel.getText().split(": ")[1].split(" ")[0]);
             String pictureUrl = currentRecipe.getPictureUrl();
 
-            // Assuming you have a method in Recipe to get the description
-            description = currentRecipe.getDescription(); // Get the description here
+            description = currentRecipe.getDescription();
 
             stmt.setString(1, recipeName);
-            stmt.setString(2, description); // Set the description value
+            stmt.setString(2, description);
             stmt.setInt(3, servings);
             stmt.setInt(4, calories);
             stmt.setString(5, pictureUrl);
@@ -118,6 +136,13 @@ public class RecipeDetailController {
         }
     }
 
+    /**
+     * Removes the current meal from the favorites list in the database.
+     * If the current recipe is not set, the method will return false with an indication message.
+     * The meal is removed by executing a DELETE SQL query on the MealTable using the recipe name.
+     *
+     * @return true if the meal is successfully removed from favorites, false otherwise
+     */
     private boolean removeMealFromFavorites() {
         if (currentRecipe == null) {
             return false; // No recipe to remove
@@ -136,10 +161,20 @@ public class RecipeDetailController {
         }
     }
 
+    /**
+     * Validates the recipe data by checking if the current recipe is not null.
+     *
+     * @return true if currentRecipe is not null, false otherwise
+     */
     boolean validateRecipeData() {
         return currentRecipe != null; // Just check if currentRecipe is not null
     }
 
+    /**
+     * Sets the recipe data to be displayed in the UI components.
+     *
+     * @param recipe The Recipe object containing the details to be shown.
+     */
     public void setRecipeData(Recipe recipe) {
         this.currentRecipe = recipe; // Store the passed recipe in the instance variable
 
@@ -168,7 +203,13 @@ public class RecipeDetailController {
         updateHeartImage(isFavourited);
     }
 
-    // Extract image loading to a separate method
+    /**
+     * Loads an image based on the provided image path. If the image is not found at the specified path,
+     * a default image will be returned.
+     *
+     * @param imagePath The path to the image to be loaded. Must start with a forward slash ("/").
+     * @return The loaded Image object. If the specified image is not found, a default image will be returned.
+     */
     protected Image loadImage(String imagePath) {
         try {
             return new Image(getClass().getResourceAsStream(imagePath));
@@ -178,6 +219,13 @@ public class RecipeDetailController {
         }
     }
 
+    /**
+     * This method handles the action for navigating back to the meals page.
+     * It retrieves the current window stage, loads the meals_page.fxml file, creates a new scene with the loaded content,
+     * and sets the scene to the stage for displaying.
+     *
+     * @throws IOException if an I/O error occurs during the loading of the meals_page.fxml file
+     */
     @FXML
     protected void handleBackToMeals() throws IOException {
         Stage stage = (Stage) recipeNameLabel.getScene().getWindow();
