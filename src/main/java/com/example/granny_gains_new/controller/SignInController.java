@@ -18,7 +18,10 @@ import java.text.CollationElementIterator;
 import java.util.UUID;
 import java.util.prefs.Preferences;
 
-
+/**
+ * This class represents a controller for the sign-in functionality in the application.
+ * It handles user input, validates credentials, and navigates to different screens based on user actions.
+ */
 public class SignInController {
     @FXML
     private TextField tfEmail;
@@ -36,10 +39,19 @@ public class SignInController {
     private CheckBox rememberMeCheckBox;
     private Preferences preferences;
 
+    /**
+     * Constructor for the SignInController class.
+     * Initializes the preferences for the controller using the user node for the SignInController class.
+     */
     public SignInController() {
         preferences = Preferences.userNodeForPackage(SignInController.class);
     }
 
+    /**
+     * Initializes the sign-in view with stored email and password if available in preferences.
+     * Retrieves the stored email and password from preferences and sets them in corresponding input fields.
+     * Also sets the remember me checkbox based on whether there is a stored email or not.
+     */
     @FXML
     protected void initialize() {
         String storedEmail = preferences.get("email", "");
@@ -49,6 +61,13 @@ public class SignInController {
         rememberMeCheckBox.setSelected(!storedEmail.isEmpty());
     }
 
+    /**
+     * Handle the sign-in process when the user attempts to sign in.
+     * Retrieves the email and password input from text fields, validates the credentials,
+     * saves the email and password if "Remember Me" is checked, generates a session ID,
+     * creates a session in the database, and redirects to the home page upon successful sign-in.
+     * Displays an error message if the credentials are invalid.
+     */
     @FXML
     protected void handleSignIn() {
         String email = tfEmail.getText();
@@ -85,8 +104,13 @@ public class SignInController {
         }
     }
 
-    // Method to validate credentials with the database
-    // Check if the connection is open during sign-in validation
+    /**
+     * Validates the user credentials by checking if the provided email and password match the stored password in the database.
+     *
+     * @param email The email of the user to validate.
+     * @param password The password of the user to validate.
+     * @return true if the credentials are valid, false otherwise.
+     */
     public boolean validateCredentials(String email, String password) {
         try (Connection conn = DatabaseConnection.getInstance()) {
             if (conn == null || conn.isClosed()) {
@@ -112,7 +136,12 @@ public class SignInController {
         }
     }
 
-    // Method to create a session and store it in the database
+    /**
+     * Creates a new session in the database for the specified user email with the given session ID.
+     *
+     * @param email The email of the user for whom the session is created.
+     * @param sessionId The unique session ID to associate with the user's session.
+     */
     private void createSession(String email, String sessionId) {
         try (Connection conn = DatabaseConnection.getInstance()) {
             String query = "INSERT INTO sessions (session_id, user_id) VALUES (?, ?)";
@@ -125,19 +154,13 @@ public class SignInController {
         }
     }
 
-//    @FXML
-//    protected void buttonSignup() {
-//        try {
-//            Stage stage = (Stage) ButtonSignin.getScene().getWindow();
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/granny_gains_new/sign_up_page.fxml"));
-//            Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
-//            stage.setMaximized(true);
-//            stage.setScene(scene);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
+    /**
+     * Handles the action when the signup button is clicked. Loads the sign-up page FXML file,
+     * creates a new scene with the sign-up page, sets the scene on the stage, adjusts the stage size,
+     * maximizes the stage, and shows the stage to display the sign-up page.
+     *
+     * @throws IOException If an error occurs while loading the sign-up page FXML file.
+     */
     @FXML
     protected void buttonSignup() throws IOException {
         Stage stage = (Stage) ButtonSignin.getScene().getWindow();
@@ -150,6 +173,14 @@ public class SignInController {
         stage.show();
     }
 
+    /**
+     * Handles the action for "Forgot Password" button click.
+     * This method loads the forgot password page when the button is clicked.
+     * It retrieves the current stage, initializes a new FXMLLoader with the path to the forgot_password_page.fxml,
+     * loads the FXML file, sets the scene with the loaded content, adjusts the stage size to match the screen,
+     * maximizes the stage, and shows the updated scene.
+     * In case of any IO exceptions during the process, it prints the stack trace.
+     */
     @FXML
     protected void handleForgotPassword() {
         try {
