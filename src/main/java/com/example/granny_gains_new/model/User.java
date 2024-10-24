@@ -1,5 +1,8 @@
 package com.example.granny_gains_new.model;
 
+/**
+ * Class representing a User with basic information such as email, password, first name, last name, and phone number.
+ */
 public class User {
     private String email;
     private String password;
@@ -7,7 +10,15 @@ public class User {
     private String lastName;
     private String phone;
 
-    // Constructor
+    /**
+     * Constructs a new User with the provided details.
+     *
+     * @param email The email address of the user.
+     * @param password The password for the user account.
+     * @param firstName The first name of the user.
+     * @param lastName The last name of the user.
+     * @param phone The phone number of the user.
+     */
     public User(String email, String password, String firstName, String lastName, String phone) {
         this.email = email;
         this.password = password;
