@@ -12,6 +12,10 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class represents the test suite for the SignInController class. It contains test methods
+ * to validate the functionality of the SignInController class for credential validation scenarios.
+ */
 class SignInControllerTest {
 
     private SignInController signInController;
