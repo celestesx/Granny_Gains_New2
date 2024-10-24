@@ -27,6 +27,10 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Represents a test class for the RecipeDetailController. It contains unit tests to validate the behavior of
+ * updating and validating recipe data on the UI components.
+ */
 class RecipeDetailControllerTest {
 
     @Mock
@@ -44,6 +48,16 @@ class RecipeDetailControllerTest {
     @InjectMocks
     private RecipeDetailController recipeDetailController;
 
+    /**
+     * Initializes the JavaFX Toolkit before running tests.
+     *
+     * This method ensures that the JavaFX Toolkit is initialized before all the tests are run. If the JavaFX
+     * Toolkit is not already running on the FX application thread, it starts the toolkit and waits for it to be ready
+     * within a specified time limit. This method is annotated with @BeforeAll to run once before any test methods
+     * in the test class execution.
+     *
+     * @throws InterruptedException if the thread is interrupted while waiting for the JavaFX Toolkit to start.
+     */
     @BeforeAll
     static void initJavaFX() throws InterruptedException {
         // Initialize JavaFX Toolkit once before all tests
@@ -54,6 +68,15 @@ class RecipeDetailControllerTest {
         }
     }
 
+    /**
+     * Set up method for initializing test environment before each test case execution.
+     *
+     * This method initializes mocks and JavaFX UI components using Platform.runLater(), ensuring that the JavaFX
+     * UI components are initialized before proceeding. It also sets up a mock Recipe object with predefined values
+     * for testing purposes.
+     *
+     * @throws Exception if any error occurs during setup
+     */
     @BeforeEach
     void setUp() throws Exception {
         // Initialize mocks
@@ -84,9 +107,11 @@ class RecipeDetailControllerTest {
         when(mockRecipe.getPictureUrl()).thenReturn("test_picture");
     }
 
-
-
-
+    /**
+     * Sets the recipe data to be displayed in the UI components.
+     *
+     * @param recipe The Recipe object containing the details to be shown.
+     */
     @Test
     void testSetRecipeData() {
         // Act: Set the recipe data
@@ -101,6 +126,11 @@ class RecipeDetailControllerTest {
         assertEquals("This is a test description.", recipeDetailController.recipeDescriptionTextArea.getText());
     }
 
+    /**
+     * Method to test the validation of recipe data in the RecipeDetailController.
+     * This test sets a valid recipe in the controller and then validates the recipe data.
+     * It confirms that the validation is successful by checking if the current recipe is not null.
+     */
     @Test
     void testValidateRecipeData() {
         // Arrange: Set a valid recipe
