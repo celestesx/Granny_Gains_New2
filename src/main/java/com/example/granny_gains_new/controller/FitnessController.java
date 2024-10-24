@@ -515,7 +515,7 @@ public class FitnessController {
             return false; // Return false on error
         }
     }
-    
+
 ///**
 // REPLACING DYNAMIC ADJUSTMENTS
 //    FXIDS in "src/main/resources/com/example/granny_gains_new/FitnessCardio.fxml"
